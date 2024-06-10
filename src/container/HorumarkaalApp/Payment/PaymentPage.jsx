@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 // import Page from "../../components/page";
 import { Box, Button, InputAdornment, TextField, Typography, useTheme, MenuItem, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,25 @@ const PaymentPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const [selectedOption, setSelectedOption] = useState(localStorage.getItem('selectedOption') || '');
 
-  const [formValues, setFormValues] = useState({ accountNo: "", selectedOption: "" });
+  useEffect(() => {
+    localStorage.setItem('selectedOption', selectedOption);
+  }, [selectedOption]);
+
+ 
+  // const [formValues, setFormValues] = useState({ accountNo: "", selectedOption: "" });
+  // console.log(formValues,'LLLVVG');
+  const [formValues, setFormValues] = useState({
+    accountNo: localStorage.getItem("accountNo") || "",
+    selectedOption: localStorage.getItem("selectedOption") || ""
+  });
+
+  // Update local storage whenever formValues change
+  useEffect(() => {
+    localStorage.setItem("accountNo", formValues.accountNo);
+    localStorage.setItem("selectedOption", formValues.selectedOption);
+  }, [formValues]);
 
   const handleChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
@@ -45,6 +62,7 @@ const PaymentPage = () => {
         apiKey: "API-1979741904AHX",
         paymentMethod: "MWALLET_ACCOUNT",
         payerInfo: { accountNo: formValues.accountNo },
+       
         transactionInfo: {
           referenceId: "RF123444",
           invoiceId: "INV1280215",
@@ -61,7 +79,7 @@ const PaymentPage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
       });
-
+      console.log(response,"response")
 
 
       if (response.status === 200) {

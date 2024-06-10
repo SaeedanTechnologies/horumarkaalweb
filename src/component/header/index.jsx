@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { Main } from './style';
 import Logo from 'assets/logo.png'
 const Header = () => {
+  const scrollToMiddleSection = () => {
+    const middleSection = document.getElementById('middleSection');
+    middleSection.scrollIntoView({ behavior: 'smooth' });
+  };
     return (
         <>
   {/* Header Start */}
@@ -116,11 +120,16 @@ const Header = () => {
                 Contact
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to='/sign-up' className="nav-link dark_btn">
-                GET STARTED
+            <li className="nav-item" style={{width:'130px'}}>
+              <Link  className="nav-link dark_btn" style={{paddingLeft:'20px'}} onClick={scrollToMiddleSection}>
+                Register
               </Link>
             </li>
+            <li className="nav-item" style={{width:'120px'}}>
+            <Link to='/login' className="nav-link dark_btn" style={{paddingLeft:'25px'}}>
+              Login
+            </Link>
+          </li>
           </ul>
         </div>
       </nav>
