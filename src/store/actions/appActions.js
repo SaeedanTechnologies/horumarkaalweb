@@ -30,3 +30,13 @@ export const getQuestions = (value) => async (dispatch) => {
     }
 };
 
+export const NumberverifyOtp = ({ otp }) => async () => {
+    try {
+      const response = await api.post('auth/otp/verify', { otp});
+  
+      return response
+    } catch (error) {
+  
+      throw error;
+    }
+  };

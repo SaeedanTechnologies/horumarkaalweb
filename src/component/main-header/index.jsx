@@ -6,7 +6,7 @@ import Footer from 'component/footer/index';
 
 const MainHeader = () => {
   const location = useLocation();
-  const hideHeaderFooterPaths = ['/login', '/sign-up', '/payment', '/language-main', '/select-language','/quiz', '/verify-email', '/forget-password', '/change-password', '/verify-password-otp','/manage-profile'];
+  const hideHeaderFooterPaths = ['/login', '/sign-up', '/payment', '/language-main', '/select-language','/quiz', '/verify-email', '/forget-password', '/change-password', '/verify-password-otp','/manage-profile','/verify-number-otp','/new-password'];
   const isHidden = hideHeaderFooterPaths.includes(location.pathname);
 
   return (

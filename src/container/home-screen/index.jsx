@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 
 import Shape1 from "assets/banner-shape1.png";
 import Shape2 from "assets/banner-shape2.png";
@@ -82,7 +82,7 @@ import Profile from "assets/mobilePics/profile.svg";
 import Signin from "assets/mobilePics/signin.svg";
 import Signup from "assets/mobilePics/signup.svg";
 import Exercise from "assets/mobilePics/exercise.svg";
-
+import { useSnackbar } from "notistack";
 // latest images
 import SigninSnippet from "assets/smallScreensSnippets/signin.svg";
 import Aboutscreen from "assets/smallScreensSnippets/about-screen.svg";
@@ -111,8 +111,9 @@ import { subjects } from "../../modal/subject";
 import { AccountTree } from "@mui/icons-material";
 import ConfirmDialog from "./ConfirmDialog";
 import { Button } from "bootstrap";
-
+import { useNavigate } from "react-router-dom";
 const HomeScreen = () => {
+  const navigate = useNavigate();
   const [monthlyPlan, setMonthlyPlan] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
   const [accountNo, setAccountNo] = useState(
@@ -153,6 +154,7 @@ const HomeScreen = () => {
       accountNo: firstThreeDigits,
     });
   };
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const savedOption = localStorage.getItem("selectedOption");
@@ -209,48 +211,90 @@ const HomeScreen = () => {
     setDialogOpen(true);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     let selectedValue;
 
     switch (serviceType) {
-      case "EVC":
+      case 'EVC':
         selectedValue = evcValue;
         break;
-      case "Sahal":
+      case 'Sahal':
         selectedValue = sahalValue;
         break;
-      case "Zaad":
+      case 'Zaad':
         selectedValue = zaadValue;
         break;
       default:
         break;
     }
 
-    const payload = {
-      payerInfo: {
-        accountNo: selectedValue,
-      },
+    const apiUrl = "https://api.waafipay.net/asm";
+    const requestBody = {
+      schemaVersion: "1.0",
+      requestId: "unique_requestid",
+      timestamp: "client_timestamp",
+      channelName: "WEB",
+      serviceName: "API_PURCHASE",
+      serviceParams: {
+        merchantUid: "M0913556",
+        apiUserId: "1007227",
+        apiKey: "API-1979741904AHX",
+        paymentMethod: "MWALLET_ACCOUNT",
+        payerInfo: { accountNo: selectedValue },
+        transactionInfo: {
+          referenceId: "RF123444",
+          invoiceId: "INV1280215",
+          amount: "1",
+          currency: "USD",
+          description: "direct purchase"
+        }
+      }
     };
 
-    fetch("https://api.waafipay.net/asm", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
       });
+      console.log(response, "response");
+
+       if (response.status === 200) {
+
+        const responseData = await response.json();
+
+        if (responseData.responseMsg === "RCS_SUCCESS") {
+          enqueueSnackbar("Payment Approved", { variant: "success" });
+          const otpResponse = await fetch("https://api.waafipay.net/generate-otp", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accountNo: selectedValue }) // Adjust the payload as per API requirements
+          });
+
+          if (otpResponse.status === 200) {
+            const otpData = await otpResponse.json();
+            if (otpData.responseMsg === "OTP_GENERATED_SUCCESS") {
+           
+              navigate('/verify-password-otp');
+            } else {
+              enqueueSnackbar(otpData.params.description, { variant: "error" });
+            }
+          } else {
+            enqueueSnackbar(`OTP Generation Error: ${otpResponse.status}`, { variant: "error" });
+          }
+        } else {
+          enqueueSnackbar(responseData.params.description, { variant: "error" });
+        }
+      } else {
+        enqueueSnackbar(`Error: ${response.status}`, { variant: "error" });
+      }
+    } catch (error) {
+      enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
+    }
 
     setDialogOpen(false);
   };
 
-  
   return (
     <>
       <Main>
@@ -1175,6 +1219,7 @@ const HomeScreen = () => {
                           <li>lacaga inaad bixiso EVCPLUS</li>
                           <li></li>
                         </ul>
+                        <Typography>Geli Nambarkaaga</Typography>
                         <TextField
                           type="text"
                           value={evcValue}
@@ -1184,10 +1229,12 @@ const HomeScreen = () => {
                           variant="outlined"
                           size="small"
                           inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
+                          placeholder="Geli taleefankaaga"
                         />{" "}
+                        <Typography>Enter your number</Typography>
                         <button
                           className="btn white_btn"
-                          style={{ marginTop: "180px" }}
+                          style={{ marginTop: "128px" }}
                           onClick={() => handleBuyClick("EVC")}
                         >
                           BUY- iibso
@@ -1250,7 +1297,6 @@ const HomeScreen = () => {
                           onChange={(e) =>
                             handleInputChange("Zaad", e.target.value)
                           }
-                          
                           variant="outlined"
                           size="small"
                           inputProps={{ maxLength: 12, pattern: "[0-9]*" }}

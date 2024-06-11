@@ -20,6 +20,8 @@ import ChangePassword from '../container/HorumarkaalApp/Auth/components/ChangePa
 import VerifyPasswordOTP from '../container/HorumarkaalApp/Auth/components/VerifyPasswordOTP';
 import PrivateRoute from '../container/HorumarkaalApp/PrivateRoute' // Adjust the path according to your file structure
 import ManageProfileMain from '../container/HorumarkaalApp/ManageProfile/ManageProfileMain';
+import NumberVerifcationOtp from '../container/HorumarkaalApp/Auth/components/phoneNumber/NumberVerifcationOtp';
+import NewPassword from '../container/HorumarkaalApp/Auth/components/newPassword/NewPassword';
 
 const HeaderRoutes = () => {
   return (
@@ -39,7 +41,8 @@ const HeaderRoutes = () => {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/verify-password-otp" element={<VerifyPasswordOTP />} />
-
+        <Route path="/verify-number-otp" element={<NumberVerifcationOtp />} />
+        <Route path="/new-password" element={<NewPassword />} />
         {/* Private Routes */}
         <Route path="/payment" element={<PrivateRoute element={PaymentPage} />} />
         <Route path="/language-main" element={<PrivateRoute element={LanguageMain} />} />
