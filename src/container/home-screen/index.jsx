@@ -1,130 +1,137 @@
-import React, { useEffect, useState } from 'react'
-import { TextField } from '@mui/material'
+import React, { useEffect, useState } from "react";
+import { TextField } from "@mui/material";
 
-import Shape1 from 'assets/banner-shape1.png'
-import Shape2 from 'assets/banner-shape2.png'
-import Shape3 from 'assets/banner-shape3.png'
-import Appstoreblue from 'assets/appstore_blue.png'
-import AppstoreWhite from 'assets/appstore_white.png'
-import Googleplaywhite from 'assets/googleplay_blue.png'
-import Googleplayblue from 'assets/googleplay_white.png'
-import Used1 from 'assets/used01.png'
-import Used2 from 'assets/used02.png'
-import Used3 from 'assets/used03.png'
-import Used4 from 'assets/used04.png'
-import Download from 'assets/download.png'
-import Followers from 'assets/followers.png'
-import Reviews from 'assets/reviews.png'
+import Shape1 from "assets/banner-shape1.png";
+import Shape2 from "assets/banner-shape2.png";
+import Shape3 from "assets/banner-shape3.png";
+import Appstoreblue from "assets/appstore_blue.png";
+import AppstoreWhite from "assets/appstore_white.png";
+import Googleplaywhite from "assets/googleplay_blue.png";
+import Googleplayblue from "assets/googleplay_white.png";
+import Used1 from "assets/used01.png";
+import Used2 from "assets/used02.png";
+import Used3 from "assets/used03.png";
+import Used4 from "assets/used04.png";
+import Download from "assets/download.png";
+import Followers from "assets/followers.png";
+import Reviews from "assets/reviews.png";
 // import BannerImg from 'assets/banner-image.png'
 // story img
-import Story1 from 'assets/story01.png'
-import Story2 from 'assets/story02.png'
-import Story3 from 'assets/story03.png'
-import Story4 from 'assets/story04.png'
-import Story5 from 'assets/story05.png'
-import Story6 from 'assets/story06.png'
-import Story7 from 'assets/story07.png'
-import Story8 from 'assets/story08.png'
-import Story9 from 'assets/story09.png'
+import Story1 from "assets/story01.png";
+import Story2 from "assets/story02.png";
+import Story3 from "assets/story03.png";
+import Story4 from "assets/story04.png";
+import Story5 from "assets/story05.png";
+import Story6 from "assets/story06.png";
+import Story7 from "assets/story07.png";
+import Story8 from "assets/story08.png";
+import Story9 from "assets/story09.png";
 
-import Paypal from 'assets/paypal.png'
-import Spoty from 'assets/spoty.png'
-import Shopboat from 'assets/shopboat.png'
-import Slack from 'assets/slack.png'
-import Envato from 'assets/envato.png'
-import SecureData from 'assets/secure_data.png'
-import Functional from 'assets/functional.png'
-import Livechat from 'assets/live-chat.png'
-import SupportImg from 'assets/support.png'
-import FeatureFrame from 'assets/features_frame.png'
-import AboutFrame from 'assets/about-frame.png'
-import AboutScreen from 'assets/about-screen.png'
-import CountriesImg from 'assets/countries.png'
-import Modern1 from 'assets/modern01.png'
-import Modern2 from 'assets/modern02.png'
-import Modern3 from 'assets/modern03.png'
+import Paypal from "assets/paypal.png";
+import Spoty from "assets/spoty.png";
+import Shopboat from "assets/shopboat.png";
+import Slack from "assets/slack.png";
+import Envato from "assets/envato.png";
+import SecureData from "assets/secure_data.png";
+import Functional from "assets/functional.png";
+import Livechat from "assets/live-chat.png";
+import SupportImg from "assets/support.png";
+import FeatureFrame from "assets/features_frame.png";
+import AboutFrame from "assets/about-frame.png";
+import AboutScreen from "assets/about-screen.png";
+import CountriesImg from "assets/countries.png";
+import Modern1 from "assets/modern01.png";
+import Modern2 from "assets/modern02.png";
+import Modern3 from "assets/modern03.png";
 
-import Downloadapp from 'assets/download_app.jpg'
-import CreateAccount from 'assets/create_account.jpg'
-import EnjoyApp from 'assets/enjoy_app.jpg'
-import BannerShap1 from 'assets/banner-shape1.png'
-import BannerShap2 from 'assets/banner-shape2.png'
-import BannerShap3 from 'assets/banner-shape3.png'
-import TtThumb from 'assets/yt_thumb.png'
-import PlayIcon from 'assets/play_icon.png'
+import Downloadapp from "assets/download_app.jpg";
+import CreateAccount from "assets/create_account.jpg";
+import EnjoyApp from "assets/enjoy_app.jpg";
+import BannerShap1 from "assets/banner-shape1.png";
+import BannerShap2 from "assets/banner-shape2.png";
+import BannerShap3 from "assets/banner-shape3.png";
+import TtThumb from "assets/yt_thumb.png";
+import PlayIcon from "assets/play_icon.png";
 
-import TestimonialUser1 from 'assets/testimonial_user1.png'
-import TestimonialUser2 from 'assets/testimonial_user2.png'
-import TestimonialUser3 from 'assets/testimonial_user3.png'
-import AvatarTestimonial from 'assets/avtar_testimonial.png'
+import TestimonialUser1 from "assets/testimonial_user1.png";
+import TestimonialUser2 from "assets/testimonial_user2.png";
+import TestimonialUser3 from "assets/testimonial_user3.png";
+import AvatarTestimonial from "assets/avtar_testimonial.png";
 // import Standard from 'assets/standard.png'
 // import Premium from 'assets/premium.png'
 // import Unlimited from 'assets/unlimited.png'
-import DownloadScreen1 from 'assets/download-screen01.png'
-import DownloadScreen2 from 'assets/download-screen02.png'
-import Screen1 from 'assets/screen-1.png'
-import Screen2 from 'assets/screen-2.png'
-import Screen3 from 'assets/screen-3.png'
-import Screen4 from 'assets/screen-4.png'
-import Screen5 from 'assets/screen-5.png'
-import iconBg from 'assets/icon_bg.png';
+import DownloadScreen1 from "assets/download-screen01.png";
+import DownloadScreen2 from "assets/download-screen02.png";
+import Screen1 from "assets/screen-1.png";
+import Screen2 from "assets/screen-2.png";
+import Screen3 from "assets/screen-3.png";
+import Screen4 from "assets/screen-4.png";
+import Screen5 from "assets/screen-5.png";
+import iconBg from "assets/icon_bg.png";
 // pricing Services
-import EvcPlus1 from 'assets/pricePannel/evcPlusService-1.jpg'
-import SahalService1 from 'assets/pricePannel/sahalService-2.png'
-import ZaadService from 'assets/pricePannel/zaadService-3.png'
+import EvcPlus1 from "assets/pricePannel/evcPlusService-1.jpg";
+import SahalService1 from "assets/pricePannel/sahalService-2.png";
+import ZaadService from "assets/pricePannel/zaadService-3.png";
 // All Image
-import BannerImage from 'assets/mobilePics/BannerImage.png'
-import EngtoArabic from 'assets/mobilePics/engtoArabic.svg'
-import Congrats from 'assets/mobilePics/congrats.svg'
-import HelpImg from 'assets/mobilePics/help.svg'
-import History from 'assets/mobilePics/history.svg'
-import Profile from 'assets/mobilePics/profile.svg'
-import Signin from 'assets/mobilePics/signin.svg'
-import Signup from 'assets/mobilePics/signup.svg'
-import Exercise from 'assets/mobilePics/exercise.svg'
-
+import BannerImage from "assets/mobilePics/BannerImage.png";
+import EngtoArabic from "assets/mobilePics/engtoArabic.svg";
+import Congrats from "assets/mobilePics/congrats.svg";
+import HelpImg from "assets/mobilePics/help.svg";
+import History from "assets/mobilePics/history.svg";
+import Profile from "assets/mobilePics/profile.svg";
+import Signin from "assets/mobilePics/signin.svg";
+import Signup from "assets/mobilePics/signup.svg";
+import Exercise from "assets/mobilePics/exercise.svg";
 
 // latest images
-import SigninSnippet from 'assets/smallScreensSnippets/signin.svg'
-import Aboutscreen from 'assets/smallScreensSnippets/about-screen.svg'
-import Arabic from 'assets/smallScreensSnippets/arabic.svg'
-import CreateAccount1 from 'assets/smallScreensSnippets/create_account.svg'
-import CreateAccount2 from 'assets/smallScreensSnippets/createAccount.svg'
-import Somali from 'assets/smallScreensSnippets/engtoSomali.svg'
-import ExerciseAndQuizes from 'assets/smallScreensSnippets/exerciseAndQuizes.svg'
-import Exercises from 'assets/smallScreensSnippets/exercises.svg'
-import Glossary from 'assets/smallScreensSnippets/multiGlossary.svg'
-import MultilingualGlossary from 'assets/smallScreensSnippets/multilingualGlossary.svg'
-import SignupSnippet from 'assets/smallScreensSnippets/signup.svg'
-import MobileLogo from 'assets/smallScreensSnippets/mobileLogo.svg'
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import SigninSnippet from "assets/smallScreensSnippets/signin.svg";
+import Aboutscreen from "assets/smallScreensSnippets/about-screen.svg";
+import Arabic from "assets/smallScreensSnippets/arabic.svg";
+import CreateAccount1 from "assets/smallScreensSnippets/create_account.svg";
+import CreateAccount2 from "assets/smallScreensSnippets/createAccount.svg";
+import Somali from "assets/smallScreensSnippets/engtoSomali.svg";
+import ExerciseAndQuizes from "assets/smallScreensSnippets/exerciseAndQuizes.svg";
+import Exercises from "assets/smallScreensSnippets/exercises.svg";
+import Glossary from "assets/smallScreensSnippets/multiGlossary.svg";
+import MultilingualGlossary from "assets/smallScreensSnippets/multilingualGlossary.svg";
+import SignupSnippet from "assets/smallScreensSnippets/signup.svg";
+import MobileLogo from "assets/smallScreensSnippets/mobileLogo.svg";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-coverflow';
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 // import required modules
-import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules';
-import { Main } from './style'
-import { subjects } from '../../modal/subject'
-import { AccountTree } from '@mui/icons-material'
-
+import { Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
+import { Main } from "./style";
+import { subjects } from "../../modal/subject";
+import { AccountTree } from "@mui/icons-material";
+import ConfirmDialog from "./ConfirmDialog";
+import { Button } from "bootstrap";
 
 const HomeScreen = () => {
   const [monthlyPlan, setMonthlyPlan] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
-  const [accountNo, setAccountNo] = useState(localStorage.getItem("accountNo") || "");
-  const [formValues, setFormValues] = useState({ accountNo: "", selectedOption: "" });
+  const [accountNo, setAccountNo] = useState(
+    localStorage.getItem("accountNo") || ""
+  );
+  const [formValues, setFormValues] = useState({
+    accountNo: "",
+    selectedOption: "",
+  });
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [serviceType, setServiceType] = useState("");
   useEffect(() => {
     const accountNoFromStorage = localStorage.getItem("accountNo") || "";
     setAccountNo(accountNoFromStorage);
   }, []);
-  const [selectedOption, setSelectedOption] = useState('');
-  console.log(selectedOption,"sedfkdfd")
+  const [selectedOption, setSelectedOption] = useState("");
+  console.log(selectedOption, "sedfkdfd");
   useEffect(() => {
-    const savedOption = localStorage.getItem('selectedOption');
+    const savedOption = localStorage.getItem("selectedOption");
     if (savedOption) {
       setSelectedOption(savedOption);
     }
@@ -140,12 +147,15 @@ const HomeScreen = () => {
     const selectedOption = event.target.value;
 
     const firstThreeDigits = selectedOption.substring(0, 3);
-    setFormValues({ ...formValues, selectedOption, accountNo: firstThreeDigits });
+    setFormValues({
+      ...formValues,
+      selectedOption,
+      accountNo: firstThreeDigits,
+    });
   };
-  
 
   useEffect(() => {
-    const savedOption = localStorage.getItem('selectedOption');
+    const savedOption = localStorage.getItem("selectedOption");
     if (savedOption) {
       setSelectedOption(savedOption);
     }
@@ -158,35 +168,34 @@ const HomeScreen = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-
-
   const handleInputChange = (serviceType, value) => {
-    // Validate input value
+    const regex = /^[0-9]{0,12}$/;
+    if (!regex.test(value)) {
+      return;
+    }
     if (value.trim() === "") {
-      // If the input value is empty, set it to its default value
       switch (serviceType) {
-        case 'EVC':
+        case "EVC":
           setEvcValue("061");
           break;
-        case 'Sahal':
+        case "Sahal":
           setSahalValue("090");
           break;
-        case 'Zaad':
+        case "Zaad":
           setZaadValue("063");
           break;
         default:
           break;
       }
     } else {
-      // If the input value is not empty, update the state accordingly
       switch (serviceType) {
-        case 'EVC':
+        case "EVC":
           setEvcValue(value);
           break;
-        case 'Sahal':
+        case "Sahal":
           setSahalValue(value);
           break;
-        case 'Zaad':
+        case "Zaad":
           setZaadValue(value);
           break;
         default:
@@ -196,114 +205,122 @@ const HomeScreen = () => {
   };
 
   const handleBuyClick = (serviceType) => {
+    setServiceType(serviceType);
+    setDialogOpen(true);
+  };
+
+  const handleConfirm = () => {
     let selectedValue;
 
-    // Determine which value to send based on the service type
     switch (serviceType) {
-      case 'EVC':
+      case "EVC":
         selectedValue = evcValue;
         break;
-      case 'Sahal':
+      case "Sahal":
         selectedValue = sahalValue;
         break;
-      case 'Zaad':
+      case "Zaad":
         selectedValue = zaadValue;
         break;
       default:
         break;
     }
 
-    // Prepare the payload with the selected value
     const payload = {
       payerInfo: {
         accountNo: selectedValue,
       },
     };
 
-    // Call your API with the payload
-    fetch('https://api.waafipay.net/asm', {
-      method: 'POST',
+    fetch("https://api.waafipay.net/asm", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
     })
-      .then(response => response.json())
-      .then(data => {
-        // Handle the response if needed
+      .then((response) => response.json())
+      .then((data) => {
         console.log(data);
-
       })
-      .catch(error => {
-        // Handle errors
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
+
+    setDialogOpen(false);
   };
 
+  
   return (
     <>
-    <Main>
-    {/* Banner-Section-Start */}
-    <section className="banner_section">
-      {/* container start */}
-      <div className="container">
-        {/* row start */}
-        <div className="row">
-          {/* shape animation  */}
-          <span className="banner_shape1">
-            {" "}
-            {/* <img src={BannerImage} alt="image" />{" "} */}
-          </span>
-          <span className="banner_shape2">
-            {" "}
-            {/* <img src={Shape2} alt="image" />{" "} */}
-          </span>
-          <span className="banner_shape3">
-            {" "}
-            {/* <img src={Shape3} alt="image" />{" "} */}
-          </span>
-          <div
-
-            className="col-lg-6 col-md-12"
-
-            data-aos="fade-right"
-            data-aos-duration={1500}
-          >
-            {/* banner text */}
-            <div className="banner_text">
-              {/* h1 */}
-              <h1>Welcome to Horumarkaal app</h1>
-              {/* p */}
-              <p>
-                Learning multilingual technical and academic terms has never been
-                easier!
-              </p>
-            </div>
-            {/* app buttons */}
-            <ul className="app_btn">
-              <li>
-                <a href="#">
-                  <img
-                    className="blue_img"
-                    src={Appstoreblue}
-                    alt="image"
-                  />
-                  <img
-                    className="white_img"
-                    src={AppstoreWhite}
-                    alt="image"
-                  />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img className="blue_img" src={Googleplaywhite} alt="image" />
-                  <img className="white_img" src={Googleplayblue} alt="image" />
-                </a>
-              </li>
-            </ul>
-            {/* users */}
-            {/* <div className="used_app">
+      <Main>
+        {/* Banner-Section-Start */}
+        <section className="banner_section">
+          {/* container start */}
+          <div className="container">
+            {/* row start */}
+            <div className="row">
+              {/* shape animation  */}
+              <span className="banner_shape1">
+                {" "}
+                {/* <img src={BannerImage} alt="image" />{" "} */}
+              </span>
+              <span className="banner_shape2">
+                {" "}
+                {/* <img src={Shape2} alt="image" />{" "} */}
+              </span>
+              <span className="banner_shape3">
+                {" "}
+                {/* <img src={Shape3} alt="image" />{" "} */}
+              </span>
+              <div
+                className="col-lg-6 col-md-12"
+                data-aos="fade-right"
+                data-aos-duration={1500}
+              >
+                {/* banner text */}
+                <div className="banner_text">
+                  {/* h1 */}
+                  <h1>Welcome to Horumarkaal app</h1>
+                  {/* p */}
+                  <p>
+                    Learning multilingual technical and academic terms has never
+                    been easier!
+                  </p>
+                </div>
+                {/* app buttons */}
+                <ul className="app_btn">
+                  <li>
+                    <a href="#">
+                      <img
+                        className="blue_img"
+                        src={Appstoreblue}
+                        alt="image"
+                      />
+                      <img
+                        className="white_img"
+                        src={AppstoreWhite}
+                        alt="image"
+                      />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <img
+                        className="blue_img"
+                        src={Googleplaywhite}
+                        alt="image"
+                      />
+                      <img
+                        className="white_img"
+                        src={Googleplayblue}
+                        alt="image"
+                      />
+                    </a>
+                  </li>
+                </ul>
+                {/* users */}
+                {/* <div className="used_app">
               <ul>
                 <li>
                   <img src={Used1} alt="image" />
@@ -322,612 +339,636 @@ const HomeScreen = () => {
                 12M + <br /> used this app
               </p>
             </div> */}
-          </div>
-          {/* banner slides start */}
-          <div
-            className="col-lg-6 col-md-12"
-          // data-aos="fade-in"
-          // data-aos-duration={1500}
-          >
-            <div className="banner_image">
-              <img
-                className="moving_animation"
-                src={BannerImage}
-                alt="image"
-              />
+              </div>
+              {/* banner slides start */}
+              <div
+                className="col-lg-6 col-md-12"
+                // data-aos="fade-in"
+                // data-aos-duration={1500}
+              >
+                <div className="banner_image">
+                  <img
+                    className="moving_animation"
+                    src={BannerImage}
+                    alt="image"
+                  />
+                </div>
+              </div>
+              {/* banner slides end */}
             </div>
+            {/* row end */}
           </div>
-          {/* banner slides end */}
-        </div>
-        {/* row end */}
-      </div>
-      {/* container end */}
-      {/* wave animation start */}
-      <div>
-        <svg
-          className="waves"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          viewBox="0 24 150 28"
-          preserveAspectRatio="none"
-          shapeRendering="auto"
-        >
-          <defs>
-            <path
-              id="gentle-wave"
-              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-            />
-          </defs>
-          <g className="parallax">
-            <use
-              xlinkHref="#gentle-wave"
-              x={48}
-              y={0}
-              fill="rgba(255,255,255,0.7"
-            />
-            <use
-              xlinkHref="#gentle-wave"
-              x={48}
-              y={3}
-              fill="rgba(255,255,255,0.5)"
-            />
-            <use
-              xlinkHref="#gentle-wave"
-              x={48}
-              y={5}
-              fill="rgba(255,255,255,0.3)"
-            />
-            <use xlinkHref="#gentle-wave" x={48} y={7} fill="#f6f4fe" />
-          </g>
-        </svg>
-      </div>
-      {/* wave animation end */}
-    </section>
-    {/* Banner-Section-end */}
-    {/* Trusted Section start */}
-    <section className="row_am trusted_section">
-      {/* container start */}
-      <div className="container">
-        <div
-          // data-aos="fade-up"
-          className="section_title"
-          data-aos="fade-up"
-          data-aos-duration={1500}
-          data-aos-delay={100}
-        >
-          {/* h2 */}
-          <h2>
-            <span>35</span> Subjects of key Academic and Technical Terminologies <br />
-            مادة للمصطلحات الفنية والاكاديمية <span>35</span> التطبيق يتالف  <br />
-            <span>35</span> Maado oo isugu jira Ereyada Farsamada iyo Ereyda Akadimiga ah
-          </h2>
-          {/* p */}
-          <p>
-            Dhammaan <span>35</span> maado waxay ka haqab tirayaan dhalinta iyo bulshadah <br /> Soomaaliyeed ee ku nool deegaanada Soomaaliyeed iyo qurbaha
-          </p>
-        </div>
-        {/* logos slider start */}
-        <div className="company_logos">
-          <div id="company_slider" >
-            <Swiper style={{height:"90px"}}
-                slidesPerView={4}
-                // spaceBetween={5}
-              loop={true}
-              autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-              }}
-              navigation={true}
-              modules={[Autoplay, Pagination]}
-              className="mySwiper"
+          {/* container end */}
+          {/* wave animation start */}
+          <div>
+            <svg
+              className="waves"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              viewBox="0 24 150 28"
+              preserveAspectRatio="none"
+              shapeRendering="auto"
             >
-              {subjects.map((item, index) => (
-                <SwiperSlide className="item" key={item.id}>
-                  <div className="logo">
-                    <p style={{cursor:"pointer",fontWeight:"bolder"}}>{item.title}</p>
+              <defs>
+                <path
+                  id="gentle-wave"
+                  d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+                />
+              </defs>
+              <g className="parallax">
+                <use
+                  xlinkHref="#gentle-wave"
+                  x={48}
+                  y={0}
+                  fill="rgba(255,255,255,0.7"
+                />
+                <use
+                  xlinkHref="#gentle-wave"
+                  x={48}
+                  y={3}
+                  fill="rgba(255,255,255,0.5)"
+                />
+                <use
+                  xlinkHref="#gentle-wave"
+                  x={48}
+                  y={5}
+                  fill="rgba(255,255,255,0.3)"
+                />
+                <use xlinkHref="#gentle-wave" x={48} y={7} fill="#f6f4fe" />
+              </g>
+            </svg>
+          </div>
+          {/* wave animation end */}
+        </section>
+        {/* Banner-Section-end */}
+        {/* Trusted Section start */}
+        <section className="row_am trusted_section">
+          {/* container start */}
+          <div className="container">
+            <div
+              // data-aos="fade-up"
+              className="section_title"
+              data-aos="fade-up"
+              data-aos-duration={1500}
+              data-aos-delay={100}
+            >
+              {/* h2 */}
+              <h2>
+                <span>35</span> Subjects of key Academic and Technical
+                Terminologies <br />
+                مادة للمصطلحات الفنية والاكاديمية <span>35</span> التطبيق يتالف{" "}
+                <br />
+                <span>35</span> Maado oo isugu jira Ereyada Farsamada iyo Ereyda
+                Akadimiga ah
+              </h2>
+              {/* p */}
+              <p>
+                Dhammaan <span>35</span> maado waxay ka haqab tirayaan dhalinta
+                iyo bulshadah <br /> Soomaaliyeed ee ku nool deegaanada
+                Soomaaliyeed iyo qurbaha
+              </p>
+            </div>
+            {/* logos slider start */}
+            <div className="company_logos">
+              <div id="company_slider">
+                <Swiper
+                  style={{ height: "90px" }}
+                  slidesPerView={4}
+                  // spaceBetween={5}
+                  loop={true}
+                  autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  navigation={true}
+                  modules={[Autoplay, Pagination]}
+                  className="mySwiper"
+                >
+                  {subjects.map((item, index) => (
+                    <SwiperSlide className="item" key={item.id}>
+                      <div className="logo">
+                        <p style={{ cursor: "pointer", fontWeight: "bolder" }}>
+                          {item.title}
+                        </p>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </div>
+            {/* logos slider end */}
+          </div>
+          {/* container end */}
+        </section>
+        {/* Trusted Section ends */}
+        {/* Features-Section-Start */}
+        <section className="row_am features_section" id="features">
+          {/* container start */}
+          <div className="container">
+            <div
+              className="section_title"
+              data-aos="fade-up"
+              // data-aos="fade-up"
+              // data-aos-duration={1500}
+              // data-aos-delay={100}
+            >
+              {/* h2 */}
+              <h2>
+                <span>Features</span> of Horumarkaal app!
+              </h2>
+              {/* p */}
+              <p>
+                Horumarkaal App is in English alphabetical order to help users
+                instant access to more than 150,000 technical terms (text and
+                audio) covering key major academic and educational scientific
+                terms and technical terminologies of 35 subjects and fields and
+                professions!
+              </p>
+            </div>
+            <div className="feature_detail">
+              {/* feature box left */}
+              <div className="left_data feature_box">
+                {/* feature box */}
+                <div
+                  className="data_block"
+                  data-aos="fade-right"
+                  data-aos-duration={1500}
+                >
+                  <div className="icon">
+                    <img src={SecureData} alt="image" />
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
-        {/* logos slider end */}
-      </div>
-      {/* container end */}
-    </section>
-    {/* Trusted Section ends */}
-    {/* Features-Section-Start */}
-    <section className="row_am features_section" id="features">
-      {/* container start */}
-      <div className="container">
-        <div
-          className="section_title"
-          data-aos="fade-up"
-        // data-aos="fade-up"
-        // data-aos-duration={1500}
-        // data-aos-delay={100}
-        >
-          {/* h2 */}
-          <h2>
-            <span>Features</span> of Horumarkaal app!
-          </h2>
-          {/* p */}
-          <p>
-            Horumarkaal App is in English alphabetical order to help users instant
-            access to more than 150,000 technical terms (text and audio) covering
-            key major academic and educational scientific terms and technical
-            terminologies of 35 subjects and fields and professions!
-          </p>
-        </div>
-        <div className="feature_detail">
-          {/* feature box left */}
-          <div className="left_data feature_box">
-            {/* feature box */}
-            <div
-              className="data_block"
-              data-aos="fade-right"
-              data-aos-duration={1500}
-            >
-              <div className="icon">
-                <img src={SecureData} alt="image" />
+                  <div className="text">
+                    <h4>interactive Learning </h4>
+                    <p>
+                      Offering users a flexible &amp; convenient interactive
+                      personal learning
+                    </p>
+                  </div>
+                </div>
+                {/* feature box */}
+                <div
+                  className="data_block"
+                  data-aos="fade-right"
+                  data-aos-duration={1500}
+                >
+                  <div className="icon">
+                    <img src={Functional} alt="image" />
+                  </div>
+                  <div className="text">
+                    <h4>Flexibility and Convenience</h4>
+                    <p>
+                      Fully functional Flexibility and Convenience Learners have
+                      the freedom to choose preferred language to learn.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="text">
-                <h4>interactive Learning </h4>
-                <p>
-                  Offering users a flexible &amp; convenient interactive personal
-                  learning
-                </p>
+              {/* feature box right */}
+              <div className="right_data feature_box">
+                {/* feature box */}
+                <div
+                  className="data_block"
+                  data-aos="fade-left"
+                  data-aos-duration={1500}
+                >
+                  <div className="icon">
+                    <img src={Livechat} alt="image" />
+                  </div>
+                  <div className="text">
+                    <h4>Text &amp; Audio </h4>
+                    <p>
+                      Live chat Text &amp; Audio Multilingual search and Instant
+                      access to text and audio
+                    </p>
+                  </div>
+                </div>
+                {/* feature box */}
+                <div
+                  className="data_block"
+                  data-aos="fade-left"
+                  data-aos-duration={1500}
+                >
+                  <div className="icon">
+                    <img src={SupportImg} alt="image" />
+                  </div>
+                  <div className="text">
+                    <h4>Accessibility </h4>
+                    <p>
+                      24-7 Support Accessibility Provide regular access to 35
+                      subjects to enhance accessibility &amp; inclusivity
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            {/* feature box */}
-            <div
-              className="data_block"
-              data-aos="fade-right"
-              data-aos-duration={1500}
-            >
-              <div className="icon">
-                <img src={Functional} alt="image" />
-              </div>
-              <div className="text">
-                <h4>Flexibility and Convenience</h4>
-                <p>
-                  Fully functional Flexibility and Convenience Learners have the
-                  freedom to choose preferred language to learn.
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* feature box right */}
-          <div className="right_data feature_box">
-            {/* feature box */}
-            <div
-              className="data_block"
-              data-aos="fade-left"
-              data-aos-duration={1500}
-            >
-              <div className="icon">
-                <img src={Livechat} alt="image" />
-              </div>
-              <div className="text">
-                <h4>Text &amp; Audio </h4>
-                <p>
-                  Live chat Text &amp; Audio Multilingual search and Instant
-                  access to text and audio
-                </p>
-              </div>
-            </div>
-            {/* feature box */}
-            <div
-              className="data_block"
-              data-aos="fade-left"
-              data-aos-duration={1500}
-            >
-              <div className="icon">
-                <img src={SupportImg} alt="image" />
-              </div>
-              <div className="text">
-                <h4>Accessibility </h4>
-                <p>
-                  24-7 Support Accessibility Provide regular access to 35 subjects
-                  to enhance accessibility &amp; inclusivity
-                </p>
+              {/* feature image */}
+              <div
+                className="feature_img"
+                data-aos="fade-up"
+                data-aos-duration={1500}
+                data-aos-delay={100}
+              >
+                <img src={Exercise} alt="image" />
               </div>
             </div>
           </div>
-          {/* feature image */}
-          <div
-            className="feature_img"
-            data-aos="fade-up"
-            data-aos-duration={1500}
-            data-aos-delay={100}
-          >
-            <img src={Exercise} alt="image" />
-          </div>
-        </div>
-      </div>
-      {/* container end */}
-    </section>
-    {/* Features-Section-end */}
-    {/* About-App-Section-Start */}
-    <section className="row_am about_app_section">
-      {/* container start */}
-      <div className="container">
-        {/* row start */}
-        <div className="row">
-          <div className="col-lg-6">
-            {/* about images */}
-            <div
-              className="about_img"
-              data-aos="fade-in"
-              data-aos-duration={1500}
-            >
-              <div className="frame_img">
-                <img
-                  className="moving_position_animatin"
-                  src={Signin}
-                  alt="image"
-                />
+          {/* container end */}
+        </section>
+        {/* Features-Section-end */}
+        {/* About-App-Section-Start */}
+        <section className="row_am about_app_section">
+          {/* container start */}
+          <div className="container">
+            {/* row start */}
+            <div className="row">
+              <div className="col-lg-6">
+                {/* about images */}
+                <div
+                  className="about_img"
+                  data-aos="fade-in"
+                  data-aos-duration={1500}
+                >
+                  <div className="frame_img">
+                    <img
+                      className="moving_position_animatin"
+                      src={Signin}
+                      alt="image"
+                    />
+                  </div>
+                  <div className="screen_img">
+                    <img
+                      className="moving_animation"
+                      src={Aboutscreen}
+                      alt="image"
+                      style={{ borderRadius: "12px" }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="screen_img">
-                <img
-                  className="moving_animation"
-                  src={Aboutscreen}
-                  alt="image" style={{borderRadius:"12px"}}
-                />
+              <div className="col-lg-6">
+                {/* about text */}
+                <div className="about_text">
+                  <div
+                    className="section_title"
+                    data-aos="fade-up"
+                    data-aos-duration={1500}
+                    data-aos-delay={100}
+                  >
+                    {/* h2 */}
+                    <h2>
+                      Some awesome words <span>about app.</span>
+                    </h2>
+                    {/* p */}
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry lorem Ipsum has been the industrys
+                      standard dummy text ever since the when an unknown printer
+                      took a galley of type and. Lorem ipsum dolor sit amet.
+                    </p>
+                  </div>
+                  {/* UL */}
+                  <ul
+                    className="app_statstic"
+                    id="counter"
+                    data-aos="fade-in"
+                    data-aos-duration={1500}
+                  >
+                    <li>
+                      <div className="icon">
+                        <img src={Download} alt="image" />
+                      </div>
+                      <div className="text">
+                        <p>
+                          <span className="counter-value" data-count={17}>
+                            0
+                          </span>
+                          <span>M+</span>
+                        </p>
+                        <p>Download</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="icon">
+                        <img src={Followers} alt="image" />
+                      </div>
+                      <div className="text">
+                        <p>
+                          {/* <span className="counter-value" data-count={08}>
+                  0{" "}
+                </span> */}
+                          <span>M+</span>
+                        </p>
+                        <p>Followers</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="icon">
+                        <img src={Reviews} alt="image" />
+                      </div>
+                      <div className="text">
+                        <p>
+                          <span className="counter-value" data-count={2300}>
+                            1500
+                          </span>
+                          <span>+</span>
+                        </p>
+                        <p>Reviews</p>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="icon">
+                        <img src={CountriesImg} alt="image" />
+                      </div>
+                      <div className="text">
+                        <p>
+                          <span className="counter-value" data-count={150}>
+                            0
+                          </span>
+                          <span>+</span>
+                        </p>
+                        <p>Countries</p>
+                      </div>
+                    </li>
+                  </ul>
+                  {/* UL end */}
+                  <a
+                    href="#"
+                    className="btn puprple_btn"
+                    data-aos="fade-in"
+                    data-aos-duration={1500}
+                  >
+                    START FREE TRIAL
+                  </a>
+                </div>
               </div>
             </div>
+            {/* row end */}
           </div>
-          <div className="col-lg-6">
-            {/* about text */}
-            <div className="about_text">
+          {/* container end */}
+        </section>
+        {/* About-App-Section-end */}
+        {/* ModernUI-Section-Start */}
+        <section className="row_am modern_ui_section">
+          {/* container start */}
+          <div className="container">
+            {/* row start */}
+            <div className="row">
+              <div className="col-lg-6">
+                {/* UI content */}
+                <div className="ui_text">
+                  <div
+                    className="section_title"
+                    data-aos="fade-up"
+                    data-aos-duration={1500}
+                    data-aos-delay={100}
+                  >
+                    <h2>
+                      Beautiful design with <span>modern UI</span>
+                    </h2>
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry lorem Ipsum has been the industrys
+                      standard dummy text ever since the when an unknown printer
+                      took a galley of type and.
+                    </p>
+                  </div>
+                  <ul className="design_block">
+                    <li data-aos="fade-up" data-aos-duration={1500}>
+                      <h4>Carefully designed</h4>
+                      <p>
+                        Lorem Ipsum is simply dummy text of the printing and
+                        type esetting industry lorem Ipsum has.
+                      </p>
+                    </li>
+                    <li data-aos="fade-up" data-aos-duration={1500}>
+                      <h4>Seamless Sync</h4>
+                      <p>
+                        Simply dummy text of the printing and typesetting
+                        inustry lorem Ipsum has Lorem dollar summit.
+                      </p>
+                    </li>
+                    <li data-aos="fade-up" data-aos-duration={1500}>
+                      <h4>Access Drive</h4>
+                      <p>
+                        Printing and typesetting industry lorem Ipsum has been
+                        the industrys standard dummy text of type setting.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-lg-6">
+                {/* UI Image */}
+                <div
+                  className="ui_images"
+                  data-aos="fade-in"
+                  data-aos-duration={1500}
+                >
+                  <div className="left_img">
+                    <img
+                      className="moving_position_animatin"
+                      style={{ borderRadius: "12px" }}
+                      src={Somali}
+                      alt="image"
+                    />
+                  </div>
+                  {/* UI Image */}
+                  <div className="right_img">
+                    <img
+                      className="moving_position_animatin"
+                      src={SecureData}
+                      alt="image"
+                    />
+                    <img
+                      className="moving_position_animatin"
+                      src={MultilingualGlossary}
+                      alt="image"
+                    />
+                    <img
+                      className="moving_position_animatin"
+                      src={CreateAccount2}
+                      alt="image"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* row end */}
+          </div>
+          {/* container end */}
+        </section>
+        {/* ModernUI-Section-end */}
+        {/* How-It-Workes-Section-Start */}
+        <section className="row_am how_it_works" id="how_it_work">
+          {/* container start */}
+          <div className="container">
+            <div className="how_it_inner">
               <div
                 className="section_title"
                 data-aos="fade-up"
                 data-aos-duration={1500}
-                data-aos-delay={100}
+                data-aos-delay={300}
               >
                 {/* h2 */}
                 <h2>
-                  Some awesome words <span>about app.</span>
+                  <span>How it works</span> - 3 easy steps
                 </h2>
                 {/* p */}
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry lorem Ipsum has been the industrys standard dummy text
-                  ever since the when an unknown printer took a galley of type
-                  and. Lorem ipsum dolor sit amet.
+                  Horumarkaal multilingual application is working as mobile app,
+                  web app and online mobile app and offline mobile app which
+                  require enrolment to enable user’s access after registration.
                 </p>
               </div>
-              {/* UL */}
-              <ul
-                className="app_statstic"
-                id="counter"
-                data-aos="fade-in"
-                data-aos-duration={1500}
-              >
-                <li>
-                  <div className="icon">
-                    <img src={Download} alt="image" />
-                  </div>
-                  <div className="text">
-                    <p>
-                      <span className="counter-value" data-count={17}>
-                        0
-                      </span>
-                      <span>M+</span>
-                    </p>
-                    <p>Download</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <img src={Followers} alt="image" />
-                  </div>
-                  <div className="text">
-                    <p>
-                      {/* <span className="counter-value" data-count={08}>
-                  0{" "}
-                </span> */}
-                      <span>M+</span>
-                    </p>
-                    <p>Followers</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <img src={Reviews} alt="image" />
-                  </div>
-                  <div className="text">
-                    <p>
-                      <span className="counter-value" data-count={2300}>
-                        1500
-                      </span>
-                      <span>+</span>
-                    </p>
-                    <p>Reviews</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="icon">
-                    <img src={CountriesImg} alt="image" />
-                  </div>
-                  <div className="text">
-                    <p>
-                      <span className="counter-value" data-count={150}>
-                        0
-                      </span>
-                      <span>+</span>
-                    </p>
-                    <p>Countries</p>
-                  </div>
-                </li>
-              </ul>
-              {/* UL end */}
-              <a
-                href="#"
-                className="btn puprple_btn"
-                data-aos="fade-in"
-                data-aos-duration={1500}
-              >
-                START FREE TRIAL
-              </a>
-            </div>
-          </div>
-        </div>
-        {/* row end */}
-      </div>
-      {/* container end */}
-    </section>
-    {/* About-App-Section-end */}
-    {/* ModernUI-Section-Start */}
-    <section className="row_am modern_ui_section">
-      {/* container start */}
-      <div className="container">
-        {/* row start */}
-        <div className="row">
-          <div className="col-lg-6">
-            {/* UI content */}
-            <div className="ui_text">
-              <div
-                className="section_title"
-                data-aos="fade-up"
-                data-aos-duration={1500}
-                data-aos-delay={100}
-              >
-                <h2>
-                  Beautiful design with <span>modern UI</span>
-                </h2>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting
-                  industry lorem Ipsum has been the industrys standard dummy text
-                  ever since the when an unknown printer took a galley of type
-                  and.
-                </p>
+              <div className="step_block">
+                {/* UL */}
+                <ul>
+                  {/* step */}
+                  <li>
+                    <div
+                      className="step_text"
+                      data-aos="fade-right"
+                      data-aos-duration={1500}
+                    >
+                      <h4>Download app</h4>
+                      <div className="app_icon">
+                        <a href="#">
+                          <i className="icofont-brand-android-robot" />
+                        </a>
+                        <a href="#">
+                          <i className="icofont-brand-apple" />
+                        </a>
+                        <a href="#">
+                          <i className="icofont-brand-windows" />
+                        </a>
+                      </div>
+                      <p>
+                        Horumarkaal multilingual application is working as
+                        mobile app, web app and online mobile app and offline
+                        mobile app which require enrolment to enable user’s
+                        access after registration.
+                      </p>
+                    </div>
+                    <div className="step_number">
+                      <h3>01</h3>
+                    </div>
+                    <div
+                      className="step_img"
+                      data-aos="fade-left"
+                      data-aos-duration={1500}
+                    >
+                      <img
+                        src={MobileLogo}
+                        alt="MobileLogo"
+                        style={{ borderRadius: "12px" }}
+                      />
+                    </div>
+                  </li>
+                  {/* step */}
+                  <li>
+                    <div
+                      className="step_text"
+                      data-aos="fade-left"
+                      data-aos-duration={1500}
+                    >
+                      <h4>Create account</h4>
+                      <p>
+                        Pay one-time fee and sign up for App account. One
+                        account for all devices.
+                      </p>
+                    </div>
+                    <div className="step_number">
+                      <h3>02</h3>
+                    </div>
+                    <div
+                      className="step_img"
+                      data-aos="fade-right"
+                      data-aos-duration={1500}
+                    >
+                      <img
+                        src={SignupSnippet}
+                        alt="SignupSnippet"
+                        style={{ borderRadius: "12px" }}
+                      />
+                    </div>
+                  </li>
+                  {/* step */}
+                  <li>
+                    <div
+                      className="step_text"
+                      data-aos="fade-right"
+                      data-aos-duration={1500}
+                    >
+                      <h4>(3) Access and enjoy the app</h4>
+                      {/* <span>Have any questions check our <a href="#">FAQs</a></span> */}
+                      <p>
+                        Discover Horumarkaal app &amp; boost your vocabulary,
+                        like never before
+                      </p>
+                    </div>
+                    <div className="step_number">
+                      <h3>03</h3>
+                    </div>
+                    <div
+                      className="step_img"
+                      data-aos="fade-left"
+                      data-aos-duration={1500}
+                    >
+                      <img src={ExerciseAndQuizes} alt="image" />
+                    </div>
+                  </li>
+                </ul>
               </div>
-              <ul className="design_block">
-                <li data-aos="fade-up" data-aos-duration={1500}>
-                  <h4>Carefully designed</h4>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and type
-                    esetting industry lorem Ipsum has.
-                  </p>
-                </li>
-                <li data-aos="fade-up" data-aos-duration={1500}>
-                  <h4>Seamless Sync</h4>
-                  <p>
-                    Simply dummy text of the printing and typesetting inustry
-                    lorem Ipsum has Lorem dollar summit.
-                  </p>
-                </li>
-                <li data-aos="fade-up" data-aos-duration={1500}>
-                  <h4>Access Drive</h4>
-                  <p>
-                    Printing and typesetting industry lorem Ipsum has been the
-                    industrys standard dummy text of type setting.
-                  </p>
-                </li>
-              </ul>
             </div>
-          </div>
-          <div className="col-lg-6">
-            {/* UI Image */}
+            {/* video section start */}
             <div
-              className="ui_images"
+              className="yt_video"
               data-aos="fade-in"
               data-aos-duration={1500}
             >
-              <div className="left_img">
-                <img
-                  className="moving_position_animatin" style={{borderRadius:"12px"}}
-                  src={Somali}
-                  alt="image"
-                />
-              </div>
-              {/* UI Image */}
-              <div className="right_img">
-                <img
-                  className="moving_position_animatin"
-                  src={SecureData}
-                  alt="image"
-                />
-                <img
-                  className="moving_position_animatin"
-                  src={MultilingualGlossary}
-                  alt="image"
-                />
-                <img
-                  className="moving_position_animatin"
-                  src={CreateAccount2}
-                  alt="image"
-                />
+              <div className="thumbnil">
+                <span className="banner_shape1">
+                  {" "}
+                  <img src={BannerShap1} alt="image" />{" "}
+                </span>
+                <span className="banner_shape2">
+                  {" "}
+                  <img src={BannerShap2} alt="image" />{" "}
+                </span>
+                <span className="banner_shape3">
+                  {" "}
+                  <img src={BannerShap3} alt="image" />{" "}
+                </span>
+                <img src={TtThumb} alt="image" />
+                <a
+                  className="popup-youtube play-button"
+                  data-url="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
+                  data-toggle="modal"
+                  data-target="#myModal"
+                  title="XJj2PbenIsU"
+                >
+                  <span className="play_btn">
+                    <img src={PlayIcon} alt="image" />
+                    <div className="waves-block">
+                      <div className="waves wave-1" />
+                      <div className="waves wave-2" />
+                      <div className="waves wave-3" />
+                    </div>
+                  </span>
+                  Let’s see virtually how it works
+                  <span>Watch video</span>
+                </a>
               </div>
             </div>
+            {/* video section end */}
           </div>
-        </div>
-        {/* row end */}
-      </div>
-      {/* container end */}
-    </section>
-    {/* ModernUI-Section-end */}
-    {/* How-It-Workes-Section-Start */}
-    <section className="row_am how_it_works" id="how_it_work">
-      {/* container start */}
-      <div className="container">
-        <div className="how_it_inner">
-          <div
-            className="section_title"
-            data-aos="fade-up"
-            data-aos-duration={1500}
-            data-aos-delay={300}
-          >
-            {/* h2 */}
-            <h2>
-              <span>How it works</span> - 3 easy steps
-            </h2>
-            {/* p */}
-            <p>
-              Horumarkaal multilingual application is working as mobile app, web
-              app and online mobile app and offline mobile app which require
-              enrolment to enable user’s access after registration.
-            </p>
-          </div>
-          <div className="step_block">
-            {/* UL */}
-            <ul>
-              {/* step */}
-              <li>
-                <div
-                  className="step_text"
-                  data-aos="fade-right"
-                  data-aos-duration={1500}
-                >
-                  <h4>Download app</h4>
-                  <div className="app_icon">
-                    <a href="#">
-                      <i className="icofont-brand-android-robot" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-brand-apple" />
-                    </a>
-                    <a href="#">
-                      <i className="icofont-brand-windows" />
-                    </a>
-                  </div>
-                  <p>
-                    Horumarkaal multilingual application is working as mobile app,
-                    web app and online mobile app and offline mobile app which
-                    require enrolment to enable user’s access after registration.
-                  </p>
-                </div>
-                <div className="step_number"  >
-                  <h3>01</h3>
-                </div>
-                <div
-                  className="step_img"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                >
-                  <img src={MobileLogo} alt="MobileLogo" style={{borderRadius:"12px"}} />
-                </div>
-              </li>
-              {/* step */}
-              <li>
-                <div
-                  className="step_text"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                >
-                  <h4>Create account</h4>
-                  <p>
-                    Pay one-time fee and sign up for App account. One account for
-                    all devices.
-                  </p>
-                </div>
-                <div className="step_number">
-                  <h3>02</h3>
-                </div>
-                <div
-                  className="step_img"
-                  data-aos="fade-right"
-                  data-aos-duration={1500}
-                >
-                  <img src={SignupSnippet} alt="SignupSnippet" style={{borderRadius:"12px"}} />
-                </div>
-              </li>
-              {/* step */}
-              <li>
-                <div
-                  className="step_text"
-                  data-aos="fade-right"
-                  data-aos-duration={1500}
-                >
-                  <h4>(3) Access and enjoy the app</h4>
-                  {/* <span>Have any questions check our <a href="#">FAQs</a></span> */}
-                  <p>
-                    Discover Horumarkaal app &amp; boost your vocabulary, like
-                    never before
-                  </p>
-                </div>
-                <div className="step_number">
-                  <h3>03</h3>
-                </div>
-                <div
-                  className="step_img"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                >
-                  <img src={ExerciseAndQuizes} alt="image" />
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        {/* video section start */}
-        <div className="yt_video" data-aos="fade-in" data-aos-duration={1500}>
-          <div className="thumbnil">
-            <span className="banner_shape1">
-              {" "}
-              <img src={BannerShap1} alt="image" />{" "}
-            </span>
-            <span className="banner_shape2">
-              {" "}
-              <img src={BannerShap2} alt="image" />{" "}
-            </span>
-            <span className="banner_shape3">
-              {" "}
-              <img src={BannerShap3} alt="image" />{" "}
-            </span>
-            <img src={TtThumb} alt="image" />
-            <a
-              className="popup-youtube play-button"
-              data-url="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
-              data-toggle="modal"
-              data-target="#myModal"
-              title="XJj2PbenIsU"
-            >
-              <span className="play_btn">
-                <img src={PlayIcon} alt="image" />
-                <div className="waves-block">
-                  <div className="waves wave-1" />
-                  <div className="waves wave-2" />
-                  <div className="waves wave-3" />
-                </div>
-              </span>
-              Let’s see virtually how it works
-              <span>Watch video</span>
-            </a>
-          </div>
-        </div>
-        {/* video section end */}
-      </div>
-      {/* container end */}
-    </section>
-    {/* How-It-Workes-Section-end */}
-    {/* Testimonial-Section start */}
-    {/* <section className="row_am testimonial_section">
+          {/* container end */}
+        </section>
+        {/* How-It-Workes-Section-end */}
+        {/* Testimonial-Section start */}
+        {/* <section className="row_am testimonial_section">
       <div className="container">
         <div
           className="section_title"
@@ -1070,31 +1111,55 @@ const HomeScreen = () => {
         </div>
       </div>
     </section> */}
-    {/* Testimonial-Section end */}
-    {/* Pricing-Section */}
-    <section className="row_am pricing_section" id="pricing">
-      <div className="container">
-        <div className="section_title" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
-          <h2>Best & simple <span>pricing</span></h2>
-          <p>Lorem Ipsum is simply dummy text of the printing and typese tting <br /> indus orem Ipsum has beenthe
-            standard dummy.</p>
-        </div>
-        {/* <!-- toggle button --> */}
-        <div className="toggle_block" data-aos="fade-up" data-aos-duration="1500">
-          <span className={`month ${!monthlyPlan ? 'active' : ''}`} >Monthly</span>
-          <label className="switch">
-            <input type="checkbox" onChange={handletoggleScreen} checked={monthlyPlan} />
-            <span className="slider round"></span>
-          </label>
-          <span className={`years ${!monthlyPlan ? '' : 'active'}`} >Yearly</span>
-          <span className="offer">50% off</span>
-        </div>
-        {!monthlyPlan ?
-          (
-            <>
-              <div className="pricing_pannel monthly_plan active" data-aos="fade-up" data-aos-duration="1500">
-                    {/* <!-- row start --> */}
-                    <div className="row" id="middleSection">
+        {/* Testimonial-Section end */}
+        {/* Pricing-Section */}
+        <section className="row_am pricing_section" id="pricing">
+          <div className="container">
+            <div
+              className="section_title"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+              data-aos-delay="300"
+            >
+              <h2>
+                Best & simple <span>pricing</span>
+              </h2>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typese
+                tting <br /> indus orem Ipsum has beenthe standard dummy.
+              </p>
+            </div>
+            {/* <!-- toggle button --> */}
+            <div
+              className="toggle_block"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+            >
+              <span className={`month ${!monthlyPlan ? "active" : ""}`}>
+                Monthly
+              </span>
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  onChange={handletoggleScreen}
+                  checked={monthlyPlan}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span className={`years ${!monthlyPlan ? "" : "active"}`}>
+                Yearly
+              </span>
+              <span className="offer">50% off</span>
+            </div>
+            {!monthlyPlan ? (
+              <>
+                <div
+                  className="pricing_pannel monthly_plan active"
+                  data-aos="fade-up"
+                  data-aos-duration="1500"
+                >
+                  {/* <!-- row start --> */}
+                  <div className="row" id="middleSection">
                     {/* <!-- pricing box 1 --> */}
                     <div className="col-md-4">
                       <div className="pricing_block">
@@ -1111,15 +1176,25 @@ const HomeScreen = () => {
                           <li></li>
                         </ul>
                         <TextField
-                        type='text'
-                        value={evcValue}
-                        onChange={(e) => handleInputChange('EVC', e.target.value)}
-                        variant="outlined"
-                        size="small"
-                      />         <a href="#" className="btn white_btn" style={{ marginTop: '180px' }} onClick={() => handleBuyClick('EVC')}>BUY- iibso</a>
+                          type="text"
+                          value={evcValue}
+                          onChange={(e) =>
+                            handleInputChange("EVC", e.target.value)
+                          }
+                          variant="outlined"
+                          size="small"
+                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
+                        />{" "}
+                        <button
+                          className="btn white_btn"
+                          style={{ marginTop: "180px" }}
+                          onClick={() => handleBuyClick("EVC")}
+                        >
+                          BUY- iibso
+                        </button>
                       </div>
                     </div>
-              
+
                     {/* <!-- pricing box 2 --> */}
                     <div className="col-md-4">
                       <div className="pricing_block highlited_block">
@@ -1136,17 +1211,25 @@ const HomeScreen = () => {
                           <li></li>
                         </ul>
                         <TextField
-                          type='text'
+                          type="text"
                           value={sahalValue}
-                          onChange={(e) => handleInputChange('Sahal', e.target.value)}
-                        
+                          onChange={(e) =>
+                            handleInputChange("Sahal", e.target.value)
+                          }
                           variant="outlined"
                           size="small"
+                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
                         />
-                        <a href="#" className="btn white_btn" style={{ marginTop: '100px' }}  onClick={() => handleBuyClick('Sahal')}>BUY-iibso</a>
+                        <button
+                          className="btn white_btn"
+                          style={{ marginTop: "100px" }}
+                          onClick={() => handleBuyClick("Sahal")}
+                        >
+                          BUY-iibso
+                        </button>
                       </div>
                     </div>
-              
+
                     {/* <!-- pricing box 3 --> */}
                     <div className="col-md-4">
                       <div className="pricing_block">
@@ -1162,42 +1245,59 @@ const HomeScreen = () => {
                           <li>lacaga inaad bixiso Zaad</li>
                         </ul>
                         <TextField
-                          type='text'
+                          type="text"
                           value={zaadValue}
-                          onChange={(e) => handleInputChange('Zaad', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("Zaad", e.target.value)
+                          }
+                          
                           variant="outlined"
                           size="small"
+                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
                         />
-                        <a href="#" className="btn white_btn" style={{ marginTop: '100px' }} onClick={()=>handleBuyClick('Zaad')}>BUY-iibso</a>
+                        <button
+                          className="btn white_btn"
+                          style={{ marginTop: "100px" }}
+                          onClick={() => handleBuyClick("Zaad")}
+                        >
+                          BUY-iibso
+                        </button>
                       </div>
                     </div>
+                    <ConfirmDialog
+                      open={dialogOpen}
+                      handleClose={() => setDialogOpen(false)}
+                      handleConfirm={handleConfirm}
+                    />
                   </div>
-                    {/* <!-- row end --> */}
-                  </div>
-                  {/* <!-- pricing box monthly end --> */}
+                  {/* <!-- row end --> */}
+                </div>
+                {/* <!-- pricing box monthly end --> */}
               </>
-              )
-              :
-              (
-                <>
-                  {/* <!-- pricing box yearly start --> */}
-                  <div className={`pricing_pannel yearly_plan ${monthlyPlan ? 'active' : ''}`}>
-                    <div className="row">
-                      {/* <!-- pricing box 1 --> */}
-                      <div className="col-md-4">
-                        <div className="pricing_block">
-                          <div className="icon">
-                            <img src={EvcPlus1} alt="image" />
-                          </div>
-                          <div className="pkg_name">
-                            <h3>EVC Service</h3>
-                            {/* <span>For the basics</span> */}
-                          </div>
-                          <span className="price">$8</span>
-                          <ul className="benifits">
+            ) : (
+              <>
+                {/* <!-- pricing box yearly start --> */}
+                <div
+                  className={`pricing_pannel yearly_plan ${
+                    monthlyPlan ? "active" : ""
+                  }`}
+                >
+                  <div className="row">
+                    {/* <!-- pricing box 1 --> */}
+                    <div className="col-md-4">
+                      <div className="pricing_block">
+                        <div className="icon">
+                          <img src={EvcPlus1} alt="image" />
+                        </div>
+                        <div className="pkg_name">
+                          <h3>EVC Service</h3>
+                          {/* <span>For the basics</span> */}
+                        </div>
+                        <span className="price">$8</span>
+                        <ul className="benifits">
                           <li>ma ogoshahay inaad iibsato?</li>
-                            <li>lacaga inaad bixiso EVCPLUS</li>
-                            {/* <li>
+                          <li>lacaga inaad bixiso EVCPLUS</li>
+                          {/* <li>
                               <p>Up to 10 Website</p>
                             </li>
                             <li>
@@ -1212,26 +1312,32 @@ const HomeScreen = () => {
                             <li>
                               <p>Support on request</p>
                             </li> */}
-                          </ul>
-                          <a href="#" class="btn white_btn" style={{marginTop:"100px"}}>BUY-iibso</a>
-                        </div>
+                        </ul>
+                        <a
+                          href="#"
+                          class="btn white_btn"
+                          style={{ marginTop: "100px" }}
+                        >
+                          BUY-iibso
+                        </a>
                       </div>
+                    </div>
 
-                      {/* <!-- pricing box 2 --> */}
-                      <div className="col-md-4">
-                        <div className="pricing_block highlited_block">
-                          <div className="icon">
-                            <img src={SahalService1} alt="image" />
-                          </div>
-                          <div className="pkg_name">
-                            <h3>Sahal Service</h3>
-                            {/* <span>For the professionals</span> */}
-                          </div>
-                          <span className="price">$8</span>
-                          <ul className="benifits">
+                    {/* <!-- pricing box 2 --> */}
+                    <div className="col-md-4">
+                      <div className="pricing_block highlited_block">
+                        <div className="icon">
+                          <img src={SahalService1} alt="image" />
+                        </div>
+                        <div className="pkg_name">
+                          <h3>Sahal Service</h3>
+                          {/* <span>For the professionals</span> */}
+                        </div>
+                        <span className="price">$8</span>
+                        <ul className="benifits">
                           <li>ma ogoshahay inaad iibsato? </li>
-                            <li>lacaga inaad bixiso Sahal</li>
-                            {/* <li>
+                          <li>lacaga inaad bixiso Sahal</li>
+                          {/* <li>
                               <p>Unlimited Website</p>
                             </li>
                             <li>
@@ -1246,26 +1352,32 @@ const HomeScreen = () => {
                             <li>
                               <p>24/7 Customer support</p>
                             </li> */}
-                          </ul>
-                          <a href="#" class="btn white_btn" style={{marginTop:"25px"}}>BUY- iibso</a>
-                        </div>
+                        </ul>
+                        <a
+                          href="#"
+                          class="btn white_btn"
+                          style={{ marginTop: "25px" }}
+                        >
+                          BUY- iibso
+                        </a>
                       </div>
+                    </div>
 
-                      {/* <!-- pricing box 3 --> */}
-                      <div className="col-md-4">
-                        <div className="pricing_block">
-                          <div className="icon">
-                            <img src={ZaadService} alt="image" />
-                          </div>
-                          <div className="pkg_name">
-                            <h3>Zaad Service</h3>
-                            {/* <span>For small team</span> */}
-                          </div>
-                          <span className="price">$8</span>
-                          <ul className="benifits">
+                    {/* <!-- pricing box 3 --> */}
+                    <div className="col-md-4">
+                      <div className="pricing_block">
+                        <div className="icon">
+                          <img src={ZaadService} alt="image" />
+                        </div>
+                        <div className="pkg_name">
+                          <h3>Zaad Service</h3>
+                          {/* <span>For small team</span> */}
+                        </div>
+                        <span className="price">$8</span>
+                        <ul className="benifits">
                           <li>ma ogoshahay inaad iibsato?</li>
-                            <li>lacaga inaad bixiso Zaad</li>
-                            {/* <li>
+                          <li>lacaga inaad bixiso Zaad</li>
+                          {/* <li>
                               <p>Up to 20 Website</p>
                             </li>
                             <li>
@@ -1280,23 +1392,30 @@ const HomeScreen = () => {
                             <li>
                               <p>24/7 Customer support</p>
                             </li> */}
-                          </ul>
-                          <a href="#" class="btn white_btn" style={{marginTop:"25px"}}>BUY- iibso</a>
-                        </div>
+                        </ul>
+                        <a
+                          href="#"
+                          class="btn white_btn"
+                          style={{ marginTop: "25px" }}
+                        >
+                          BUY- iibso
+                        </a>
                       </div>
-
                     </div>
                   </div>
-                  {/* <!-- pricing box yearly end --> */}
-                </>
-              )
-            }
+                </div>
+                {/* <!-- pricing box yearly end --> */}
+              </>
+            )}
 
-
-
-
-
-            <p className="contact_text" data-aos="fade-up" data-aos-duration="1500">Not sure what to choose ? <a href="#">contact us</a> for custom packages</p>
+            <p
+              className="contact_text"
+              data-aos="fade-up"
+              data-aos-duration="1500"
+            >
+              Not sure what to choose ? <a href="#">contact us</a> for custom
+              packages
+            </p>
           </div>
           {/* <!-- container start end --> */}
         </section>
@@ -1473,18 +1592,18 @@ const HomeScreen = () => {
               </h2>
               {/* p */}
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typese tting{" "}
-                <br /> indus orem Ipsum has beenthe standard dummy.
+                Lorem Ipsum is simply dummy text of the printing and typese
+                tting <br /> indus orem Ipsum has beenthe standard dummy.
               </p>
             </div>
             {/* screen slider start */}
-            <div >
+            <div>
               <div>
                 <Swiper
                   slidesPerView={5}
                   // spaceBetween={190}
                   loop={true}
-                  effect={'coverflow'}
+                  effect={"coverflow"}
                   grabCursor={true}
                   centeredSlides={true}
                   autoplay={{
@@ -1498,7 +1617,6 @@ const HomeScreen = () => {
                     modifier: 2,
                     slideShadows: true,
                   }}
-
                   pagination={true}
                   modules={[EffectCoverflow, Pagination, Autoplay]}
                   className="mySwiper"
@@ -1559,9 +1677,9 @@ const HomeScreen = () => {
                     <div className="section_title">
                       <h2>Let’s download free from apple and play store</h2>
                       <p>
-                        Instant free download from apple and play store orem Ipsum is
-                        simply dummy text of the printing. and typese tting indus orem
-                        Ipsum has beenthe standard
+                        Instant free download from apple and play store orem
+                        Ipsum is simply dummy text of the printing. and typese
+                        tting indus orem Ipsum has beenthe standard
                       </p>
                     </div>
                     <ul className="app_btn">
@@ -1582,11 +1700,7 @@ const HomeScreen = () => {
                 <div className="col-md-6">
                   <div className="free_img">
                     <img src={Signup} alt="image" />
-                    <img
-                      className="mobile_mockup"
-                      src={Signin}
-                      alt="image"
-                    />
+                    <img className="mobile_mockup" src={Signin} alt="image" />
                   </div>
                 </div>
               </div>
@@ -1610,8 +1724,8 @@ const HomeScreen = () => {
                 Read latest <span>story</span>
               </h2>
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typese tting{" "}
-                <br /> indus orem Ipsum has beenthe standard dummy.
+                Lorem Ipsum is simply dummy text of the printing and typese
+                tting <br /> indus orem Ipsum has beenthe standard dummy.
               </p>
             </div>
             {/* row start */}
@@ -1630,8 +1744,8 @@ const HomeScreen = () => {
                   <div className="story_text">
                     <h3>Cool features added!</h3>
                     <p>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting
-                      industry lorem Ipsum has.
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry lorem Ipsum has.
                     </p>
                     <a href="#">READ MORE</a>
                   </div>
@@ -1651,8 +1765,8 @@ const HomeScreen = () => {
                   <div className="story_text">
                     <h3>Top rated app! Yupp.</h3>
                     <p>
-                      Simply dummy text of the printing and typesetting industry lorem
-                      Ipsum has Lorem Ipsum is.
+                      Simply dummy text of the printing and typesetting industry
+                      lorem Ipsum has Lorem Ipsum is.
                     </p>
                     <a href="#">READ MORE</a>
                   </div>
@@ -1672,8 +1786,8 @@ const HomeScreen = () => {
                   <div className="story_text">
                     <h3>Creative ideas on app.</h3>
                     <p>
-                      Printing and typesetting industry lorem Ipsum has Lorem simply
-                      dummy text of the.
+                      Printing and typesetting industry lorem Ipsum has Lorem
+                      simply dummy text of the.
                     </p>
                     <a href="#">READ MORE</a>
                   </div>
@@ -1761,7 +1875,7 @@ const HomeScreen = () => {
         <div className="purple_backdrop" />
       </Main>
     </>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
