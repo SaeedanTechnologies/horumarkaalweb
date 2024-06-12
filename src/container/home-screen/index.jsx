@@ -112,6 +112,7 @@ import { AccountTree } from "@mui/icons-material";
 import ConfirmDialog from "./ConfirmDialog";
 import { Button } from "bootstrap";
 import { useNavigate } from "react-router-dom";
+import { generateOtp } from "../../features/api";
 const HomeScreen = () => {
   const navigate = useNavigate();
   const [monthlyPlan, setMonthlyPlan] = useState(false);
@@ -130,14 +131,14 @@ const HomeScreen = () => {
     setAccountNo(accountNoFromStorage);
   }, []);
   const [selectedOption, setSelectedOption] = useState("");
-  console.log(selectedOption, "sedfkdfd");
+ 
   useEffect(() => {
     const savedOption = localStorage.getItem("selectedOption");
     if (savedOption) {
       setSelectedOption(savedOption);
     }
   }, []);
-  const [evcValue, setEvcValue] = useState("061");
+  const [evcValue, setEvcValue] = useState("+923036864074");
   const [sahalValue, setSahalValue] = useState("090");
   const [zaadValue, setZaadValue] = useState("063");
   const handleChange = (event) => {
@@ -175,21 +176,7 @@ const HomeScreen = () => {
     if (!regex.test(value)) {
       return;
     }
-    if (value.trim() === "") {
-      switch (serviceType) {
-        case "EVC":
-          setEvcValue("061");
-          break;
-        case "Sahal":
-          setSahalValue("090");
-          break;
-        case "Zaad":
-          setZaadValue("063");
-          break;
-        default:
-          break;
-      }
-    } else {
+    
       switch (serviceType) {
         case "EVC":
           setEvcValue(value);
@@ -202,7 +189,7 @@ const HomeScreen = () => {
           break;
         default:
           break;
-      }
+      
     }
   };
 
@@ -213,7 +200,7 @@ const HomeScreen = () => {
 
   const handleConfirm = async () => {
     let selectedValue;
-
+  
     switch (serviceType) {
       case 'EVC':
         selectedValue = evcValue;
@@ -227,7 +214,7 @@ const HomeScreen = () => {
       default:
         break;
     }
-
+  
     const apiUrl = "https://api.waafipay.net/asm";
     const requestBody = {
       schemaVersion: "1.0",
@@ -250,50 +237,46 @@ const HomeScreen = () => {
         }
       }
     };
-
+    const phone_number = selectedValue
+    
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody)
       });
-      console.log(response, "response");
-
-       if (response.status === 200) {
-
+  
+      if (response.status === 200) {
         const responseData = await response.json();
-
+        
         if (responseData.responseMsg === "RCS_SUCCESS") {
           enqueueSnackbar("Payment Approved", { variant: "success" });
-          const otpResponse = await fetch("https://api.waafipay.net/generate-otp", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accountNo: selectedValue }) // Adjust the payload as per API requirements
-          });
-
-          if (otpResponse.status === 200) {
-            const otpData = await otpResponse.json();
-            if (otpData.responseMsg === "OTP_GENERATED_SUCCESS") {
-           
-              navigate('/verify-password-otp');
-            } else {
-              enqueueSnackbar(otpData.params.description, { variant: "error" });
-            }
-          } else {
-            enqueueSnackbar(`OTP Generation Error: ${otpResponse.status}`, { variant: "error" });
-          }
+          navigate('/verify-password-otp');
         } else {
+          // const otpResponse = await generateOtp(phone_number);
+          // if (otpResponse.responseMsg === "OTP_GENERATED_SUCCESS") {
+          //   enqueueSnackbar("OTP Generated successfully", { variant: "success" });
+          //   navigate('/verify-password-otp');
+          // } else {
+          //   enqueueSnackbar(otpResponse.params.description, { variant: "error" });
+          // }
           enqueueSnackbar(responseData.params.description, { variant: "error" });
+          
         }
       } else {
-        enqueueSnackbar(`Error: ${response.status}`, { variant: "error" });
+        // If first API call fails, generate OTP
+       
+  
+      
       }
     } catch (error) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
+       navigate("/new-password", { state: { phone_number } });
     }
-
+  
     setDialogOpen(false);
   };
+  
 
   return (
     <>
@@ -1228,7 +1211,7 @@ const HomeScreen = () => {
                           }
                           variant="outlined"
                           size="small"
-                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
+                         
                           placeholder="Geli taleefankaaga"
                         />{" "}
                         <Typography>Enter your number</Typography>

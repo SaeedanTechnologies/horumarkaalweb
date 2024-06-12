@@ -22,6 +22,7 @@ import PrivateRoute from '../container/HorumarkaalApp/PrivateRoute' // Adjust th
 import ManageProfileMain from '../container/HorumarkaalApp/ManageProfile/ManageProfileMain';
 import NumberVerifcationOtp from '../container/HorumarkaalApp/Auth/components/phoneNumber/NumberVerifcationOtp';
 import NewPassword from '../container/HorumarkaalApp/Auth/components/newPassword/NewPassword';
+import NewSignUp from '../container/HorumarkaalApp/Auth/components/newPassword/NewSignUp';
 
 const HeaderRoutes = () => {
   return (
@@ -42,7 +43,7 @@ const HeaderRoutes = () => {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/verify-password-otp" element={<VerifyPasswordOTP />} />
         <Route path="/verify-number-otp" element={<NumberVerifcationOtp />} />
-        <Route path="/new-password" element={<NewPassword />} />
+        <Route path="/new-password" element={<NewSignUp />} />
         {/* Private Routes */}
         <Route path="/payment" element={<PrivateRoute element={PaymentPage} />} />
         <Route path="/language-main" element={<PrivateRoute element={LanguageMain} />} />

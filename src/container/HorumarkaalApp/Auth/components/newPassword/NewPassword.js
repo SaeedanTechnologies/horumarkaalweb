@@ -1,169 +1,219 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Card, IconButton, InputAdornment, TextField, Typography, useTheme } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useDispatch } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { changePassword } from "../../../../../store/actions/authActions";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import PersonIcon from "@mui/icons-material/Person";
+import LockIcon from "@mui/icons-material/Lock";
+import { userPasswordChange } from "../../../../../features/api"; // Adjust the path as needed
+import { userRegister } from "../../../../../store/actions/authActions";
 const NewPassword = () => {
-  const theme = useTheme();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const location = useLocation();
+  const phone_number = location.state?.phone_number;
   const navigate = useNavigate();
-  const params = useParams();
-  const location = useLocation()
-  const dispatch = useDispatch();
-  const token = location.state?.token;
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [formValues, setFormValues] = useState({
+  const initialValues = {
+    name: "",
     password: "",
-    password_confirmation: "",
+    confirm_password: "",
+  };
 
+  const [showPassword, setShowPassword] = useState({
+    password: false,
+    confirmPassword: false,
   });
+  const [loading, setLoading] = useState(false);
+  const [formValues, setFormValues] = useState(initialValues);
+  const [error, setError] = useState("");
 
+  const handleClickShowPassword = (field) => {
+    setShowPassword((prev) => ({ ...prev, [field]: !prev[field] }));
+  };
 
+  const textFieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "25px",
+    },
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormValues(prevValues => ({
-      ...prevValues,
-      [name]: value
-    }));
+    setFormValues({ ...formValues, [name]: value });
   };
-const {enqueueSnackbar} = useSnackbar()
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log(formValues.password, formValues.name, phone_number,"OOOPPP")
     e.preventDefault();
-    dispatch(changePassword(formValues, token))
-      .then((res) => {
-        // alert("Password changed successfully!");
+    if (formValues.password !== formValues.confirm_password) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+
+    const payload = {
+      name: formValues.name,
+      password: formValues.password,
+      phone_number: phone_number || "",
+    };
+
+    try {
+      const response = await userRegister(payload);
+      if (response.data.success) {
         enqueueSnackbar("Password changed successfully", { variant: "success" });
-
         navigate("/login");
-      })
-      .catch((err) => {
-        // alert("Error changing password. Please try again.");
-        console.error(err);
-        enqueueSnackbar("Error changing password", { variant: "error" });
-
-      });
+      } else {
+        enqueueSnackbar("Invalid. Please try again.", { variant: "error" });
+      }
+    } catch (err) {
+      console.error("Response Error:", err.message);
+      enqueueSnackbar("Invalid response. Please try again.", { variant: "error" });
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        height: "100vh",
+        backgroundColor: "#6a49f2",
+      }}
+    >
       <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          mt:10
-        }}
+        sx={{ backgroundColor: "white", padding: "3rem", borderRadius: "20px" }}
       >
-       <Card padding={'3rem'}>
-
-       <Box sx={{ textAlign: "center", display:'flex', justifyContent:'center', alignItems:'center', flexDirection:'column', padding:'4rem', paddingBottom: "2rem" }}>
-          <Typography variant="h1" sx={{ fontSize: "2rem", fontWeight: "600" }}>
-           Verification Change Your Password
+        <Box textAlign={"center"}>
+          <Typography variant="h1" sx={{ fontSize: "3rem", fontWeight: "900" }}>
+            Create Account
           </Typography>
-          <Typography variant="body1" sx={{ fontSize: "1rem", color: "grey" }}>
-            Input your new desired password in the input fields below to create a new password.
-          </Typography>
-
-          <form onSubmit={handleSubmit}>
-          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-          <label>Name</label>
-          <TextField
-            name="name"
-            fullWidth
-            sx={{ marginTop: "0.3rem" }}
-            size="small"
-            type="text"
-            value=""
-            onChange={handleChange}
-            InputProps={{
-           
-            }}
-          />
         </Box>
-            <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-              <label>Password</label>
-              <TextField
-                name="password"
-                fullWidth
-                sx={{ marginTop: "0.3rem" }}
-                size="small"
-                type={showPassword ? "text" : "password"}
-                value={formValues.password}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Box>
-
-            <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-              <label>Confirm Password</label>
-              <TextField
-                name="password_confirmation"
-                fullWidth
-                sx={{ marginTop: "0.3rem" }}
-                size="small"
-                type={showConfirmPassword ? "text" : "password"}
-                value={formValues.password_confirmation}
-                onChange={handleChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowConfirmPassword}
-                        edge="end"
-                      >
-                        {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Box>
-
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{
-                width: "100%",
-                marginTop: "2rem",
-                padding: "0.5rem 0rem",
-                textTransform: "none",
-                fontSize: "1rem",
+        <Box
+          sx={{ width: "100%", marginTop: "3rem" }}
+          component="form"
+          onSubmit={handleSubmit}
+        >
+          <Box sx={{ textAlign: "start" }}>
+            <TextField
+              name="name"
+              value={formValues.name}
+              onChange={handleChange}
+              fullWidth
+              sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+              size="small"
+              placeholder="Name"
+              InputProps={{
+                startAdornment: <PersonIcon style={{ color: "#6a49f2" }} />,
               }}
-            >
-              Confirm
-            </Button>
-          </form>
-        </Box>
+            />
+          </Box>
 
-       </Card>
+          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+            <TextField
+              name="password"
+              placeholder="Password"
+              value={formValues.password}
+              onChange={handleChange}
+              fullWidth
+              sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+              size="small"
+              type={showPassword.password ? "text" : "password"}
+              InputProps={{
+                startAdornment: <LockIcon style={{ color: "#6a49f2" }} />,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => handleClickShowPassword("password")}
+                      edge="end"
+                    >
+                      {showPassword.password ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+            <TextField
+              name="confirm_password"
+              placeholder="Confirm Password"
+              value={formValues.confirm_password}
+              onChange={handleChange}
+              fullWidth
+              sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+              size="small"
+              type={showPassword.confirmPassword ? "text" : "password"}
+              InputProps={{
+                startAdornment: <LockIcon style={{ color: "#6a49f2" }} />,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => handleClickShowPassword("confirmPassword")}
+                      edge="end"
+                    >
+                      {showPassword.confirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          {error && (
+            <Typography color="error" sx={{ marginTop: "1rem" }}>
+              {error}
+            </Typography>
+          )}
+          <br />
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              width: "100%",
+              backgroundColor: "#6a49f2",
+              padding: "0.5rem 0rem",
+              textTransform: "none",
+              borderRadius: "25px",
+            }}
+            disabled={loading}
+          >
+            {loading ? "Loading..." : "Sign up"}
+          </Button>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "start",
+              textAlign: "start",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <Typography sx={{ marginLeft: "1rem" }}>
+              Already have an Account ?
+            </Typography>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <Typography sx={{ color: "#6a49f2", marginLeft: "0.5rem" }}>
+                Login
+              </Typography>
+            </Link>
+          </Box>
+        </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 
 export default NewPassword;
-
-
