@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { searchTranslate, getTranslate } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
+import { searchTranslate, getTranslate,getConvertTextsoomaali } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
 
 const ShomaliaLanguage = () => {

@@ -86,15 +86,15 @@ const PaymentPage = () => {
 
         const responseData = await response.json();
 
-        if (responseData.responseMsg === "RCS_SUCCESS") {
+        // if (responseData.responseMsg === "RCS_SUCCESS") {
           enqueueSnackbar("Payment Approved", { variant: "success" });
           await dispatch(updateUserIsPaidStatus(userId));
           navigate('/select-language');
 
-        }
-        else {
-          enqueueSnackbar(responseData.params.description, { variant: "error" });
-        }
+       // }
+        // else {
+        //   enqueueSnackbar(responseData.params.description, { variant: "error" });
+        // }
       } else {
         enqueueSnackbar(`Error: ${response.status}`, { variant: "error" });
       }
@@ -141,7 +141,7 @@ const PaymentPage = () => {
           <Box>
             <Typography variant="h1" sx={{ fontSize: '2rem', fontWeight: '700' }}>
               Pay with Waffi Pay
-            </Typography>
+             </Typography>
           </Box>
           <Box
             sx={{ width: "100%", marginTop: "3rem" }}

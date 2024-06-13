@@ -19,7 +19,14 @@ export const getTranslate = (word, lang) => async (dispatch) => {
         throw err;
     }
 };
-
+export const getConvertTextsoomaali = (text) => async (dispatch) => {
+    try {
+      const res = await api.post("app/convert-text", { text });
+      return res.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 export const getQuestions = (value) => async (dispatch) => {
     try {
         const res = await api.post("app/get-questions", value);

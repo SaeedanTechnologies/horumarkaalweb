@@ -39,3 +39,13 @@ export const userPasswordChange = async (payload) => {
       throw err;
     }
   };
+
+  export const convertSoomaaliVoice = async ({text}) => {
+    try {
+      const res = await api.post("convert-text", text);
+      console.log("Response from API:", res);
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  };

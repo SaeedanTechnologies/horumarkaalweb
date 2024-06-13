@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { searchTranslate, getTranslate } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
+import { searchTranslate, getTranslate, getConvertTextsoomaali } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
 
 const EnglishLanguage = () => {
@@ -133,6 +133,20 @@ const EnglishLanguage = () => {
     window.speechSynthesis.speak(message);
   };
 
+  const speakTextShumali = async (text) => {
+    try {
+      const response = await dispatch(getConvertTextsoomaali(text));
+      if (response) {
+        const convertedText = response.data.convertedText; // Adjust based on the actual response structure
+        const message = new SpeechSynthesisUtterance(convertedText);
+        window.speechSynthesis.speak(message);
+      } else {
+        console.error("Failed to convert text to Somali");
+      }
+    } catch (error) {
+      console.error("Failed to convert text to Somali:", error);
+    }
+  };
 
   return (
     <Box
@@ -330,7 +344,7 @@ overflowX:'hidden',
           gap={5}
         >
           <Typography>{text}</Typography>
-          <IconButton onClick={() => speakText(text)}>
+          <IconButton onClick={() => speakTextShumali(text)}>
             <VolumeUpIcon />
           </IconButton>
         </Box>

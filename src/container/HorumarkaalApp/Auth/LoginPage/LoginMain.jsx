@@ -19,7 +19,8 @@ import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../store/actions/authActions";
 const Login_Main = () => {
   const location = useLocation();
-  const phone = location.state?.phone_number;
+  
+  const { phone, password } = location.state || {};
   console.log(phone, "phone num")
   const initialValues = {
     phone: phone,

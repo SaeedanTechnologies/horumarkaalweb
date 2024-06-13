@@ -138,7 +138,7 @@ const HomeScreen = () => {
       setSelectedOption(savedOption);
     }
   }, []);
-  const [evcValue, setEvcValue] = useState("03030891234");
+  const [evcValue, setEvcValue] = useState("03030345234");
   const [sahalValue, setSahalValue] = useState("090");
   const [zaadValue, setZaadValue] = useState("063");
   const handleChange = (event) => {

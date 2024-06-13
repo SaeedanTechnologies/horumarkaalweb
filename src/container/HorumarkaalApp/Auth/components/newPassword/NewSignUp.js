@@ -75,7 +75,7 @@ const NewSignUp = () => {
     dispatch(userRegister(payload))
       .then(() => {
         enqueueSnackbar("User registered successfully", { variant: "success" });
-        navigate("/login", { state: { phone , password} });
+        navigate("/login", { state: { phone: phone, password: password } });
        
       })
       .catch((err) => {
