@@ -16,7 +16,12 @@ import {
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-import { searchTranslate, getTranslate, getConvertTextsoomaali } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
+
+import {
+  searchTranslate,
+  getTranslate,
+  getConvertTextsoomaali,
+} from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
 
 const EnglishLanguage = () => {
@@ -25,7 +30,10 @@ const EnglishLanguage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [checkedSuggestions, setCheckedSuggestions] = useState([]);
-  const [translations, setTranslations] = useState({ soomaali: [], arabic: [] });
+  const [translations, setTranslations] = useState({
+    soomaali: [],
+    arabic: [],
+  });
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loadingTranslations, setLoadingTranslations] = useState(false);
   const searchBoxRef = useRef(null);
@@ -45,7 +53,7 @@ const EnglishLanguage = () => {
         setFilteredSuggestions(filtered);
       } catch (error) {
         console.error("Failed to fetch suggestions:", error);
-      }finally {
+      } finally {
         setLoadingSuggestions(false); // Stop loading suggestions
       }
     } else {
@@ -62,8 +70,7 @@ const EnglishLanguage = () => {
         setFilteredSuggestions(suggestions.data);
       } catch (error) {
         console.error("Failed to fetch suggestions:", error);
-      }
-      finally {
+      } finally {
         setLoadingSuggestions(false); // Stop loading suggestions
       }
     }
@@ -77,7 +84,9 @@ const EnglishLanguage = () => {
       newCheckedSuggestions = [...checkedSuggestions, suggestion];
       setCheckedSuggestions(newCheckedSuggestions);
     } else {
-      newCheckedSuggestions = checkedSuggestions.filter((item) => item !== suggestion);
+      newCheckedSuggestions = checkedSuggestions.filter(
+        (item) => item !== suggestion
+      );
       setCheckedSuggestions(newCheckedSuggestions);
     }
 
@@ -104,14 +113,17 @@ const EnglishLanguage = () => {
 
           setTranslations(newTranslations);
         } else {
-          console.error("Translation data is not in the expected format:", translationData);
+          console.error(
+            "Translation data is not in the expected format:",
+            translationData
+          );
         }
       } else {
         console.error("Translation API error:", response.message);
       }
     } catch (error) {
       console.error("Failed to get translation:", error);
-    }finally {
+    } finally {
       setLoadingTranslations(false); // Stop loading translations
     }
   };
@@ -135,16 +147,29 @@ const EnglishLanguage = () => {
 
   const speakTextShumali = async (text) => {
     try {
+      // Assume dispatch handles the API call and returns the response
       const response = await dispatch(getConvertTextsoomaali(text));
-      if (response) {
-        const convertedText = response.data.convertedText; // Adjust based on the actual response structure
-        const message = new SpeechSynthesisUtterance(convertedText);
-        window.speechSynthesis.speak(message);
+  
+      // Check if the API call was successful and received the file path
+      if (response && response.success && response.file) {
+        const audioFilePath = response.file;
+
+        const audioElement = document.createElement("audio");
+
+        audioElement.controls = true;
+        audioElement.src = audioFilePath;
+        const audioContainer = document.getElementById("audioContainer");
+
+        audioContainer.innerHTML = "";
+
+        audioContainer.appendChild(audioElement);
+
+        console.log("Audio generated successfully!");
       } else {
-        console.error("Failed to convert text to Somali");
+        console.error("Failed to generate audio or file path is missing");
       }
     } catch (error) {
-      console.error("Failed to convert text to Somali:", error);
+      console.error("Error converting text to Somali:", error);
     }
   };
 
@@ -161,8 +186,6 @@ const EnglishLanguage = () => {
         sx={{ display: "flex", alignItems: "center", position: "relative" }}
         ref={searchBoxRef}
       >
-
-
         <TextField
           placeholder="Search"
           size="small"
@@ -192,84 +215,83 @@ const EnglishLanguage = () => {
               padding: 0,
             },
             endAdornment: (
-      <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+              <InputAdornment position="end" style={{ padding: 0, margin: 0 }}>
+                {loadingSuggestions ? (
+                  <Loader />
+                ) : (
+                  <Button
+                    sx={{
+                      backgroundColor: "transparent",
+                      color: "grey",
+                      padding: "0.5rem",
+                      borderRadius: "0px 5px 5px 0px",
+                      ":hover": {
+                        backgroundColor: "transparent",
+                        color: "grey",
+                      },
+                    }}
+                  >
+                    <SearchOutlinedIcon />
+                  </Button>
+                )}
+              </InputAdornment>
+            ),
+          }}
+        />
         {loadingSuggestions ? (
-      <Loader/>
+          <Loader />
         ) : (
-          <Button
-            sx={{
-              backgroundColor: "transparent",
-              color: "grey",
-              padding: "0.5rem",
-              borderRadius: "0px 5px 5px 0px",
-              ":hover": {
-                backgroundColor: "transparent",
-                color: "grey",
-              },
-            }}
-          >
-            <SearchOutlinedIcon />
-          </Button>
+          filteredSuggestions.length > 0 && (
+            <List
+              sx={{
+                position: "absolute",
+                top: "100%",
+                left: 0,
+                right: 0,
+                backgroundColor: "white",
+                borderRadius: "10px",
+                boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                maxHeight: "200px",
+                overflowY: "auto",
+                zIndex: 10,
+                marginTop: "0.5rem",
+              }}
+            >
+              {loadingSuggestions ? (
+                <Loader />
+              ) : (
+                filteredSuggestions.map((suggestion, index) => (
+                  <ListItem key={index}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={checkedSuggestions.includes(suggestion)}
+                          onChange={(event) =>
+                            handleCheckboxChange(event, suggestion)
+                          }
+                        />
+                      }
+                      label={suggestion}
+                    />
+                  </ListItem>
+                ))
+              )}
+            </List>
+          )
         )}
-      </InputAdornment>
-    ),
-  }}
-/>
-{loadingSuggestions ? (
-  <Loader />
-) : (
-  filteredSuggestions.length > 0 && (
-    <List
-      sx={{
-        position: "absolute",
-        top: "100%",
-        left: 0,
-        right: 0,
-        backgroundColor: "white",
-        borderRadius: "10px",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-        maxHeight: "200px",
-        overflowY: "auto",
-        zIndex: 10,
-        marginTop: "0.5rem",
-      }}
-    >
-
-{loadingSuggestions ? (
-  <Loader />
-) : (
-  filteredSuggestions.map((suggestion, index) => (
-        <ListItem key={index}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checkedSuggestions.includes(suggestion)}
-                onChange={(event) => handleCheckboxChange(event, suggestion)}
-              />
-            }
-            label={suggestion}
-          />
-        </ListItem>
-      ))
-)}
-
-    </List>
-  )
-)}
-
       </Box>
 
       <FormGroup
-       sx={{
-    width: "70%",
-    mt: 2,
-    height: '30vh',
-    overflowY: 'auto',  // Set overflowY to 'auto'
+        sx={{
+          width: "70%",
+          mt: 2,
+          height: "30vh",
+          overflowY: "auto", // Set overflowY to 'auto'
 
-overflowX:'hidden',
-    display: 'flex',   // Set display to 'flex'
-    flexDirection: 'row'  // Stack items vertically
-  }}
+          overflowX: "hidden",
+          display: "flex", // Set display to 'flex'
+          flexDirection: "row", // Stack items vertically
+        }}
       >
         {checkedSuggestions.map((suggestion, index) => (
           <FormControlLabel
@@ -301,11 +323,9 @@ overflowX:'hidden',
           width: "100%",
           justifyContent: "center",
           marginTop: "2rem",
-          position:'absolute',
-          bottom:0,
-
+          position: "absolute",
+          bottom: 0,
         }}
-
       >
         <Box
           sx={{
@@ -314,9 +334,9 @@ overflowX:'hidden',
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height:'30vh',
-            overflow:'auto',
-            minWidth:'300px'
+            height: "30vh",
+            overflow: "auto",
+            minWidth: "300px",
           }}
         >
           <Typography
@@ -327,32 +347,34 @@ overflowX:'hidden',
           </Typography>
           <br />
           {loadingTranslations ? (
-  <Loader />
-) : (
-  translations.soomaali.length > 0 && (
-    <Box>
-      {translations.soomaali.map((text, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-            maxWidth: "500px",
-            marginBottom: "1rem",
-          }}
-          gap={5}
-        >
-          <Typography>{text}</Typography>
-          <IconButton onClick={() => speakTextShumali(text)}>
-            <VolumeUpIcon />
-          </IconButton>
-        </Box>
-      ))}
-    </Box>
-  )
-)}
+            <Loader />
+          ) : (
+            translations.soomaali.length > 0 && (
+              <Box>
+                {translations.soomaali.map((text, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      width: "100%",
+                      maxWidth: "500px",
+                      marginBottom: "1rem",
+                    }}
+                    gap={5}
+                    id="audioContainer"
+                  >
+                    <Typography>{text}</Typography>
+                    <IconButton onClick={() => speakTextShumali(text)}>
+                      <VolumeUpIcon />
+                    </IconButton>
+                  </Box>
+                ))}
 
+               
+              </Box>
+            )
+          )}
         </Box>
 
         <Box
@@ -362,10 +384,9 @@ overflowX:'hidden',
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            height:'30vh',
-            overflow:'auto',
-            minWidth:'300px'
-
+            height: "30vh",
+            overflow: "auto",
+            minWidth: "300px",
           }}
         >
           <Typography
@@ -391,8 +412,7 @@ overflowX:'hidden',
                 >
                   <Typography>{text}</Typography>
                   <IconButton onClick={() => speakText(text)}>
-                  <VolumeUpIcon/>
-
+                    <VolumeUpIcon />
                   </IconButton>
                 </Box>
               ))}
@@ -405,3 +425,4 @@ overflowX:'hidden',
 };
 
 export default EnglishLanguage;
+
