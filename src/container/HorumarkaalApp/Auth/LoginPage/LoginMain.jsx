@@ -9,17 +9,20 @@ import {
   useTheme,
   Typography,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
-import EmailIcon from "@mui/icons-material/Email";
+
 import LockIcon from "@mui/icons-material/Lock";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../store/actions/authActions";
 const Login_Main = () => {
+  const location = useLocation();
+  const phone = location.state?.phone_number;
+  console.log(phone, "phone num")
   const initialValues = {
-    email: "",
+    phone: phone,
     password: "",
   };
   const theme = useTheme();
@@ -64,7 +67,7 @@ const Login_Main = () => {
       })
       .catch((err) => {
 
-        enqueueSnackbar("Please enter valid email password", {
+        enqueueSnackbar("Please enter valid phone password", {
           variant: "error",
         });
 
@@ -94,9 +97,9 @@ const Login_Main = () => {
         >
           <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
             <TextField
-              name="email"
-              placeholder="Email"
-              value={formValues.email}
+              name="phone"
+              placeholder="phone"
+              value={formValues.phone}
               onChange={handleChange}
               fullWidth
               sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
@@ -109,7 +112,7 @@ const Login_Main = () => {
                       onClick={handleClickShowPassword}
                       edge="start"
                     >
-                      <EmailIcon
+                      <phoneIcon
                         style={{ color: theme.palette.primary.main }}
                       />
                     </IconButton>

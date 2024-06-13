@@ -3,6 +3,7 @@ import { BASE_URL } from "./baseURL";
 
 const api = axios.create({
   baseURL: BASE_URL,
+  headers: { 'Content-Type': 'application/json' }
 });
 const getToken = () => {
   return localStorage.getItem("token");
