@@ -23,6 +23,7 @@ import {
   getConvertTextsoomaali,
 } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
+import SomaliTextToSpeech from "./SomaliTextToSpeech";
 
 const EnglishLanguage = () => {
   const theme = useTheme();
@@ -37,7 +38,7 @@ const EnglishLanguage = () => {
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loadingTranslations, setLoadingTranslations] = useState(false);
   const searchBoxRef = useRef(null);
-
+  const [audioPlayer] = useState(new Audio());  // Create a state for the audio player
   const handleSearchChange = async (event) => {
     const value = event.target.value;
     setSearchTerm(value);
@@ -145,26 +146,20 @@ const EnglishLanguage = () => {
     window.speechSynthesis.speak(message);
   };
 
-  const speakTextShumali = async (text) => {
+  const speakTextShumali = async (text, audioPlayer) => {
     try {
-      // Assume dispatch handles the API call and returns the response
       const response = await dispatch(getConvertTextsoomaali(text));
+      console.log("Audio file path:", response.file);
   
-      // Check if the API call was successful and received the file path
       if (response && response.success && response.file) {
         const audioFilePath = response.file;
-
-        const audioElement = document.createElement("audio");
-
-        audioElement.controls = true;
-        audioElement.src = audioFilePath;
-        const audioContainer = document.getElementById("audioContainer");
-
-        audioContainer.innerHTML = "";
-
-        audioContainer.appendChild(audioElement);
-
-        console.log("Audio generated successfully!");
+        audioPlayer.src = audioFilePath;
+  
+        // Ensure the audio is loaded before playing
+        audioPlayer.load(); 
+        audioPlayer.play().catch(error => {
+          console.error("Error playing audio:", error);
+        });
       } else {
         console.error("Failed to generate audio or file path is missing");
       }
@@ -173,6 +168,67 @@ const EnglishLanguage = () => {
     }
   };
 
+
+  useEffect(() => {
+    const handleAudioError = (e) => {
+      console.error("Error loading audio file:", e);
+      // alert("Failed to load audio file. Please try a different browser or check the console for more details.");
+    };
+
+    audioPlayer.addEventListener('error', handleAudioError);
+    return () => {
+      audioPlayer.removeEventListener('error', handleAudioError);
+    };
+  }, [audioPlayer]);
+  // const speakTextShumali = async (text) => {
+  //   try {
+  //     const response = await dispatch(getConvertTextsoomaali(text));
+  //     console.log("Audio file path:", response.file);
+
+  //     if (response && response.success && response.file) {
+  //       const audioFilePath = response.file;
+  //       audioPlayer.src = audioFilePath;
+  //       audioPlayer.play();  // Play the audio
+  //     } else {
+  //       console.error("Failed to generate audio or file path is missing");
+  //     }
+      
+  //   } catch (error) {
+  //     console.error("Error converting text to Somali:", error);
+  //   }
+  // };
+
+  
+
+
+  // const speakTextShumali = async (text) => {
+  //   try {
+  
+  //     const response = await dispatch(getConvertTextsoomaali(text));
+  
+  //     if (response && response.success && response.file) {
+  //       const audioFilePath = response.file;
+
+  //       const audioElement = document.createElement("audio");
+
+  //       audioElement.controls = true;
+  //       audioElement.src = audioFilePath;
+  //       const audioContainer = document.getElementById("audioContainer");
+
+  //       audioContainer.innerHTML = "";
+
+  //       audioContainer.appendChild(audioElement);
+
+  //       console.log("Audio generated successfully!");
+  //     } else {
+  //       console.error("Failed to generate audio or file path is missing");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error converting text to Somali:", error);
+  //   }
+  // };
+
+  
   return (
     <Box
       sx={{
@@ -182,6 +238,9 @@ const EnglishLanguage = () => {
         alignItems: "center",
       }}
     >
+  
+
+
       <Box
         sx={{ display: "flex", alignItems: "center", position: "relative" }}
         ref={searchBoxRef}
@@ -365,18 +424,18 @@ const EnglishLanguage = () => {
                     id="audioContainer"
                   >
                     <Typography>{text}</Typography>
-                    <IconButton onClick={() => speakTextShumali(text)}>
+                    <IconButton onClick={() => speakTextShumali(text, audioPlayer)}>
                       <VolumeUpIcon />
                     </IconButton>
                   </Box>
                 ))}
-
+               
                
               </Box>
             )
           )}
         </Box>
-
+    
         <Box
           sx={{
             backgroundColor: "#e0c7ff",

@@ -138,7 +138,7 @@ const HomeScreen = () => {
       setSelectedOption(savedOption);
     }
   }, []);
-  const [evcValue, setEvcValue] = useState("03030345234");
+  const [evcValue, setEvcValue] = useState("03030343245");
   const [sahalValue, setSahalValue] = useState("090");
   const [zaadValue, setZaadValue] = useState("063");
   const handleChange = (event) => {
@@ -280,74 +280,66 @@ const HomeScreen = () => {
 
   return (
     <>
-      <Main>
-        {/* Banner-Section-Start */}
-        <section className="banner_section">
-          {/* container start */}
-          <div className="container">
-            {/* row start */}
-            <div className="row">
-              {/* shape animation  */}
-              <span className="banner_shape1">
-                {" "}
-                {/* <img src={BannerImage} alt="image" />{" "} */}
-              </span>
-              <span className="banner_shape2">
-                {" "}
-                {/* <img src={Shape2} alt="image" />{" "} */}
-              </span>
-              <span className="banner_shape3">
-                {" "}
-                {/* <img src={Shape3} alt="image" />{" "} */}
-              </span>
-              <div
-                className="col-lg-6 col-md-12"
-                data-aos="fade-right"
-                data-aos-duration={1500}
-              >
-                {/* banner text */}
-                <div className="banner_text">
-                  {/* h1 */}
-                  <h1>Welcome to Horumarkaal app</h1>
-                  {/* p */}
-                  <p>
-                    Learning multilingual technical and academic terms has never
-                    been easier!
-                  </p>
-                </div>
-                {/* app buttons */}
-                <ul className="app_btn">
-                  <li>
-                    <a href="#">
-                      <img
-                        className="blue_img"
-                        src={Appstoreblue}
-                        alt="image"
-                      />
-                      <img
-                        className="white_img"
-                        src={AppstoreWhite}
-                        alt="image"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        className="blue_img"
-                        src={Googleplaywhite}
-                        alt="image"
-                      />
-                      <img
-                        className="white_img"
-                        src={Googleplayblue}
-                        alt="image"
-                      />
-                    </a>
-                  </li>
-                </ul>
-                {/* users */}
-                {/* <div className="used_app">
+    <Main>
+    {/* Banner-Section-Start */}
+    <section className="banner_section">
+      {/* container start */}
+      <div className="container">
+        {/* row start */}
+        <div className="row">
+          {/* shape animation  */}
+          <span className="banner_shape1">
+            {" "}
+            {/* <img src={BannerImage} alt="image" />{" "} */}
+          </span>
+          <span className="banner_shape2">
+            {" "}
+            {/* <img src={Shape2} alt="image" />{" "} */}
+          </span>
+          <span className="banner_shape3">
+            {" "}
+            {/* <img src={Shape3} alt="image" />{" "} */}
+          </span>
+          <div
+            className="col-lg-6 col-md-12"
+            data-aos="fade-right"
+            data-aos-duration={1500}
+          >
+            {/* banner text */}
+            <div className="banner_text">
+              {/* h1 */}
+              <h1>Welcome to Horumarkaal app</h1>
+              {/* p */}
+              <p>
+                Learning multilingual technical and academic terms has never
+                been easier!
+              </p>
+            </div>
+            {/* app buttons */}
+            {/* <ul className="app_btn">
+              <li>
+                <a href="#">
+                  <img
+                    className="blue_img"
+                    src={Appstoreblue}
+                    alt="image"
+                  />
+                  <img
+                    className="white_img"
+                    src={AppstoreWhite}
+                    alt="image"
+                  />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img className="blue_img" src={Googleplaywhite} alt="image" />
+                  <img className="white_img" src={Googleplayblue} alt="image" />
+                </a>
+              </li>
+            </ul> */}
+            {/* users */}
+            {/* <div className="used_app">
               <ul>
                 <li>
                   <img src={Used1} alt="image" />
@@ -366,636 +358,635 @@ const HomeScreen = () => {
                 12M + <br /> used this app
               </p>
             </div> */}
-              </div>
-              {/* banner slides start */}
-              <div
-                className="col-lg-6 col-md-12"
-                // data-aos="fade-in"
-                // data-aos-duration={1500}
-              >
-                <div className="banner_image">
-                  <img
-                    className="moving_animation"
-                    src={BannerImage}
-                    alt="image"
-                  />
-                </div>
-              </div>
-              {/* banner slides end */}
+          </div>
+          {/* banner slides start */}
+          <div
+            className="col-lg-6 col-md-12"
+            data-aos="fade-in"
+            data-aos-duration={1500}
+          >
+            <div className="banner_image">
+              <img
+                className="moving_animation"
+                src={BannerImage}
+                alt="image"
+              />
             </div>
-            {/* row end */}
           </div>
-          {/* container end */}
-          {/* wave animation start */}
-          <div>
-            <svg
-              className="waves"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 24 150 28"
-              preserveAspectRatio="none"
-              shapeRendering="auto"
+          {/* banner slides end */}
+        </div>
+        {/* row end */}
+      </div>
+      {/* container end */}
+      {/* wave animation start */}
+      <div>
+        <svg
+          className="waves"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+          shapeRendering="auto"
+        >
+          <defs>
+            <path
+              id="gentle-wave"
+              d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+            />
+          </defs>
+          <g className="parallax">
+            <use
+              xlinkHref="#gentle-wave"
+              x={48}
+              y={0}
+              fill="rgba(255,255,255,0.7"
+            />
+            <use
+              xlinkHref="#gentle-wave"
+              x={48}
+              y={3}
+              fill="rgba(255,255,255,0.5)"
+            />
+            <use
+              xlinkHref="#gentle-wave"
+              x={48}
+              y={5}
+              fill="rgba(255,255,255,0.3)"
+            />
+            <use xlinkHref="#gentle-wave" x={48} y={7} fill="#f6f4fe" />
+          </g>
+        </svg>
+      </div>
+      {/* wave animation end */}
+    </section>
+    {/* Banner-Section-end */}
+    {/* Trusted Section start */}
+    <section className="row_am trusted_section">
+      {/* container start */}
+      <div className="container">
+        <div
+          // data-aos="fade-up"
+          className="section_title"
+          data-aos="fade-up"
+          data-aos-duration={1500}
+          data-aos-delay={100}
+        >
+          {/* h2 */}
+
+          <h2>
+            {" "}
+            <span>35 </span>Maado ayuu ka kooban yahay appku oo isugu jira
+            Ereyada Farsamada iyo Ereyda Akadimiga ah
+          </h2>
+          <h3>
+            {/* <span>35</span> Subjects of key Academic and Technical Terminologies <br /> */}
+            يتالف التطبيق من المصطلحات الفنية والاكاديمية لـ{" "}
+            <span className="number-clr">35</span> مادة أو موضوع
+            <br />
+          </h3>
+          {/* p */}
+          <p>
+            This app consist about 35 Subjects of key Academic and
+            Technical Terminologies
+          </p>
+        </div>
+        {/* logos slider start */}
+        <div className="company_logos">
+          <div id="company_slider">
+            <Swiper
+              style={{ height: "90px" }}
+              slidesPerView={4}
+              // spaceBetween={5}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination]}
+              className="mySwiper"
             >
-              <defs>
-                <path
-                  id="gentle-wave"
-                  d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
-                />
-              </defs>
-              <g className="parallax">
-                <use
-                  xlinkHref="#gentle-wave"
-                  x={48}
-                  y={0}
-                  fill="rgba(255,255,255,0.7"
-                />
-                <use
-                  xlinkHref="#gentle-wave"
-                  x={48}
-                  y={3}
-                  fill="rgba(255,255,255,0.5)"
-                />
-                <use
-                  xlinkHref="#gentle-wave"
-                  x={48}
-                  y={5}
-                  fill="rgba(255,255,255,0.3)"
-                />
-                <use xlinkHref="#gentle-wave" x={48} y={7} fill="#f6f4fe" />
-              </g>
-            </svg>
+              {subjects.map((item, index) => (
+                <SwiperSlide className="item" key={item.id}>
+                  <div className="logo">
+                    <p style={{ cursor: "pointer", fontWeight: "bolder" }}>
+                      {item.title}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
-          {/* wave animation end */}
-        </section>
-        {/* Banner-Section-end */}
-        {/* Trusted Section start */}
-        <section className="row_am trusted_section">
-          {/* container start */}
-          <div className="container">
+        </div>
+        {/* logos slider end */}
+      </div>
+      {/* container end */}
+    </section>
+    {/* Trusted Section ends */}
+    {/* Features-Section-Start */}
+    <section className="row_am features_section" id="features">
+      {/* container start */}
+      <div className="container">
+        <div
+          className="section_title"
+          data-aos="fade-up"
+          // data-aos="fade-up"
+          // data-aos-duration={1500}
+          // data-aos-delay={100}
+        >
+          {/* h2 */}
+          <h2>
+            <span>Features</span> of Horumarkaal app!
+          </h2>
+          {/* p */}
+          <p>
+            Horumarkaal App is in English alphabetical order to help users
+            instant access to more than 150,000 technical terms (text and
+            audio) covering key major academic and educational scientific
+            terms and technical terminologies of 35 subjects and fields and
+            professions!
+          </p>
+        </div>
+        <div className="feature_detail">
+          {/* feature box left */}
+          <div className="left_data feature_box">
+            {/* feature box */}
             <div
-              // data-aos="fade-up"
-              className="section_title"
-              data-aos="fade-up"
+              className="data_block"
+              data-aos="fade-right"
               data-aos-duration={1500}
-              data-aos-delay={100}
             >
-              {/* h2 */}
-              <h2>
-                <span>35</span> Subjects of key Academic and Technical
-                Terminologies <br />
-                مادة للمصطلحات الفنية والاكاديمية <span>35</span> التطبيق يتالف{" "}
-                <br />
-                <span>35</span> Maado oo isugu jira Ereyada Farsamada iyo Ereyda
-                Akadimiga ah
-              </h2>
-              {/* p */}
-              <p>
-                Dhammaan <span>35</span> maado waxay ka haqab tirayaan dhalinta
-                iyo bulshadah <br /> Soomaaliyeed ee ku nool deegaanada
-                Soomaaliyeed iyo qurbaha
-              </p>
-            </div>
-            {/* logos slider start */}
-            <div className="company_logos">
-              <div id="company_slider">
-                <Swiper
-                  style={{ height: "90px" }}
-                  slidesPerView={4}
-                  // spaceBetween={5}
-                  loop={true}
-                  autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                  }}
-                  pagination={{
-                    clickable: true,
-                  }}
-                  navigation={true}
-                  modules={[Autoplay, Pagination]}
-                  className="mySwiper"
-                >
-                  {subjects.map((item, index) => (
-                    <SwiperSlide className="item" key={item.id}>
-                      <div className="logo">
-                        <p style={{ cursor: "pointer", fontWeight: "bolder" }}>
-                          {item.title}
-                        </p>
-                      </div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+              <div className="icon">
+                <img src={SecureData} alt="image" />
+              </div>
+              <div className="text">
+                <h4>interactive Learning </h4>
+                <p>
+                  Offering users a flexible &amp; convenient interactive
+                  personal learning
+                </p>
               </div>
             </div>
-            {/* logos slider end */}
-          </div>
-          {/* container end */}
-        </section>
-        {/* Trusted Section ends */}
-        {/* Features-Section-Start */}
-        <section className="row_am features_section" id="features">
-          {/* container start */}
-          <div className="container">
+            {/* feature box */}
             <div
-              className="section_title"
-              data-aos="fade-up"
-              // data-aos="fade-up"
-              // data-aos-duration={1500}
-              // data-aos-delay={100}
+              className="data_block"
+              data-aos="fade-right"
+              data-aos-duration={1500}
             >
-              {/* h2 */}
-              <h2>
-                <span>Features</span> of Horumarkaal app!
-              </h2>
-              {/* p */}
-              <p>
-                Horumarkaal App is in English alphabetical order to help users
-                instant access to more than 150,000 technical terms (text and
-                audio) covering key major academic and educational scientific
-                terms and technical terminologies of 35 subjects and fields and
-                professions!
-              </p>
-            </div>
-            <div className="feature_detail">
-              {/* feature box left */}
-              <div className="left_data feature_box">
-                {/* feature box */}
-                <div
-                  className="data_block"
-                  data-aos="fade-right"
-                  data-aos-duration={1500}
-                >
-                  <div className="icon">
-                    <img src={SecureData} alt="image" />
-                  </div>
-                  <div className="text">
-                    <h4>interactive Learning </h4>
-                    <p>
-                      Offering users a flexible &amp; convenient interactive
-                      personal learning
-                    </p>
-                  </div>
-                </div>
-                {/* feature box */}
-                <div
-                  className="data_block"
-                  data-aos="fade-right"
-                  data-aos-duration={1500}
-                >
-                  <div className="icon">
-                    <img src={Functional} alt="image" />
-                  </div>
-                  <div className="text">
-                    <h4>Flexibility and Convenience</h4>
-                    <p>
-                      Fully functional Flexibility and Convenience Learners have
-                      the freedom to choose preferred language to learn.
-                    </p>
-                  </div>
-                </div>
+              <div className="icon">
+                <img src={Functional} alt="image" />
               </div>
-              {/* feature box right */}
-              <div className="right_data feature_box">
-                {/* feature box */}
-                <div
-                  className="data_block"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                >
-                  <div className="icon">
-                    <img src={Livechat} alt="image" />
-                  </div>
-                  <div className="text">
-                    <h4>Text &amp; Audio </h4>
-                    <p>
-                      Live chat Text &amp; Audio Multilingual search and Instant
-                      access to text and audio
-                    </p>
-                  </div>
-                </div>
-                {/* feature box */}
-                <div
-                  className="data_block"
-                  data-aos="fade-left"
-                  data-aos-duration={1500}
-                >
-                  <div className="icon">
-                    <img src={SupportImg} alt="image" />
-                  </div>
-                  <div className="text">
-                    <h4>Accessibility </h4>
-                    <p>
-                      24-7 Support Accessibility Provide regular access to 35
-                      subjects to enhance accessibility &amp; inclusivity
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* feature image */}
-              <div
-                className="feature_img"
-                data-aos="fade-up"
-                data-aos-duration={1500}
-                data-aos-delay={100}
-              >
-                <img src={Exercise} alt="image" />
+              <div className="text">
+                <h4>Flexibility and Convenience</h4>
+                <p>
+                  Fully functional Flexibility and Convenience Learners have
+                  the freedom to choose preferred language to learn.
+                </p>
               </div>
             </div>
           </div>
-          {/* container end */}
-        </section>
-        {/* Features-Section-end */}
-        {/* About-App-Section-Start */}
-        <section className="row_am about_app_section">
-          {/* container start */}
-          <div className="container">
-            {/* row start */}
-            <div className="row">
-              <div className="col-lg-6">
-                {/* about images */}
-                <div
-                  className="about_img"
-                  data-aos="fade-in"
-                  data-aos-duration={1500}
-                >
-                  <div className="frame_img">
-                    <img
-                      className="moving_position_animatin"
-                      src={Signin}
-                      alt="image"
-                    />
-                  </div>
-                  <div className="screen_img">
-                    <img
-                      className="moving_animation"
-                      src={Aboutscreen}
-                      alt="image"
-                      style={{ borderRadius: "12px" }}
-                    />
-                  </div>
-                </div>
+          {/* feature box right */}
+          <div className="right_data feature_box">
+            {/* feature box */}
+            <div
+              className="data_block"
+              data-aos="fade-left"
+              data-aos-duration={1500}
+            >
+              <div className="icon">
+                <img src={Livechat} alt="image" />
               </div>
-              <div className="col-lg-6">
-                {/* about text */}
-                <div className="about_text">
-                  <div
-                    className="section_title"
-                    data-aos="fade-up"
-                    data-aos-duration={1500}
-                    data-aos-delay={100}
-                  >
-                    {/* h2 */}
-                    <h2>
-                      Some awesome words <span>about app.</span>
-                    </h2>
-                    {/* p */}
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry lorem Ipsum has been the industrys
-                      standard dummy text ever since the when an unknown printer
-                      took a galley of type and. Lorem ipsum dolor sit amet.
-                    </p>
-                  </div>
-                  {/* UL */}
-                  <ul
-                    className="app_statstic"
-                    id="counter"
-                    data-aos="fade-in"
-                    data-aos-duration={1500}
-                  >
-                    <li>
-                      <div className="icon">
-                        <img src={Download} alt="image" />
-                      </div>
-                      <div className="text">
-                        <p>
-                          <span className="counter-value" data-count={17}>
-                            0
-                          </span>
-                          <span>M+</span>
-                        </p>
-                        <p>Download</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="icon">
-                        <img src={Followers} alt="image" />
-                      </div>
-                      <div className="text">
-                        <p>
-                          {/* <span className="counter-value" data-count={08}>
-                  0{" "}
-                </span> */}
-                          <span>M+</span>
-                        </p>
-                        <p>Followers</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="icon">
-                        <img src={Reviews} alt="image" />
-                      </div>
-                      <div className="text">
-                        <p>
-                          <span className="counter-value" data-count={2300}>
-                            1500
-                          </span>
-                          <span>+</span>
-                        </p>
-                        <p>Reviews</p>
-                      </div>
-                    </li>
-                    <li>
-                      <div className="icon">
-                        <img src={CountriesImg} alt="image" />
-                      </div>
-                      <div className="text">
-                        <p>
-                          <span className="counter-value" data-count={150}>
-                            0
-                          </span>
-                          <span>+</span>
-                        </p>
-                        <p>Countries</p>
-                      </div>
-                    </li>
-                  </ul>
-                  {/* UL end */}
-                  <a
-                    href="#"
-                    className="btn puprple_btn"
-                    data-aos="fade-in"
-                    data-aos-duration={1500}
-                  >
-                    START FREE TRIAL
-                  </a>
-                </div>
+              <div className="text">
+                <h4>Text &amp; Audio </h4>
+                <p>
+                  Live chat Text &amp; Audio Multilingual search and Instant
+                  access to text and audio
+                </p>
               </div>
             </div>
-            {/* row end */}
-          </div>
-          {/* container end */}
-        </section>
-        {/* About-App-Section-end */}
-        {/* ModernUI-Section-Start */}
-        <section className="row_am modern_ui_section">
-          {/* container start */}
-          <div className="container">
-            {/* row start */}
-            <div className="row">
-              <div className="col-lg-6">
-                {/* UI content */}
-                <div className="ui_text">
-                  <div
-                    className="section_title"
-                    data-aos="fade-up"
-                    data-aos-duration={1500}
-                    data-aos-delay={100}
-                  >
-                    <h2>
-                      Beautiful design with <span>modern UI</span>
-                    </h2>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry lorem Ipsum has been the industrys
-                      standard dummy text ever since the when an unknown printer
-                      took a galley of type and.
-                    </p>
-                  </div>
-                  <ul className="design_block">
-                    <li data-aos="fade-up" data-aos-duration={1500}>
-                      <h4>Carefully designed</h4>
-                      <p>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        type esetting industry lorem Ipsum has.
-                      </p>
-                    </li>
-                    <li data-aos="fade-up" data-aos-duration={1500}>
-                      <h4>Seamless Sync</h4>
-                      <p>
-                        Simply dummy text of the printing and typesetting
-                        inustry lorem Ipsum has Lorem dollar summit.
-                      </p>
-                    </li>
-                    <li data-aos="fade-up" data-aos-duration={1500}>
-                      <h4>Access Drive</h4>
-                      <p>
-                        Printing and typesetting industry lorem Ipsum has been
-                        the industrys standard dummy text of type setting.
-                      </p>
-                    </li>
-                  </ul>
-                </div>
+            {/* feature box */}
+            <div
+              className="data_block"
+              data-aos="fade-left"
+              data-aos-duration={1500}
+            >
+              <div className="icon">
+                <img src={SupportImg} alt="image" />
               </div>
-              <div className="col-lg-6">
-                {/* UI Image */}
-                <div
-                  className="ui_images"
-                  data-aos="fade-in"
-                  data-aos-duration={1500}
-                >
-                  <div className="left_img">
-                    <img
-                      className="moving_position_animatin"
-                      style={{ borderRadius: "12px" }}
-                      src={Somali}
-                      alt="image"
-                    />
-                  </div>
-                  {/* UI Image */}
-                  <div className="right_img">
-                    <img
-                      className="moving_position_animatin"
-                      src={SecureData}
-                      alt="image"
-                    />
-                    <img
-                      className="moving_position_animatin"
-                      src={MultilingualGlossary}
-                      alt="image"
-                    />
-                    <img
-                      className="moving_position_animatin"
-                      src={CreateAccount2}
-                      alt="image"
-                    />
-                  </div>
-                </div>
+              <div className="text">
+                <h4>Accessibility </h4>
+                <p>
+                  24-7 Support Accessibility Provide regular access to 35
+                  subjects to enhance accessibility &amp; inclusivity
+                </p>
               </div>
             </div>
-            {/* row end */}
           </div>
-          {/* container end */}
-        </section>
-        {/* ModernUI-Section-end */}
-        {/* How-It-Workes-Section-Start */}
-        <section className="row_am how_it_works" id="how_it_work">
-          {/* container start */}
-          <div className="container">
-            <div className="how_it_inner">
+          {/* feature image */}
+          <div
+            className="feature_img"
+            data-aos="fade-up"
+            data-aos-duration={1500}
+            data-aos-delay={100}
+          >
+            <img src={Exercise} alt="image" />
+          </div>
+        </div>
+      </div>
+      {/* container end */}
+    </section>
+    {/* Features-Section-end */}
+    {/* About-App-Section-Start */}
+    <section className="row_am about_app_section">
+      {/* container start */}
+      <div className="container">
+        {/* row start */}
+        <div className="row">
+          <div className="col-lg-6">
+            {/* about images */}
+            <div
+              className="about_img"
+              data-aos="fade-in"
+              data-aos-duration={1500}
+            >
+              <div className="frame_img">
+                <img
+                  className="moving_position_animatin"
+                  src={Signin}
+                  alt="image"
+                />
+              </div>
+              <div className="screen_img">
+                <img
+                  className="moving_animation"
+                  src={Aboutscreen}
+                  alt="image"
+                  style={{ borderRadius: "12px" }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6">
+            {/* about text */}
+            <div className="about_text">
               <div
                 className="section_title"
                 data-aos="fade-up"
                 data-aos-duration={1500}
-                data-aos-delay={300}
+                data-aos-delay={100}
               >
                 {/* h2 */}
                 <h2>
-                  <span>How it works</span> - 3 easy steps
+                  Some awesome words <span>about app.</span>
                 </h2>
                 {/* p */}
                 <p>
-                  Horumarkaal multilingual application is working as mobile app,
-                  web app and online mobile app and offline mobile app which
-                  require enrolment to enable user’s access after registration.
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry lorem Ipsum has been the industrys
+                  standard dummy text ever since the when an unknown printer
+                  took a galley of type and. Lorem ipsum dolor sit amet.
                 </p>
               </div>
-              <div className="step_block">
-                {/* UL */}
-                <ul>
-                  {/* step */}
-                  <li>
-                    <div
-                      className="step_text"
-                      data-aos="fade-right"
-                      data-aos-duration={1500}
-                    >
-                      <h4>Download app</h4>
-                      <div className="app_icon">
-                        <a href="#">
-                          <i className="icofont-brand-android-robot" />
-                        </a>
-                        <a href="#">
-                          <i className="icofont-brand-apple" />
-                        </a>
-                        <a href="#">
-                          <i className="icofont-brand-windows" />
-                        </a>
-                      </div>
-                      <p>
-                        Horumarkaal multilingual application is working as
-                        mobile app, web app and online mobile app and offline
-                        mobile app which require enrolment to enable user’s
-                        access after registration.
-                      </p>
-                    </div>
-                    <div className="step_number">
-                      <h3>01</h3>
-                    </div>
-                    <div
-                      className="step_img"
-                      data-aos="fade-left"
-                      data-aos-duration={1500}
-                    >
-                      <img
-                        src={MobileLogo}
-                        alt="MobileLogo"
-                        style={{ borderRadius: "12px" }}
-                      />
-                    </div>
-                  </li>
-                  {/* step */}
-                  <li>
-                    <div
-                      className="step_text"
-                      data-aos="fade-left"
-                      data-aos-duration={1500}
-                    >
-                      <h4>Create account</h4>
-                      <p>
-                        Pay one-time fee and sign up for App account. One
-                        account for all devices.
-                      </p>
-                    </div>
-                    <div className="step_number">
-                      <h3>02</h3>
-                    </div>
-                    <div
-                      className="step_img"
-                      data-aos="fade-right"
-                      data-aos-duration={1500}
-                    >
-                      <img
-                        src={SignupSnippet}
-                        alt="SignupSnippet"
-                        style={{ borderRadius: "12px" }}
-                      />
-                    </div>
-                  </li>
-                  {/* step */}
-                  <li>
-                    <div
-                      className="step_text"
-                      data-aos="fade-right"
-                      data-aos-duration={1500}
-                    >
-                      <h4>(3) Access and enjoy the app</h4>
-                      {/* <span>Have any questions check our <a href="#">FAQs</a></span> */}
-                      <p>
-                        Discover Horumarkaal app &amp; boost your vocabulary,
-                        like never before
-                      </p>
-                    </div>
-                    <div className="step_number">
-                      <h3>03</h3>
-                    </div>
-                    <div
-                      className="step_img"
-                      data-aos="fade-left"
-                      data-aos-duration={1500}
-                    >
-                      <img src={ExerciseAndQuizes} alt="image" />
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              {/* UL */}
+              <ul
+                className="app_statstic"
+                id="counter"
+                data-aos="fade-in"
+                data-aos-duration={1500}
+              >
+                <li>
+                  <div className="icon">
+                    <img src={Download} alt="image" />
+                  </div>
+                  <div className="text">
+                    <p>
+                      <span className="counter-value" data-count={17}>
+                        0
+                      </span>
+                      <span>M+</span>
+                    </p>
+                    <p>Download</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="icon">
+                    <img src={Followers} alt="image" />
+                  </div>
+                  <div className="text">
+                    <p>
+                      {/* <span className="counter-value" data-count={08}>
+                  0{" "}
+                </span> */}
+                      <span>M+</span>
+                    </p>
+                    <p>Followers</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="icon">
+                    <img src={Reviews} alt="image" />
+                  </div>
+                  <div className="text">
+                    <p>
+                      <span className="counter-value" data-count={2300}>
+                        1500
+                      </span>
+                      <span>+</span>
+                    </p>
+                    <p>Reviews</p>
+                  </div>
+                </li>
+                <li>
+                  <div className="icon">
+                    <img src={CountriesImg} alt="image" />
+                  </div>
+                  <div className="text">
+                    <p>
+                      <span className="counter-value" data-count={150}>
+                        0
+                      </span>
+                      <span>+</span>
+                    </p>
+                    <p>Countries</p>
+                  </div>
+                </li>
+              </ul>
+              {/* UL end */}
+              <a
+                href="#"
+                className="btn puprple_btn"
+                data-aos="fade-in"
+                data-aos-duration={1500}
+              >
+                START FREE TRIAL
+              </a>
             </div>
-            {/* video section start */}
+          </div>
+        </div>
+        {/* row end */}
+      </div>
+      {/* container end */}
+    </section>
+    {/* About-App-Section-end */}
+    {/* ModernUI-Section-Start */}
+    <section className="row_am modern_ui_section">
+      {/* container start */}
+      <div className="container">
+        {/* row start */}
+        <div className="row">
+          <div className="col-lg-6">
+            {/* UI content */}
+            <div className="ui_text">
+              <div
+                className="section_title"
+                data-aos="fade-up"
+                data-aos-duration={1500}
+                data-aos-delay={100}
+              >
+                <h2>Beautiful design</h2>
+                <p>
+                  The app design presents a clean, minimalist approach with
+                  a strong focus on usability and visual categorize.
+                </p>
+              </div>
+              <ul className="design_block">
+                <li data-aos="fade-up" data-aos-duration={1500}>
+                  <h4>Carefully designed</h4>
+                  {/* <p>
+                    Lorem Ipsum is simply dummy text of the printing and type
+                    esetting industry lorem Ipsum has.
+                  </p> */}
+                </li>
+                <li data-aos="fade-up" data-aos-duration={1500}>
+                  <h4>Seamless Sync</h4>
+                  {/* <p>
+                    Simply dummy text of the printing and typesetting inustry
+                    lorem Ipsum has Lorem dollar summit.
+                  </p> */}
+                </li>
+                <li data-aos="fade-up" data-aos-duration={1500}>
+                  <h4>Access Drive</h4>
+                  {/* <p>
+                    Printing and typesetting industry lorem Ipsum has been the
+                    industrys standard dummy text of type setting.
+                  </p> */}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="col-lg-6">
+            {/* UI Image */}
             <div
-              className="yt_video"
+              className="ui_images"
               data-aos="fade-in"
               data-aos-duration={1500}
             >
-              <div className="thumbnil">
-                <span className="banner_shape1">
-                  {" "}
-                  <img src={BannerShap1} alt="image" />{" "}
-                </span>
-                <span className="banner_shape2">
-                  {" "}
-                  <img src={BannerShap2} alt="image" />{" "}
-                </span>
-                <span className="banner_shape3">
-                  {" "}
-                  <img src={BannerShap3} alt="image" />{" "}
-                </span>
-                <img src={TtThumb} alt="image" />
-                <a
-                  className="popup-youtube play-button"
-                  data-url="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
-                  data-toggle="modal"
-                  data-target="#myModal"
-                  title="XJj2PbenIsU"
-                >
-                  <span className="play_btn">
-                    <img src={PlayIcon} alt="image" />
-                    <div className="waves-block">
-                      <div className="waves wave-1" />
-                      <div className="waves wave-2" />
-                      <div className="waves wave-3" />
-                    </div>
-                  </span>
-                  Let’s see virtually how it works
-                  <span>Watch video</span>
-                </a>
+              <div className="left_img">
+                <img
+                  className="moving_position_animatin"
+                  style={{ borderRadius: "12px" }}
+                  src={Somali}
+                  alt="image"
+                />
+              </div>
+              {/* UI Image */}
+              <div className="right_img">
+                <img
+                  className="moving_position_animatin"
+                  src={SecureData}
+                  alt="image"
+                />
+                <img
+                  className="moving_position_animatin"
+                  src={MultilingualGlossary}
+                  alt="image"
+                />
+                <img
+                  className="moving_position_animatin"
+                  src={CreateAccount2}
+                  alt="image"
+                />
               </div>
             </div>
-            {/* video section end */}
           </div>
-          {/* container end */}
-        </section>
-        {/* How-It-Workes-Section-end */}
-        {/* Testimonial-Section start */}
-        {/* <section className="row_am testimonial_section">
+        </div>
+        {/* row end */}
+      </div>
+      {/* container end */}
+    </section>
+    {/* ModernUI-Section-end */}
+    {/* How-It-Workes-Section-Start */}
+    <section className="row_am how_it_works" id="how_it_work">
+      {/* container start */}
+      <div className="container">
+        <div className="how_it_inner">
+          <div
+            className="section_title"
+            data-aos="fade-up"
+            data-aos-duration={1500}
+            data-aos-delay={300}
+          >
+            {/* h2 */}
+            <h2>
+              <span>How it works</span> - 3 easy steps
+            </h2>
+            {/* p */}
+            <p>
+              Horumarkaal multilingual application is working as mobile app,
+              web app and online mobile app and offline mobile app which
+              require enrolment to enable user’s access after registration.
+            </p>
+          </div>
+          <div className="step_block">
+            {/* UL */}
+            <ul>
+              {/* step */}
+              <li>
+                <div
+                  className="step_text"
+                  data-aos="fade-right"
+                  data-aos-duration={1500}
+                >
+                  <h4>Download app</h4>
+                  <div className="app_icon">
+                    <a href="#">
+                      <i className="icofont-brand-android-robot" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-brand-apple" />
+                    </a>
+                    <a href="#">
+                      <i className="icofont-brand-windows" />
+                    </a>
+                  </div>
+                  <p>
+                    Horumarkaal multilingual application is working as
+                    mobile app, web app and online mobile app and offline
+                    mobile app which require enrolment to enable user’s
+                    access after registration.
+                  </p>
+                </div>
+                <div className="step_number">
+                  <h3>01</h3>
+                </div>
+                <div
+                  className="step_img"
+                  data-aos="fade-left"
+                  data-aos-duration={1500}
+                >
+                  <img
+                    src={MobileLogo}
+                    alt="MobileLogo"
+                    style={{ borderRadius: "12px" }}
+                  />
+                </div>
+              </li>
+              {/* step */}
+              <li>
+                <div
+                  className="step_text"
+                  data-aos="fade-left"
+                  data-aos-duration={1500}
+                >
+                  <h4>Create account</h4>
+                  <p>
+                    Pay one-time fee and sign up for App account. One
+                    account for all devices.
+                  </p>
+                </div>
+                <div className="step_number">
+                  <h3>02</h3>
+                </div>
+                <div
+                  className="step_img"
+                  data-aos="fade-right"
+                  data-aos-duration={1500}
+                >
+                  <img
+                    src={SignupSnippet}
+                    alt="SignupSnippet"
+                    style={{ borderRadius: "12px" }}
+                  />
+                </div>
+              </li>
+              {/* step */}
+              <li>
+                <div
+                  className="step_text"
+                  data-aos="fade-right"
+                  data-aos-duration={1500}
+                >
+                  <h4>(3) Access and enjoy the app</h4>
+                  {/* <span>Have any questions check our <a href="#">FAQs</a></span> */}
+                  <p>
+                    Discover Horumarkaal app &amp; boost your vocabulary,
+                    like never before
+                  </p>
+                </div>
+                <div className="step_number">
+                  <h3>03</h3>
+                </div>
+                <div
+                  className="step_img"
+                  data-aos="fade-left"
+                  data-aos-duration={1500}
+                >
+                  <img src={ExerciseAndQuizes} alt="image" />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {/* video section start */}
+        <div
+          className="yt_video"
+          data-aos="fade-in"
+          data-aos-duration={1500}
+        >
+          <div className="thumbnil">
+            <span className="banner_shape1">
+              {" "}
+              <img src={BannerShap1} alt="image" />{" "}
+            </span>
+            <span className="banner_shape2">
+              {" "}
+              <img src={BannerShap2} alt="image" />{" "}
+            </span>
+            <span className="banner_shape3">
+              {" "}
+              <img src={BannerShap3} alt="image" />{" "}
+            </span>
+            <img src={TtThumb} alt="image" />
+            <a
+              className="popup-youtube play-button"
+              data-url="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1"
+              data-toggle="modal"
+              data-target="#myModal"
+              title="XJj2PbenIsU"
+            >
+              <span className="play_btn">
+                <img src={PlayIcon} alt="image" />
+                <div className="waves-block">
+                  <div className="waves wave-1" />
+                  <div className="waves wave-2" />
+                  <div className="waves wave-3" />
+                </div>
+              </span>
+              Let’s see virtually how it works
+              <span>Watch video</span>
+            </a>
+          </div>
+        </div>
+        {/* video section end */}
+      </div>
+      {/* container end */}
+    </section>
+    {/* How-It-Workes-Section-end */}
+    {/* Testimonial-Section start */}
+    {/* <section className="row_am testimonial_section">
       <div className="container">
         <div
           className="section_title"
@@ -1138,47 +1129,30 @@ const HomeScreen = () => {
         </div>
       </div>
     </section> */}
-        {/* Testimonial-Section end */}
-        {/* Pricing-Section */}
-        <section className="row_am pricing_section" id="pricing">
-          <div className="container">
-            <div
-              className="section_title"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-              data-aos-delay="300"
-            >
-              <h2>
-                Best & simple <span>pricing</span>
-              </h2>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typese
-                tting <br /> indus orem Ipsum has beenthe standard dummy.
-              </p>
-            </div>
-            {/* <!-- toggle button --> */}
-            <div
-              className="toggle_block"
-              data-aos="fade-up"
-              data-aos-duration="1500"
-            >
-              <span className={`month ${!monthlyPlan ? "active" : ""}`}>
-                Monthly
-              </span>
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  onChange={handletoggleScreen}
-                  checked={monthlyPlan}
-                />
-                <span className="slider round"></span>
-              </label>
-              <span className={`years ${!monthlyPlan ? "" : "active"}`}>
-                Yearly
-              </span>
-              <span className="offer">50% off</span>
-            </div>
-            {!monthlyPlan ? (
+    {/* Testimonial-Section end */}
+    {/* Pricing-Section */}
+    <section className="row_am pricing_section" id="pricing">
+      <div className="container">
+        <div
+          className="section_title"
+          data-aos="fade-up"
+          data-aos-duration="1500"
+          data-aos-delay="300"
+        >
+          <h2> One Time Payment purchase</h2>
+          <p>Local users can buy with bellow mobile payment </p>
+        </div>
+        {/* <!-- toggle button --> */}
+        {/* <div className="toggle_block" data-aos="fade-up" data-aos-duration="1500">
+          <span className={`month ${!monthlyPlan ? 'active' : ''}`} >Monthly</span>
+          <label className="switch">
+            <input type="checkbox" onChange={handletoggleScreen} checked={monthlyPlan} />
+            <span className="slider round"></span>
+          </label>
+          <span className={`years ${!monthlyPlan ? '' : 'active'}`} >Yearly</span>
+          <span className="offer">50% off</span>
+        </div> */}
+        {!monthlyPlan ? (
               <>
                 <div
                   className="pricing_pannel monthly_plan active"
@@ -1621,8 +1595,12 @@ const HomeScreen = () => {
               </h2>
               {/* p */}
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typese
-                tting <br /> indus orem Ipsum has beenthe standard dummy.
+                The interface uses ample white and a blue color palette, which
+                directs attention to key elements like <br /> account balances
+                and transaction buttons, enhancing their accessibility. The app
+                design presents a <br />
+                clean, minimalist approach with a strong focus on usability and
+                visual categorize.
               </p>
             </div>
             {/* screen slider start */}
@@ -1704,14 +1682,18 @@ const HomeScreen = () => {
                 <div className="col-md-6">
                   <div className="free_text">
                     <div className="section_title">
-                      <h2>Let’s download free from apple and play store</h2>
+                      <h2>Let’s download </h2>
+                      <h3 className="payment-offer">
+                        We offer to local customer’s easy payment options.
+                      </h3>
                       <p>
-                        Instant free download from apple and play store orem
-                        Ipsum is simply dummy text of the printing. and typese
-                        tting indus orem Ipsum has beenthe standard
+                        Instant access to the app via Waafipay partners which
+                        will gives you fast, secure access to your everyday
+                        essentials. Buy via EVCPluc, Sahal & Zaad then register
+                        to enjoy the app.
                       </p>
                     </div>
-                    <ul className="app_btn">
+                    {/* <ul className="app_btn">
                       <li>
                         <a href="#">
                           <img src={Appstoreblue} alt="image" />
@@ -1722,7 +1704,7 @@ const HomeScreen = () => {
                           <img src={Googleplaywhite} alt="image" />
                         </a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </div>
                 </div>
                 {/* images */}
@@ -1750,12 +1732,12 @@ const HomeScreen = () => {
               data-aos-delay={100}
             >
               <h2>
-                Read latest <span>story</span>
+                To: <span>Choose preferred language </span>
               </h2>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typese
-                tting <br /> indus orem Ipsum has beenthe standard dummy.
-              </p>
+              {/* <p>
+                Lorem Ipsum is simply dummy text of the printing and typese tting{" "}
+                <br /> indus orem Ipsum has beenthe standard dummy.
+              </p> */}
             </div>
             {/* row start */}
             <div className="row">
@@ -1772,10 +1754,10 @@ const HomeScreen = () => {
                   </div>
                   <div className="story_text">
                     <h3>Cool features added!</h3>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry lorem Ipsum has.
-                    </p>
+                    {/* <p>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting
+                      industry lorem Ipsum has.
+                    </p> */}
                     <a href="#">READ MORE</a>
                   </div>
                 </div>
@@ -1793,10 +1775,10 @@ const HomeScreen = () => {
                   </div>
                   <div className="story_text">
                     <h3>Top rated app! Yupp.</h3>
-                    <p>
-                      Simply dummy text of the printing and typesetting industry
-                      lorem Ipsum has Lorem Ipsum is.
-                    </p>
+                    {/* <p>
+                      Simply dummy text of the printing and typesetting industry lorem
+                      Ipsum has Lorem Ipsum is.
+                    </p> */}
                     <a href="#">READ MORE</a>
                   </div>
                 </div>
@@ -1814,10 +1796,10 @@ const HomeScreen = () => {
                   </div>
                   <div className="story_text">
                     <h3>Creative ideas on app.</h3>
-                    <p>
-                      Printing and typesetting industry lorem Ipsum has Lorem
-                      simply dummy text of the.
-                    </p>
+                    {/* <p>
+                      Printing and typesetting industry lorem Ipsum has Lorem simply
+                      dummy text of the.
+                    </p> */}
                     <a href="#">READ MORE</a>
                   </div>
                 </div>
