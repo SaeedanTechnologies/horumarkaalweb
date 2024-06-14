@@ -138,9 +138,9 @@ const HomeScreen = () => {
       setSelectedOption(savedOption);
     }
   }, []);
-  const [evcValue, setEvcValue] = useState("03030343245");
-  const [sahalValue, setSahalValue] = useState("090");
-  const [zaadValue, setZaadValue] = useState("063");
+  const [evcValue, setEvcValue] = useState("");
+  const [sahalValue, setSahalValue] = useState("");
+  const [zaadValue, setZaadValue] = useState("");
   const handleChange = (event) => {
     setFormValues({ ...formValues, [event.target.name]: event.target.value });
   };
@@ -172,7 +172,7 @@ const HomeScreen = () => {
   };
 
   const handleInputChange = (serviceType, value) => {
-    const regex = /^[0-9]{0,12}$/;
+    const regex = /^[0-9]{0,11}$/;
     if (!regex.test(value)) {
       return;
     }
@@ -1186,7 +1186,8 @@ const HomeScreen = () => {
                           variant="outlined"
                           size="small"
                          
-                          placeholder="Geli taleefankaaga"
+                          placeholder="061"
+                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
                         />{" "}
                         <Typography>Enter your number</Typography>
                         <button
@@ -1221,8 +1222,9 @@ const HomeScreen = () => {
                             handleInputChange("Sahal", e.target.value)
                           }
                           variant="outlined"
+                           placeholder="090"
                           size="small"
-                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
+                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
                         />
                         <button
                           className="btn white_btn"
@@ -1255,8 +1257,9 @@ const HomeScreen = () => {
                             handleInputChange("Zaad", e.target.value)
                           }
                           variant="outlined"
+                           placeholder="063"
                           size="small"
-                          inputProps={{ maxLength: 12, pattern: "[0-9]*" }}
+                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
                         />
                         <button
                           className="btn white_btn"
