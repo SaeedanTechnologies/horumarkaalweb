@@ -172,11 +172,25 @@ const HomeScreen = () => {
   };
 
   const handleInputChange = (serviceType, value) => {
-    const regex = /^[0-9]{0,11}$/;
+    const regex = /^[0-9]{0,10}$/;
     if (!regex.test(value)) {
       return;
     }
-    
+    if (value.trim() === "") {
+      switch (serviceType) {
+        case "EVC":
+          setEvcValue("");
+          break;
+        case "Sahal":
+          setSahalValue("");
+          break;
+        case "Zaad":
+          setZaadValue("");
+          break;
+        default:
+          break;
+      }
+    } else {
       switch (serviceType) {
         case "EVC":
           setEvcValue(value);
@@ -189,9 +203,10 @@ const HomeScreen = () => {
           break;
         default:
           break;
-      
+      }
     }
   };
+
 
   const handleBuyClick = (serviceType) => {
     setServiceType(serviceType);
@@ -213,6 +228,29 @@ const HomeScreen = () => {
         break;
       default:
         break;
+    }
+  
+    // Validate the selected value
+    let validPrefix = false;
+  
+    switch (serviceType) {
+      case 'EVC':
+        validPrefix = selectedValue.startsWith('061');
+        break;
+      case 'Sahal':
+        validPrefix = selectedValue.startsWith('090');
+        break;
+      case 'Zaad':
+        validPrefix = selectedValue.startsWith('063');
+        break;
+      default:
+        break;
+    }
+  
+    if (!validPrefix) {
+      enqueueSnackbar(`Invalid number for ${serviceType}. It should start with ${serviceType === 'EVC' ? '061' : serviceType === 'Sahal' ? '090' : '063'}.`, { variant: 'error' });
+      setDialogOpen(false);
+      return;
     }
   
     const apiUrl = "https://api.waafipay.net/asm";
@@ -237,8 +275,8 @@ const HomeScreen = () => {
         }
       }
     };
-    const phone_number = selectedValue
-    
+    const phone_number = selectedValue;
+  
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -248,34 +286,102 @@ const HomeScreen = () => {
   
       if (response.status === 200) {
         const responseData = await response.json();
-        
+  
         if (responseData.responseMsg === "RCS_SUCCESS") {
           enqueueSnackbar("Payment Approved", { variant: "success" });
           navigate('/verify-password-otp');
         } else {
-          // const otpResponse = await generateOtp(phone_number);
-          // if (otpResponse.responseMsg === "OTP_GENERATED_SUCCESS") {
-          //   enqueueSnackbar("OTP Generated successfully", { variant: "success" });
-          //   navigate('/verify-password-otp');
-          // } else {
-          //   enqueueSnackbar(otpResponse.params.description, { variant: "error" });
-          // }
           enqueueSnackbar(responseData.params.description, { variant: "error" });
-          
         }
       } else {
-        // If first API call fails, generate OTP
-       
-  
-      
+        enqueueSnackbar('API call failed', { variant: 'error' });
       }
     } catch (error) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
-       navigate("/new-password", { state: { phone_number } });
+      navigate("/new-password", { state: { phone_number } });
     }
   
     setDialogOpen(false);
   };
+  
+  // const handleConfirm = async () => {
+  //   let selectedValue;
+  
+  //   switch (serviceType) {
+  //     case 'EVC':
+  //       selectedValue = evcValue;
+  //       break;
+  //     case 'Sahal':
+  //       selectedValue = sahalValue;
+  //       break;
+  //     case 'Zaad':
+  //       selectedValue = zaadValue;
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  
+  //   const apiUrl = "https://api.waafipay.net/asm";
+  //   const requestBody = {
+  //     schemaVersion: "1.0",
+  //     requestId: "unique_requestid",
+  //     timestamp: "client_timestamp",
+  //     channelName: "WEB",
+  //     serviceName: "API_PURCHASE",
+  //     serviceParams: {
+  //       merchantUid: "M0913556",
+  //       apiUserId: "1007227",
+  //       apiKey: "API-1979741904AHX",
+  //       paymentMethod: "MWALLET_ACCOUNT",
+  //       payerInfo: { accountNo: selectedValue },
+  //       transactionInfo: {
+  //         referenceId: "RF123444",
+  //         invoiceId: "INV1280215",
+  //         amount: "1",
+  //         currency: "USD",
+  //         description: "direct purchase"
+  //       }
+  //     }
+  //   };
+  //   const phone_number = selectedValue
+    
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(requestBody)
+  //     });
+  
+  //     if (response.status === 200) {
+  //       const responseData = await response.json();
+        
+  //       if (responseData.responseMsg === "RCS_SUCCESS") {
+  //         enqueueSnackbar("Payment Approved", { variant: "success" });
+  //         navigate('/verify-password-otp');
+  //       } else {
+  //         // const otpResponse = await generateOtp(phone_number);
+  //         // if (otpResponse.responseMsg === "OTP_GENERATED_SUCCESS") {
+  //         //   enqueueSnackbar("OTP Generated successfully", { variant: "success" });
+  //         //   navigate('/verify-password-otp');
+  //         // } else {
+  //         //   enqueueSnackbar(otpResponse.params.description, { variant: "error" });
+  //         // }
+  //         enqueueSnackbar(responseData.params.description, { variant: "error" });
+          
+  //       }
+  //     } else {
+  //       // If first API call fails, generate OTP
+       
+  
+      
+  //     }
+  //   } catch (error) {
+  //     enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
+  //      navigate("/new-password", { state: { phone_number } });
+  //   }
+  
+  //   setDialogOpen(false);
+  // };
   
 
   return (
@@ -1187,7 +1293,7 @@ const HomeScreen = () => {
                           size="small"
                          
                           placeholder="061"
-                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
+                          inputProps={{ maxLength: 10, pattern: "[0-9]*" }}
                         />{" "}
                         <Typography>Enter your number</Typography>
                         <button
@@ -1224,7 +1330,7 @@ const HomeScreen = () => {
                           variant="outlined"
                            placeholder="090"
                           size="small"
-                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
+                          inputProps={{ maxLength: 10, pattern: "[0-9]*" }}
                         />
                         <button
                           className="btn white_btn"
@@ -1259,7 +1365,7 @@ const HomeScreen = () => {
                           variant="outlined"
                            placeholder="063"
                           size="small"
-                          inputProps={{ maxLength: 11, pattern: "[0-9]*" }}
+                          inputProps={{ maxLength: 10, pattern: "[0-9]*" }}
                         />
                         <button
                           className="btn white_btn"
