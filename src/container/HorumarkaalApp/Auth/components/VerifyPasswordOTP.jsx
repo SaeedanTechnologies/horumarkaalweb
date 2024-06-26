@@ -26,9 +26,6 @@ import {
     const user_id = location.state?.id;
 
 
-
-
-
     const handleInputChange = (e, index) => {
       const value = e.target.value;
       if (value.length === 1) {

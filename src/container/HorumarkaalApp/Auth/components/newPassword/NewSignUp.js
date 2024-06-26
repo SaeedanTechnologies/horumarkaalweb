@@ -18,8 +18,9 @@ import { userRegister } from "../../../../../store/actions/authActions"; // Adju
 
 const NewSignUp = () => {
   const location = useLocation();
-  const phone = location.state?.phone_number;
-  
+  //const phone = location.state?.phone_number;
+  const phone = localStorage.getItem('phone_number');
+  console.log(phone,"KLL")
   const initialValues = {
     firstname: "",
     lastname: "",
@@ -75,7 +76,7 @@ const NewSignUp = () => {
     dispatch(userRegister(payload))
       .then(() => {
         enqueueSnackbar("User registered successfully", { variant: "success" });
-        navigate("/login", { state: { phone: phone, password: password } });
+        navigate("/login");
        
       })
       .catch((err) => {

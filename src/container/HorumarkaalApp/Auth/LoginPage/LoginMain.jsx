@@ -20,7 +20,19 @@ import { userLogin } from "../../../../store/actions/authActions";
 const Login_Main = () => {
   const location = useLocation();
   
-  const { phone, password } = location.state || {};
+  //const { phone, password } = location.state || {};
+  
+  const phoneNumber = localStorage.getItem('phone_number');
+
+  let phone = phoneNumber.trim(); 
+
+
+  phone = phone.replace(/\D/g, '');
+
+  
+  if (!phone.startsWith('+252')) {
+    phone = '+252' + phone.substring(1);
+  }
   console.log(phone, "phone num")
   const initialValues = {
     phone: phone,
@@ -226,7 +238,7 @@ const Login_Main = () => {
             <Typography sx={{ marginLeft: "1rem" }}>
               Don't have an Account ?
             </Typography>
-            <Link to="/sign-up" style={{ textDecoration: "none" }}>
+            <Link to="/new-password" style={{ textDecoration: "none" }}>
               <Typography
                 sx={{
                   color: theme.palette.primary.main,

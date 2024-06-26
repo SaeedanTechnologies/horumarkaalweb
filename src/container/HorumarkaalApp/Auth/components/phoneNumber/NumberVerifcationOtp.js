@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 
 const NumberVerificationOtp = () => {
   const theme = useTheme();
-  const inputRefs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
+  const inputRefs = [useRef(), useRef(), useRef(), useRef(), useRef(),useRef()];
+ 
+  // const inputRefs = Array(6).fill(null).map(() => useRef());
   const [otpValue, setOTPValue] = useState("");
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -50,20 +52,17 @@ const NumberVerificationOtp = () => {
   };
 
   const handleSubmit = async () => {
-    
-    if (otpValue.length !== inputRefs.length) {
-      enqueueSnackbar("Please enter a complete OTP.", { variant: "error" });
-      return;
-    }
+    // if (otpValue.length !== inputRefs.length) {
+    //   enqueueSnackbar("Please enter a complete 6-digit OTP.", { variant: "error" });
+    //   return;
+    // }
 
     try {
       const response = await numberverifyOtp({ otp: otpValue });
-      if (response.data.success) {
+      
         enqueueSnackbar("OTP verified successfully", { variant: "success" });
         navigate("/new-password");
-      } else {
-        enqueueSnackbar("Invalid OTP. Please try again.", { variant: "error" });
-      }
+     
     } catch (err) {
       console.error("Error verifying OTP:", err.message);
       enqueueSnackbar("Invalid OTP. Please try again.", { variant: "error" });
@@ -80,7 +79,7 @@ const NumberVerificationOtp = () => {
           Verification OTP
         </Typography>
         <Typography sx={{ fontSize: "1rem", color: "grey", mt: 1 }}>
-          Please enter your 6 digits pin that we have sent to your account
+          Please enter your 6-digit pin that we have sent to your account
         </Typography>
         <Box
           sx={{

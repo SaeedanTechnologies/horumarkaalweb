@@ -275,8 +275,11 @@ const HomeScreen = () => {
         }
       }
     };
-    const phone_number = selectedValue;
-  
+    const number = selectedValue;
+    const phone_number= selectedValue;
+    localStorage.setItem('phone_number', phone_number)
+    
+    console.log(number,"HJKLHJKL")
     try {
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -295,14 +298,45 @@ const HomeScreen = () => {
         }
       } else {
         enqueueSnackbar('API call failed', { variant: 'error' });
+        await sendOtp(number);
       }
     } catch (error) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
-      navigate("/new-password", { state: { phone_number } });
+      await sendOtp(number);
     }
-  
+    await sendOtp(number);
     setDialogOpen(false);
   };
+  
+  const sendOtp = async (number) => {
+    let phone_number = number.trim(); 
+
+    // Remove any non-numeric characters
+    phone_number = phone_number.replace(/\D/g, '');
+  
+    // Add the +252 prefix if it doesn't already exist
+    if (!phone_number.startsWith('+252')) {
+      phone_number = '+252' + phone_number.substring(1);
+    }
+    // localStorage.setItem('phone_number', phone_number)
+    try {
+      const otpResponse = await fetch("https://adminapp.horumarkaalweb.app/api/app/send-otp", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone_number }) 
+      });
+  
+      if (otpResponse.ok) {
+        enqueueSnackbar("OTP sent successfully", { variant: "success" });
+        navigate('/verify-number-otp');
+      } else {
+        enqueueSnackbar('Failed to send OTP', { variant: 'error' });
+      }
+    } catch (otpError) {
+      enqueueSnackbar(`Error: ${otpError.message}`, { variant: "error" });
+    }
+  };
+  
   
   // const handleConfirm = async () => {
   //   let selectedValue;
@@ -343,7 +377,7 @@ const HomeScreen = () => {
   //       }
   //     }
   //   };
-  //   const phone_number = selectedValue
+  //   const number = selectedValue
     
   //   try {
   //     const response = await fetch(apiUrl, {
@@ -359,7 +393,7 @@ const HomeScreen = () => {
   //         enqueueSnackbar("Payment Approved", { variant: "success" });
   //         navigate('/verify-password-otp');
   //       } else {
-  //         // const otpResponse = await generateOtp(phone_number);
+  //         // const otpResponse = await generateOtp(number);
   //         // if (otpResponse.responseMsg === "OTP_GENERATED_SUCCESS") {
   //         //   enqueueSnackbar("OTP Generated successfully", { variant: "success" });
   //         //   navigate('/verify-password-otp');
@@ -377,7 +411,7 @@ const HomeScreen = () => {
   //     }
   //   } catch (error) {
   //     enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
-  //      navigate("/new-password", { state: { phone_number } });
+  //      navigate("/new-password", { state: { number } });
   //   }
   
   //   setDialogOpen(false);
