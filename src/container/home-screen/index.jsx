@@ -269,7 +269,7 @@ const HomeScreen = () => {
         transactionInfo: {
           referenceId: "RF123444",
           invoiceId: "INV1280215",
-          amount: "1",
+          amount: "8",
           currency: "USD",
           description: "direct purchase"
         }
