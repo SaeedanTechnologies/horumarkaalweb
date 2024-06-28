@@ -162,7 +162,7 @@ const Contact = () => {
     </div>
   </section>
   {/* Contact Us Section End */}
-  {/* Map Section Start */}
+  {/*  
   <section className="row_am map_section">
     <div className="container">
       <div className="map_inner">
@@ -177,7 +177,7 @@ const Contact = () => {
         />
       </div>
     </div>
-  </section>
+  </section>*/}
   {/* Map Section End */}
   {/* News-Letter-Section-Start */}
   <section className="newsletter_section">

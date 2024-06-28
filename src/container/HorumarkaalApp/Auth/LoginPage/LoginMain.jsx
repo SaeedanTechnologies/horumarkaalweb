@@ -17,14 +17,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../../store/actions/authActions";
+
 const Login_Main = () => {
   const location = useLocation();
-  
+  const dispatch = useDispatch();
   //const { phone, password } = location.state || {};
   
   const phoneNumber = localStorage.getItem('phone_number');
 
-  let phone = phoneNumber.trim(); 
+
+
+let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
+
 
 
   phone = phone.replace(/\D/g, '');
@@ -45,6 +49,8 @@ const Login_Main = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -57,7 +63,7 @@ const Login_Main = () => {
     },
   };
 
-  const dispatch = useDispatch();
+  
 
   const [formValues, setFormValues] = useState(initialValues);
 
@@ -75,7 +81,7 @@ const Login_Main = () => {
 
         setFormValues(initialValues);
 
-        navigate(isPaid ? "/select-language" : "/payment");
+        navigate("/select-language");
 
       })
       .catch((err) => {

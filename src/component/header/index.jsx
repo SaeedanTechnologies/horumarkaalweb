@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Main } from './style';
-import Logo from 'assets/logo.png'
+import Logo from 'assets/headerlogo/logosApp.png'
+import Googleplayblue from 'assets/googleplay_blue.png'
+import "./indexheader.css"
 const Header = () => {
   const scrollToMiddleSection = () => {
     const middleSection = document.getElementById('middleSection');
@@ -16,9 +18,26 @@ const Header = () => {
     <div className="container">
       {/* navigation bar */}
       <nav className="navbar navbar-expand-lg">
-        <Link to='/' className="navbar-brand">
-          <img src={Logo} alt="image" />
-        </Link>
+      <div className='main-dev-data'>
+      <Link to='/' className="navbar-brand">
+      <img src={Logo} alt="image" style={{width:'79px',  marginLift: '12px'}}/>
+      <h6 style={{color:'white', fontSize:'15px'}} className='mobile-screen'>Horumarkaal App</h6>
+      </Link>
+      <br></br>
+    
+      <div className='footer-data'>
+      <li style={{background:'white'}}>
+      <a href="https://play.google.com/store/apps/details?id=com.horumarkaalapp.multitranslation">
+        <img src={Googleplayblue} alt="image" /> 
+      </a>
+     
+    </li>
+    <h6 style={{color:'white', marginTop:'10px'}}>{" "} Kala soo deg</h6>
+    <h6 style={{color:'white', margin:'12px'}}>{" "} Download</h6>
+      </div>
+      </div>
+      
+      
         <button
           className="navbar-toggler"
           type="button"
@@ -137,6 +156,7 @@ const Header = () => {
     </div>
     {/* container end */}
   </header>
+
   </Main>
 
 </>

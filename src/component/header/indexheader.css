@@ -1,0 +1,11 @@
+@media screen and (max-width: 767px) {
+    .footer-data {
+        margin-top: 116px;
+        /* display: contents; */
+        margin-left: 60px;
+    }.mobile-screen{
+        display: none;
+    }.main-dev-data{
+        text-align: end;
+    }
+}

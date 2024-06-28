@@ -24,58 +24,41 @@ import {
 } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
 import SomaliTextToSpeech from "./SomaliTextToSpeech";
+import { event } from "jquery";
 
-const EnglishLanguage = () => {
+const EnglishLanguage = ({ language, setLanguage }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [checkedSuggestions, setCheckedSuggestions] = useState([]);
   const [translations, setTranslations] = useState({
     soomaali: [],
     arabic: [],
   });
+
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loadingTranslations, setLoadingTranslations] = useState(false);
   const searchBoxRef = useRef(null);
-  const [audioPlayer] = useState(new Audio());  // Create a state for the audio player
-  const handleSearchChange = async (event) => {
-    const value = event.target.value;
+  const [audioPlayer] = useState(new Audio());
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  useEffect(() => {
+   setFilteredSuggestions(language)
+  }, [language]);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value ?? "";
     setSearchTerm(value);
-
-    if (value.length > 0) {
-      try {
-        setLoadingSuggestions(true);
-        // Dispatch API call to fetch suggestions
-        const suggestions = await dispatch(searchTranslate(value, "English"));
-        const filtered = suggestions.data.filter((suggestion) =>
-          suggestion.toLowerCase().startsWith(value.toLowerCase())
-        );
-        setFilteredSuggestions(filtered);
-      } catch (error) {
-        console.error("Failed to fetch suggestions:", error);
-      } finally {
-        setLoadingSuggestions(false); // Stop loading suggestions
-      }
+    console.log(value, "searchvalue");
+    if (value?.trim() !== "") {
+      const filteredSuggestions = language.filter((item) =>
+        item?.english?.toLowerCase().includes(value?.toLowerCase())
+      );
+      setFilteredSuggestions(filteredSuggestions);
     } else {
-      setFilteredSuggestions([]);
+      setFilteredSuggestions(language);
     }
   };
-
-  const handleFocus = async () => {
-    if (searchTerm === "") {
-      try {
-        setLoadingSuggestions(true);
-        // Dispatch API call to fetch all suggestions
-        const suggestions = await dispatch(searchTranslate("", "English"));
-        setFilteredSuggestions(suggestions.data);
-      } catch (error) {
-        console.error("Failed to fetch suggestions:", error);
-      } finally {
-        setLoadingSuggestions(false); // Stop loading suggestions
-      }
-    }
-  };
+  
 
   const handleCheckboxChange = async (event, suggestion) => {
     const isChecked = event.target.checked;
@@ -90,74 +73,44 @@ const EnglishLanguage = () => {
       );
       setCheckedSuggestions(newCheckedSuggestions);
     }
+  };
 
+  const searchTranslations = async () => {
     try {
-      // Dispatch API call to get translation
       setLoadingTranslations(true);
-      const response = await dispatch(getTranslate(suggestion, "english"));
+      const response = await dispatch(
+        getTranslate(checkedSuggestions, "english")
+      );
       if (response.success) {
-        const newTranslations = { ...translations };
-        const translationData = response.data.translations[suggestion];
-
-        if (translationData) {
-          if (isChecked) {
-            newTranslations.soomaali.push(translationData.soomaali);
-            newTranslations.arabic.push(translationData.arabic);
-          } else {
-            newTranslations.soomaali = newTranslations.soomaali.filter(
-              (translation) => translation !== translationData.soomaali
-            );
-            newTranslations.arabic = newTranslations.arabic.filter(
-              (translation) => translation !== translationData.arabic
-            );
-          }
-
-          setTranslations(newTranslations);
-        } else {
-          console.error(
-            "Translation data is not in the expected format:",
-            translationData
-          );
-        }
+        const newTranslations = Object.values(response.data.translations);
+        setTranslations(newTranslations);
+        setLoadingTranslations(false);
       } else {
         console.error("Translation API error:", response.message);
       }
     } catch (error) {
       console.error("Failed to get translation:", error);
-    } finally {
-      setLoadingTranslations(false); // Stop loading translations
     }
   };
 
-  const handleClickOutside = (event) => {
-    if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
-      setFilteredSuggestions([]);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const speakText = (text) => {
-    const message = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(message);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ar-SA'; // Arabic (Saudi Arabia)
+    window.speechSynthesis.speak(utterance);
   };
 
   const speakTextShumali = async (text, audioPlayer) => {
     try {
       const response = await dispatch(getConvertTextsoomaali(text));
       console.log("Audio file path:", response.file);
-  
+
       if (response && response.success && response.file) {
         const audioFilePath = response.file;
         audioPlayer.src = audioFilePath;
-  
+
         // Ensure the audio is loaded before playing
-        audioPlayer.load(); 
-        audioPlayer.play().catch(error => {
+        audioPlayer.load();
+        audioPlayer.play().catch((error) => {
           console.error("Error playing audio:", error);
         });
       } else {
@@ -168,67 +121,19 @@ const EnglishLanguage = () => {
     }
   };
 
-
   useEffect(() => {
     const handleAudioError = (e) => {
       console.error("Error loading audio file:", e);
-      // alert("Failed to load audio file. Please try a different browser or check the console for more details.");
     };
 
-    audioPlayer.addEventListener('error', handleAudioError);
+    audioPlayer.addEventListener("error", handleAudioError);
     return () => {
-      audioPlayer.removeEventListener('error', handleAudioError);
+      audioPlayer.removeEventListener("error", handleAudioError);
     };
   }, [audioPlayer]);
-  // const speakTextShumali = async (text) => {
-  //   try {
-  //     const response = await dispatch(getConvertTextsoomaali(text));
-  //     console.log("Audio file path:", response.file);
-
-  //     if (response && response.success && response.file) {
-  //       const audioFilePath = response.file;
-  //       audioPlayer.src = audioFilePath;
-  //       audioPlayer.play();  // Play the audio
-  //     } else {
-  //       console.error("Failed to generate audio or file path is missing");
-  //     }
-      
-  //   } catch (error) {
-  //     console.error("Error converting text to Somali:", error);
-  //   }
-  // };
-
-  
+ 
 
 
-  // const speakTextShumali = async (text) => {
-  //   try {
-  
-  //     const response = await dispatch(getConvertTextsoomaali(text));
-  
-  //     if (response && response.success && response.file) {
-  //       const audioFilePath = response.file;
-
-  //       const audioElement = document.createElement("audio");
-
-  //       audioElement.controls = true;
-  //       audioElement.src = audioFilePath;
-  //       const audioContainer = document.getElementById("audioContainer");
-
-  //       audioContainer.innerHTML = "";
-
-  //       audioContainer.appendChild(audioElement);
-
-  //       console.log("Audio generated successfully!");
-  //     } else {
-  //       console.error("Failed to generate audio or file path is missing");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error converting text to Somali:", error);
-  //   }
-  // };
-
-  
   return (
     <Box
       sx={{
@@ -238,9 +143,6 @@ const EnglishLanguage = () => {
         alignItems: "center",
       }}
     >
-  
-
-
       <Box
         sx={{ display: "flex", alignItems: "center", position: "relative" }}
         ref={searchBoxRef}
@@ -251,7 +153,7 @@ const EnglishLanguage = () => {
           variant="outlined"
           value={searchTerm}
           onChange={handleSearchChange}
-          onFocus={handleFocus}
+          // onFocus={handleFocus}
           sx={{
             "& .MuiInputBase-root": {
               padding: 0,
@@ -279,6 +181,7 @@ const EnglishLanguage = () => {
                   <Loader />
                 ) : (
                   <Button
+                    onClick={searchTranslations}
                     sx={{
                       backgroundColor: "transparent",
                       color: "grey",
@@ -300,7 +203,7 @@ const EnglishLanguage = () => {
         {loadingSuggestions ? (
           <Loader />
         ) : (
-          filteredSuggestions.length > 0 && (
+          filteredSuggestions?.length > 0 && (
             <List
               sx={{
                 position: "absolute",
@@ -319,18 +222,20 @@ const EnglishLanguage = () => {
               {loadingSuggestions ? (
                 <Loader />
               ) : (
-                filteredSuggestions.map((suggestion, index) => (
+                filteredSuggestions?.map((suggestion, index) => (
                   <ListItem key={index}>
                     <FormControlLabel
                       control={
                         <Checkbox
-                          checked={checkedSuggestions.includes(suggestion)}
+                          checked={checkedSuggestions.includes(
+                            suggestion.english
+                          )}
                           onChange={(event) =>
-                            handleCheckboxChange(event, suggestion)
+                            handleCheckboxChange(event, suggestion.english)
                           }
                         />
                       }
-                      label={suggestion}
+                      label={suggestion.english}
                     />
                   </ListItem>
                 ))
@@ -408,9 +313,9 @@ const EnglishLanguage = () => {
           {loadingTranslations ? (
             <Loader />
           ) : (
-            translations.soomaali.length > 0 && (
+            translations.length > 0 && (
               <Box>
-                {translations.soomaali.map((text, index) => (
+                {translations.map((text, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -423,19 +328,21 @@ const EnglishLanguage = () => {
                     gap={5}
                     id="audioContainer"
                   >
-                    <Typography>{text}</Typography>
-                    <IconButton onClick={() => speakTextShumali(text, audioPlayer)}>
+                    <Typography>{text.soomaali}</Typography>
+                    <IconButton
+                      onClick={() =>
+                        speakTextShumali(text.soomaali, audioPlayer)
+                      }
+                    >
                       <VolumeUpIcon />
                     </IconButton>
                   </Box>
                 ))}
-               
-               
               </Box>
             )
           )}
         </Box>
-    
+
         <Box
           sx={{
             backgroundColor: "#e0c7ff",
@@ -455,9 +362,9 @@ const EnglishLanguage = () => {
             Arabic
           </Typography>
           <br />
-          {translations.arabic.length > 0 && (
+          {translations.length > 0 && (
             <Box>
-              {translations.arabic.map((text, index) => (
+              {translations.map((text, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -469,8 +376,8 @@ const EnglishLanguage = () => {
                   }}
                   gap={5}
                 >
-                  <Typography>{text}</Typography>
-                  <IconButton onClick={() => speakText(text)}>
+                  <Typography>{text.arabic}</Typography>
+                  <IconButton onClick={() => speakText(text.arabic)}>
                     <VolumeUpIcon />
                   </IconButton>
                 </Box>
@@ -484,4 +391,3 @@ const EnglishLanguage = () => {
 };
 
 export default EnglishLanguage;
-

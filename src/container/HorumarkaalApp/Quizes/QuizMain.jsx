@@ -16,7 +16,7 @@ import {
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { getQuestions } from "../../../store/actions/appActions";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../../../store/actions/authActions";
+import { logoutUser , userLogout} from "../../../store/actions/authActions";
 
 const QuizMain = () => {
   const theme = useTheme();
@@ -80,7 +80,7 @@ const QuizMain = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(userLogout());
     navigate('/login');
   };
 

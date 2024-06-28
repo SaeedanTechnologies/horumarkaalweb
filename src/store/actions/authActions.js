@@ -16,6 +16,9 @@ export const userLogin = (formValues) => async (dispatch) => {
   try {
     const res = await api.post("auth/login", formValues);
     const { token, user } = res.data.data;
+    const data = res.data.token;
+   const tokendata= localStorage.setItem("token", token);
+  console.log(token,"kll")
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: {
@@ -113,9 +116,28 @@ export const updatePassword = (formValues, token) => async (dispatch) => {
   }
 };
 
-// authActions.js
+
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const logoutUser = () => ({
   type: LOGOUT_USER,
 });
+
+export const userLogout = () => async (dispatch) => {
+  try {
+    
+    await api.get("auth/logout");
+
+   
+    localStorage.removeItem('token');
+
+    dispatch({
+      type: "LOGOUT_USER",
+    });
+
+    return Promise.resolve();
+  } catch (err) {
+    console.error("Error logging out", err);
+    return Promise.reject(err);
+  }
+};

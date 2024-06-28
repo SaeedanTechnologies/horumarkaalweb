@@ -12,7 +12,7 @@ export const searchTranslate = (searchTerm, lang) => async (dispatch) => {
 
 export const getTranslate = (word, lang) => async (dispatch) => {
     try {
-        const res = await api.post("app/get-translate", { word: [word], lang });
+        const res = await api.post("app/get-translate", { word: word, lang });
 
         return res.data;
     } catch (err) {

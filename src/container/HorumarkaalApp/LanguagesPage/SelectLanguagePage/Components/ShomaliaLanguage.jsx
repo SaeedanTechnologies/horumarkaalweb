@@ -19,54 +19,40 @@ import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { searchTranslate, getTranslate,getConvertTextsoomaali } from "../../../../../store/actions/appActions"; // Ensure the correct path to your actions
 import Loader from "../../../../../component/loader";
 
-const ShomaliaLanguage = () => {
+const ShomaliaLanguage = ({ language, setLanguage }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [checkedSuggestions, setCheckedSuggestions] = useState([]);
   const [translations, setTranslations] = useState({ english: [], arabic: [] });
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
   const [loadingTranslations, setLoadingTranslations] = useState(false);
   const searchBoxRef = useRef(null);
+  const [audioPlayer] = useState(new Audio());
 
-  const handleSearchChange = async (event) => {
-    const value = event.target.value;
+  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  useEffect(() => {
+   setFilteredSuggestions(language)
+  }, [language]);
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value ?? ""; 
     setSearchTerm(value);
-
-    if (value.length > 0) {
-      try {
-        setLoadingSuggestions(true);
-        // Dispatch API call to fetch suggestions
-        const suggestions = await dispatch(searchTranslate(value, "Soomaali"));
-        const filtered = suggestions.data.filter(suggestion =>
-          suggestion.toLowerCase().startsWith(value.toLowerCase())
-        );
-        setFilteredSuggestions(filtered);
-      } catch (error) {
-        console.error("Failed to fetch suggestions:", error);
-      }finally {
-        setLoadingSuggestions(false); // Stop loading suggestions
-      }
+    console.log(value, "searchvalue");
+  
+    if (value?.trim() !== "") {
+      const filteredSuggestions = language.filter((item) =>
+        item?.soomaali?.toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredSuggestions(filteredSuggestions);
     } else {
-      setFilteredSuggestions([]);
+      setFilteredSuggestions(language);
     }
   };
-  const handleFocus = async () => {
-    if (searchTerm === "") {
-      try {
-        setLoadingSuggestions(true);
+  
+  
 
-        // Dispatch API call to fetch all suggestions
-        const suggestions = await dispatch(searchTranslate("", "soomaali"));
-        setFilteredSuggestions(suggestions.data);
-      } catch (error) {
-        console.error("Failed to fetch suggestions:", error);
-      } finally {
-        setLoadingSuggestions(false); // Stop loading suggestions
-      }
-    }
-  };
+
 
   const handleCheckboxChange = async (event, suggestion) => {
     const isChecked = event.target.checked;
@@ -80,59 +66,67 @@ const ShomaliaLanguage = () => {
       setCheckedSuggestions(newCheckedSuggestions);
     }
 
+   
+  };
+
+  
+  const searchTranslations = async () => {
     try {
-      setLoadingTranslations(true);
       // Dispatch API call to get translation
-      const response = await dispatch(getTranslate(suggestion, "soomaali"));
+      setLoadingTranslations(true);
+      const response = await dispatch(
+        getTranslate(checkedSuggestions, "soomaali")
+      );
       if (response.success) {
-        const newTranslations = { ...translations };
-        const translationData = response.data.translations[suggestion];
-
-        if (translationData) {
-          if (isChecked) {
-            newTranslations.english.push(translationData.english);
-            newTranslations.arabic.push(translationData.arabic);
-          } else {
-            newTranslations.english = newTranslations.english.filter(
-              (translation) => translation !== translationData.english
-            );
-            newTranslations.arabic = newTranslations.arabic.filter(
-              (translation) => translation !== translationData.arabic
-            );
-          }
-
-          setTranslations(newTranslations);
-        } else {
-          console.error("Translation data is not in the expected format:", translationData);
-        }
+        const newTranslations = Object.values(response.data.translations);
+        setTranslations(newTranslations);
+        setLoadingTranslations(false);
       } else {
         console.error("Translation API error:", response.message);
       }
     } catch (error) {
       console.error("Failed to get translation:", error);
     }
-    finally {
-      setLoadingTranslations(false); // Stop loading translations
-    }
   };
 
-  const handleClickOutside = (event) => {
-    if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
-      setFilteredSuggestions([]);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
   const speakText = (text) => {
     const message = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(message);
   };
 
+  const speakTextArabic = async (text, audioPlayer) => {
+    try {
+      const response = await dispatch(getConvertTextsoomaali(text));
+      console.log("Audio file path:", response.file);
+  
+      if (response && response.success && response.file) {
+        const audioFilePath = response.file;
+        audioPlayer.src = audioFilePath;
+  
+        // Ensure the audio is loaded before playing
+        audioPlayer.load();
+        audioPlayer.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+      } else {
+        console.error("Failed to generate audio or file path is missing");
+      }
+    } catch (error) {
+      console.error("Error converting text to Arabic:", error);
+    }
+  };
+  
+  useEffect(() => {
+    const handleAudioError = (e) => {
+      console.error("Error loading audio file:", e);
+    };
+  
+    audioPlayer.addEventListener("error", handleAudioError);
+    return () => {
+      audioPlayer.removeEventListener("error", handleAudioError);
+    };
+  }, [audioPlayer]);
+  
 
   return (
     <Box
@@ -150,7 +144,7 @@ const ShomaliaLanguage = () => {
           variant="outlined"
           value={searchTerm}
           onChange={handleSearchChange}
-          onFocus={handleFocus}
+
           sx={{
             "& .MuiInputBase-root": {
               padding: 0,
@@ -178,6 +172,7 @@ const ShomaliaLanguage = () => {
       <Loader/>
         ) : (
           <Button
+          onClick={searchTranslations}
             sx={{
               backgroundColor: "transparent",
               color: "grey",
@@ -199,7 +194,7 @@ const ShomaliaLanguage = () => {
 {loadingSuggestions ? (
   <Loader />
 ) : (
-  filteredSuggestions.length > 0 && (
+  filteredSuggestions?.length > 0 && (
     <List
       sx={{
         position: "absolute",
@@ -215,29 +210,30 @@ const ShomaliaLanguage = () => {
         marginTop: "0.5rem",
       }}
     >
-
-{loadingSuggestions ? (
-  <Loader />
-) : (
-  filteredSuggestions.map((suggestion, index) => (
-        <ListItem key={index}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={checkedSuggestions.includes(suggestion)}
-                onChange={(event) => handleCheckboxChange(event, suggestion)}
-              />
-            }
-            label={suggestion}
-          />
-        </ListItem>
-      ))
-)}
-
+      {loadingSuggestions ? (
+        <Loader />
+      ) : (
+        filteredSuggestions?.map((suggestion, index) => (
+          <ListItem key={index}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checkedSuggestions.includes(
+                    suggestion.soomaali
+                  )}
+                  onChange={(event) =>
+                    handleCheckboxChange(event, suggestion.soomaali)
+                  }
+                />
+              }
+              label={suggestion.soomaali}
+            />
+          </ListItem>
+        ))
+      )}
     </List>
   )
 )}
-
       </Box>
 
       <FormGroup sx={{ width: "40%", mt: 2,  height: '30vh',
@@ -247,7 +243,7 @@ overflowY: 'auto',  // Set overflowY to 'auto'
 overflowX:'hidden',
     display: 'flex',   // Set display to 'flex'
     flexDirection: 'row'   }}>
-        {checkedSuggestions.map((suggestion, index) => (
+        {checkedSuggestions?.map((suggestion, index) => (
           <FormControlLabel
             key={index}
             control={
@@ -287,9 +283,9 @@ overflowX:'hidden',
         >
           <Typography sx={{ fontSize: '1.5rem', fontWeight: '700' }} textAlign={'center'}>English</Typography>
           <br />
-          {translations.english.length > 0 && (
+          {translations.length > 0 && (
             <Box>
-              {translations.english.map((text, index) => (
+              {translations.map((text, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -302,8 +298,10 @@ overflowX:'hidden',
                   }}
                   gap={5}
                 >
-                  <Typography>{text}</Typography>
-                  <IconButton onClick={() => speakText(text)}>
+                  <Typography>{text.english}</Typography>
+                  <IconButton   onClick={() =>
+                    speakText(text.english, audioPlayer)
+                  }>
                   <VolumeUpIcon/>
 
                   </IconButton>
@@ -326,11 +324,14 @@ overflowX:'hidden',
 
           }}
         >
-          <Typography textAlign={'center'} sx={{ fontWeight: '700', fontSize: '1.5rem' }}>Arabic</Typography>
+          <Typography textAlign={'center'} sx={{ fontWeight: '700', fontSize: '1.5rem' }}>Arabic fgdfdggf</Typography>
           <br />
-          {translations.arabic.length > 0 && (
+          {loadingTranslations ? (
+            <Loader />
+          ) : (
+            translations.length > 0 && (
             <Box>
-              {translations.arabic.map((text, index) => (
+              {translations.map((text, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -343,15 +344,18 @@ overflowX:'hidden',
                   }}
                   gap={5}
                 >
-                  <Typography>{text}</Typography>
-                  <IconButton onClick={() => speakText(text)}>
+                  <Typography>{text.arabic}</Typography>
+                  <IconButton  onClick={() =>
+                    speakTextArabic(text.arabic, audioPlayer)
+                  }>
                   <VolumeUpIcon/>
 
                   </IconButton>
                 </Box>
               ))}
             </Box>
-          )}
+          )
+  )}
         </Box>
       </Box>
     </Box>

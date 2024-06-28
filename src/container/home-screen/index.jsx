@@ -292,50 +292,53 @@ const HomeScreen = () => {
   
         if (responseData.responseMsg === "RCS_SUCCESS") {
           enqueueSnackbar("Payment Approved", { variant: "success" });
-          navigate('/verify-password-otp');
+          navigate('/new-password');
         } else {
           enqueueSnackbar(responseData.params.description, { variant: "error" });
         }
       } else {
         enqueueSnackbar('API call failed', { variant: 'error' });
-        await sendOtp(number);
+        // await sendOtp(number);
+        // navigate('/new-password');
       }
     } catch (error) {
       enqueueSnackbar(`Error: ${error.message}`, { variant: "error" });
-      await sendOtp(number);
+      // await sendOtp(number);
+      // navigate('/new-password');
     }
-    await sendOtp(number);
+    // navigate('/new-password');
+    // await sendOtp(number);
     setDialogOpen(false);
   };
   
-  const sendOtp = async (number) => {
-    let phone_number = number.trim(); 
+  // const sendOtp = async (number) => {
+  //   let phone_number = number.trim(); 
 
-    // Remove any non-numeric characters
-    phone_number = phone_number.replace(/\D/g, '');
+  //   // Remove any non-numeric characters
+  //   phone_number = phone_number.replace(/\D/g, '');
   
-    // Add the +252 prefix if it doesn't already exist
-    if (!phone_number.startsWith('+252')) {
-      phone_number = '+252' + phone_number.substring(1);
-    }
-    // localStorage.setItem('phone_number', phone_number)
-    try {
-      const otpResponse = await fetch("https://adminapp.horumarkaalweb.app/api/app/send-otp", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone_number }) 
-      });
+  //   // Add the +252 prefix if it doesn't already exist
+  //   if (!phone_number.startsWith('+252')) {
+  //     phone_number = '+252' + phone_number.substring(1);
+  //   }
+  //   // localStorage.setItem('phone_number', phone_number)
+  //   try {
+  //     const otpResponse = await fetch("https://adminapp.horumarkaalweb.app/api/app/send-otp", {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify({ phone_number }) 
+  //     });
   
-      if (otpResponse.ok) {
-        enqueueSnackbar("OTP sent successfully", { variant: "success" });
-        navigate('/verify-number-otp');
-      } else {
-        enqueueSnackbar('Failed to send OTP', { variant: 'error' });
-      }
-    } catch (otpError) {
-      enqueueSnackbar(`Error: ${otpError.message}`, { variant: "error" });
-    }
-  };
+  //     if (otpResponse.ok) {
+  //       enqueueSnackbar("OTP sent successfully", { variant: "success" });
+  //       navigate('/verify-number-otp');
+  //     } else {
+  //       enqueueSnackbar('Failed to send OTP', { variant: 'error' });
+  //     }
+  //   } catch (otpError) {
+  //     enqueueSnackbar(`Error: ${otpError.message}`, { variant: "error" });
+  //   }
+  // };
   
   
   // const handleConfirm = async () => {
@@ -1796,11 +1799,7 @@ const HomeScreen = () => {
                       <img src={Exercise} alt="image" />
                     </div>
                   </SwiperSlide>
-                  <SwiperSlide className="item">
-                    <div className="screen_frame_img">
-                      <img src={Profile} alt="image" />
-                    </div>
-                  </SwiperSlide>
+                
                 </Swiper>
               </div>
             </div>

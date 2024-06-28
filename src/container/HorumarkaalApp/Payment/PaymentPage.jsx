@@ -4,7 +4,7 @@ import { Box, Button, InputAdornment, TextField, Typography, useTheme, MenuItem,
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import { logoutUser, updateUserIsPaidStatus } from "../../../store/actions/authActions";
+import { logoutUser, updateUserIsPaidStatus, userLogout } from "../../../store/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const PaymentPage = () => {
@@ -105,7 +105,7 @@ const PaymentPage = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
+    dispatch(userLogout());
     navigate('/login');
   };
 

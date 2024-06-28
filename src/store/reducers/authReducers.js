@@ -46,6 +46,7 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
       };
     }
+
     case "LOGOUT_USER": {
       localStorage.removeItem("token");
       return {
@@ -55,6 +56,7 @@ const authReducer = (state = initialState, action) => {
         user: null,
       };
     }
+    
     case "VERIFY_OTP": {
       localStorage.setItem("token", action.payload.data.token);
       // console.log(action.payload);
