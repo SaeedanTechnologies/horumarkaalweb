@@ -7,5 +7,8 @@
         display: none;
     }.main-dev-data{
         text-align: end;
+    }.my-link-data {
+        color: black !important;
     }
+    
 }

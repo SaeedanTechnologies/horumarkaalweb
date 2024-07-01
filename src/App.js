@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {Routes,Route,useLocation} from 'react-router-dom'
 import MainHeader from 'component/main-header'
 import Authroutes from 'routes/authroutes'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Loader from './component/loader'
 import AOS from 'aos';

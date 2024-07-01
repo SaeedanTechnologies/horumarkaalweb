@@ -39,13 +39,13 @@ const Footer = () => {
               </div>
               <ul>
                 <li>
-                  <a href="#">info@horumarkaalweb.app</a>
+                  <a href="#">Talo@horumarkaalweb.app</a>
                 </li>
                 <li>
                 <a href="#"> Info@hiigsikaal.com</a>
               </li>
                 <li>
-                  <a href="#">06190190124</a>
+                  <a href="#">O619019014</a>
                 </li>
               </ul>
              
