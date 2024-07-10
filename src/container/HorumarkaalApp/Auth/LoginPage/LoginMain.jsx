@@ -232,7 +232,7 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
           >
             Login
           </Button>
-          <Box
+        {/*  <Box
             sx={{
               display: "flex",
               justifyContent: "start",
@@ -256,7 +256,7 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
             </Link>
           </Box>
 
-          {/* {loading ? (
+           {loading ? (
                     <Loader />
                   ) : (
                     <Button

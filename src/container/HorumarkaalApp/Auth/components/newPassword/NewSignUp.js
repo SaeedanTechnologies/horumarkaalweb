@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Email, Visibility, VisibilityOff } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import { useDispatch } from "react-redux";
@@ -63,12 +63,13 @@ const NewSignUp = () => {
   
     setLoading(true);
   
-    const { firstname, lastname, password, phone } = formValues;
+    const { firstname, lastname,email, password, phone } = formValues;
   
     // Construct the payload object
     const payload = {
       firstname,
       lastname,
+      email,
       phone,
       password
     };
@@ -131,6 +132,22 @@ const NewSignUp = () => {
               }}
             />
           </Box>
+          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+          <TextField
+            name="email"
+            value={formValues.email}
+            onChange={handleChange}
+            fullWidth
+            sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+            size="small"
+            placeholder="Email"
+            InputProps={{
+              startAdornment: (
+                <Email style={{ color: '#6a49f2' }} />
+              ),
+            }}
+          />
+        </Box>
           <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
             <TextField
               name="password"
