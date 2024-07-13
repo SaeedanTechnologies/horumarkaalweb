@@ -23,7 +23,6 @@ const ChangePassword = () => {
   });
 
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues(prevValues => ({
@@ -34,22 +33,30 @@ const ChangePassword = () => {
 const {enqueueSnackbar} = useSnackbar()
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(changePassword(formValues, token))
-      .then((res) => {
-        // alert("Password changed successfully!");
-        enqueueSnackbar("Password changed successfully", { variant: "success" });
+const handleSubmit = (e) => {
+  e.preventDefault();
+  dispatch(changePassword(formValues, token))
+    .then((res) => {
+    
+      enqueueSnackbar("Password changed successfully", { variant: "success" });
+       navigate("/login");
+    })
+    .catch((err) => {
+      console.error(err, "error message");
 
-        navigate("/login");
-      })
-      .catch((err) => {
-        // alert("Error changing password. Please try again.");
-        console.error(err);
-        enqueueSnackbar("Error changing password", { variant: "error" });
+      // Check if the error response contains the validation error message for the password
+      if (err.response && err.response.data && err.response.data.data && err.response.data.data.password) {
+          const passwordErrors = err.response.data.data.password;
+          passwordErrors.forEach(error => {
+              enqueueSnackbar(error, { variant: "error" });
+          });
+      } else {
+          // Display a generic error message if the specific error is not available
+          enqueueSnackbar("Error changing password. Please try again.", { variant: "error" });
+      }
+    });
+};
 
-      });
-  };
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleClickShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
