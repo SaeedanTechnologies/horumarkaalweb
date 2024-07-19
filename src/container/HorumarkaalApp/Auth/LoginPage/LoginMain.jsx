@@ -22,22 +22,17 @@ const Login_Main = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   //const { phone, password } = location.state || {};
-  
-  const phoneNumber = localStorage.getItem('phone_number');
 
+  const phoneNumber = localStorage.getItem("phone_number");
 
+  let phone = typeof phoneNumber === "string" ? phoneNumber.trim() : "";
 
-let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
+  phone = phone.replace(/\D/g, "");
 
-
-
-  phone = phone.replace(/\D/g, '');
-
-  
-  if (!phone.startsWith('+252')) {
-    phone = '+252' + phone.substring(1);
+  if (!phone.startsWith("+252")) {
+    phone = "+252" + phone.substring(1);
   }
-  console.log(phone, "phone num")
+  console.log(phone, "phone num");
   const initialValues = {
     phone: phone,
     password: "",
@@ -48,8 +43,6 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -63,8 +56,6 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
     },
   };
 
-  
-
   const [formValues, setFormValues] = useState(initialValues);
 
   const handleChange = (e) => {
@@ -76,16 +67,13 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
 
     dispatch(userLogin(formValues))
       .then((res) => {
-
         const isPaid = res.data.data.user.is_paid === "1";
 
         setFormValues(initialValues);
 
         navigate("/select-language");
-
       })
       .catch((err) => {
-
         enqueueSnackbar("Please enter valid phone password", {
           variant: "error",
         });
@@ -94,112 +82,126 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
       });
   };
 
-
-
-
   return (
     <>
-
-
-        <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh', backgroundColor:'#6a49f2'}}>
-            <Box sx={{backgroundColor:'white', padding:'3rem', borderRadius:'20px'}}>
-            <Box sx={{textAlign:'center'}}>
-          <Typography variant="h1" sx={{ fontSize: "3rem", fontWeight: "900" }}>
-            Login
-          </Typography>
-        </Box>
-
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundColor: "#6a49f2",
+        }}
+      >
         <Box
-          sx={{ width: "100%", marginTop: "3rem" }}
-          component="form"
-          onSubmit={handleSubmit}
+          sx={{
+            backgroundColor: "white",
+            padding: "3rem",
+            borderRadius: "20px",
+          }}
         >
-          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-            <TextField
-              name="phone"
-              placeholder="phone"
-              value={formValues.phone}
-              onChange={handleChange}
-              fullWidth
-              sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="start"
-                    >
-                      <phoneIcon
-                        style={{ color: theme.palette.primary.main }}
-                      />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
+          <Box sx={{ textAlign: "center" }}>
+            <Typography
+              variant="h1"
+              sx={{ fontSize: "3rem", fontWeight: "900" }}
+            >
+              Login
+            </Typography>
           </Box>
 
-          <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
-            <TextField
-              name="password"
-              placeholder="Password"
-              value={formValues.password}
-              onChange={handleChange}
-              fullWidth
-              sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
-              size="small"
-              type={showPassword ? "text" : "password"}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="start"
-                    >
-                      <LockIcon style={{ color: theme.palette.primary.main }} />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "end",
-              textAlign: "start",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
+            sx={{ width: "100%", marginTop: "3rem" }}
+            component="form"
+            onSubmit={handleSubmit}
           >
-            <Link to="/forget-password" style={{ textDecoration: "none" }}>
-              <Typography
-                sx={{
-                  color: theme.palette.primary.main,
-                  marginLeft: "0.5rem",
+            <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+              <TextField
+                name="phone"
+                placeholder="phone"
+                value={formValues.phone}
+                onChange={handleChange}
+                fullWidth
+                sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="start"
+                      >
+                        <phoneIcon
+                          style={{ color: theme.palette.primary.main }}
+                        />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 }}
-              >
-                Forget Password
-              </Typography>
-            </Link>
-          </Box>
+              />
+            </Box>
 
-          {/* <Box
+            <Box sx={{ textAlign: "start", marginTop: "1rem" }}>
+              <TextField
+                name="password"
+                placeholder="Password"
+                value={formValues.password}
+                onChange={handleChange}
+                fullWidth
+                sx={{ ...textFieldStyles, marginTop: "0.3rem" }}
+                size="small"
+                type={showPassword ? "text" : "password"}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="start"
+                      >
+                        <LockIcon
+                          style={{ color: theme.palette.primary.main }}
+                        />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "end",
+                textAlign: "start",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+              }}
+            >
+              <Link to="/forget-password" style={{ textDecoration: "none" }}>
+                <Typography
+                  sx={{
+                    color: theme.palette.primary.main,
+                    marginLeft: "0.5rem",
+                  }}
+                >
+                  Forget Password
+                </Typography>
+              </Link>
+            </Box>
+
+            {/* <Box
             sx={{
               display: "flex",
               justifyContent: "end",
@@ -219,20 +221,20 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
               </Typography>
             </Link>
           </Box> */}
-<br/>
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{
-              width: "100%",
-              padding: "0.5rem 0rem",
-              textTransform: "none",
-              borderRadius: "25px",
-            }}
-          >
-            Login
-          </Button>
-        {/*  <Box
+            <br />
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                width: "100%",
+                padding: "0.5rem 0rem",
+                textTransform: "none",
+                borderRadius: "25px",
+              }}
+            >
+              Login
+            </Button>
+            {/*  <Box
             sx={{
               display: "flex",
               justifyContent: "start",
@@ -271,11 +273,9 @@ let phone = typeof phoneNumber === 'string' ? phoneNumber.trim() : '';
                       Sign up
                     </Button>
                   )} */}
+          </Box>
         </Box>
-            </Box>
-        </Box>
-
-
+      </Box>
     </>
   );
 };
