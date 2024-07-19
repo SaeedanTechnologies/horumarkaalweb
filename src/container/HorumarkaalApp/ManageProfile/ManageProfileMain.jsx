@@ -204,7 +204,20 @@ const handleChange = (e) => {
     />
   </Box>
 </Grid>
-
+<Grid item lg={4} md={6} sm={12} xs={12}>
+<Box sx={{ display: "flex", flexDirection: "column" }}>
+  <label style={{ fontSize: "1.2rem" }}>Phone Number</label>
+  <TextField
+    placeholder="Phone Number"
+    sx={textFieldStyle}
+    value={userDataRedux.phone}
+    // onChange={handleChange}
+    InputProps={{
+      readOnly: true,
+    }}
+  />
+</Box>
+</Grid>
 
 
 

@@ -421,16 +421,19 @@ const ArabicLanguage = ({ language }) => {
   }, [language]);
 
   // Debounced search handler
-  const handleSearchChange = useMemo(() => debounce((event) => {
+  const handleSearchChange = (event) => {
     const value = event.target.value ?? "";
     setSearchTerm(value);
-    const filtered = value.trim()
-      ? language.filter((item) =>
-        item?.arabic?.toLowerCase().includes(value.toLowerCase())
-      )
-      : language;
-    setFilteredSuggestions(filtered);
-  }, 300), [language]);
+    console.log(value, "searchvalue");
+    if (value?.trim() !== "") {
+      const filteredSuggestions = language.filter((item) =>
+        item?.arabic?.toLowerCase().includes(value?.toLowerCase())
+      );
+      setFilteredSuggestions(filteredSuggestions);
+    } else {
+      setFilteredSuggestions(language);
+    }
+  };
 
   // Checkbox change handler
   const handleCheckboxChange = (event, suggestion) => {
@@ -682,54 +685,55 @@ const ArabicLanguage = ({ language }) => {
         </Box>
 
         <Box
+        sx={{
+          backgroundColor: "#e0c7ff",
+          padding: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          height: "30vh",
+          overflow: "auto",
+          minWidth: "300px",
+        }}
+      >
+        <Typography textAlign={"center"} sx={{ fontWeight: "700", fontSize: "1.5rem" }}>
+          English
+        </Typography>
+        <IconButton
+          onClick={clearCheckedSuggestions}  // Clear translations when clicking close
           sx={{
-            backgroundColor: "#e0c7ff",
-            padding: "2rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            height: "30vh",
-            overflow: "auto",
-            minWidth: "300px",
+            position: "absolute",
+            right: "27%",
+            top: "0",
           }}
         >
-          <Typography textAlign={"center"} sx={{ fontWeight: "700", fontSize: "1.5rem" }}>
-            Arabic
-          </Typography>
-          <IconButton
-            onClick={clearCheckedSuggestions}  // Clear translations when clicking close
-            sx={{
-              position: "absolute",
-              right: "27%",
-              top: "0",
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-          <br />
-          {translations.length > 0 && (
-            <Box>
-              {translations.map((text, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    maxWidth: "500px",
-                    marginBottom: "1rem",
-                  }}
-                  gap={5}
-                >
-                  <Typography>{text.arabic}</Typography>
-                  <IconButton onClick={() => speakText(text.arabic)}>
-                    <VolumeUpIcon />
-                  </IconButton>
-                </Box>
-              ))}
-            </Box>
-          )}
-        </Box>
+          <CloseIcon />
+        </IconButton>
+        <br />
+        {translations.length > 0 && (
+          <Box>
+            {translations.map((text, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  maxWidth: "500px",
+                  marginBottom: "1rem",
+                }}
+                gap={5}
+              >
+                <Typography>{text.english}</Typography>
+                <IconButton onClick={() => speakText(text.english)}>
+                  <VolumeUpIcon />
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
+        )}
+      </Box>
+      
       </Box>
     </Box>
   );

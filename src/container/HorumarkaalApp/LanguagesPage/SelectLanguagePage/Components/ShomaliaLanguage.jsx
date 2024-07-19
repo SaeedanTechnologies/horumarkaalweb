@@ -39,7 +39,7 @@
 //     const value = event.target.value ?? ""; 
 //     setSearchTerm(value);
 //     console.log(value, "searchvalue");
-
+  
 //     if (value?.trim() !== "") {
 //       const filteredSuggestions = language.filter((item) =>
 //         item?.soomaali?.toLowerCase().includes(value.toLowerCase())
@@ -49,8 +49,8 @@
 //       setFilteredSuggestions(language);
 //     }
 //   };
-
-
+  
+  
 
 
 
@@ -66,10 +66,10 @@
 //       setCheckedSuggestions(newCheckedSuggestions);
 //     }
 
-
+   
 //   };
 
-
+  
 //   const searchTranslations = async () => {
 //     try {
 //       // Dispatch API call to get translation
@@ -98,11 +98,11 @@
 //     try {
 //       const response = await dispatch(getConvertTextsoomaali(text));
 //       console.log("Audio file path:", response.file);
-
+  
 //       if (response && response.success && response.file) {
 //         const audioFilePath = response.file;
 //         audioPlayer.src = audioFilePath;
-
+  
 //         // Ensure the audio is loaded before playing
 //         audioPlayer.load();
 //         audioPlayer.play().catch((error) => {
@@ -115,18 +115,18 @@
 //       console.error("Error converting text to Arabic:", error);
 //     }
 //   };
-
+  
 //   useEffect(() => {
 //     const handleAudioError = (e) => {
 //       console.error("Error loading audio file:", e);
 //     };
-
+  
 //     audioPlayer.addEventListener("error", handleAudioError);
 //     return () => {
 //       audioPlayer.removeEventListener("error", handleAudioError);
 //     };
 //   }, [audioPlayer]);
-
+  
 
 //   return (
 //     <Box
@@ -367,7 +367,7 @@
 
 
 
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback , useMemo} from "react";
 import { useDispatch } from "react-redux";
 import {
   Box,
@@ -389,8 +389,6 @@ import { getTranslate, getConvertTextsoomaali } from "../../../../../store/actio
 import Loader from "../../../../../component/loader";
 import debounce from "lodash/debounce";
 import { FixedSizeList } from "react-window";
-import CloseIcon from '@mui/icons-material/Close';
-
 const ShomaliaLanguage = ({ language }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -402,7 +400,7 @@ const ShomaliaLanguage = ({ language }) => {
   const searchBoxRef = useRef(null);
   const audioPlayerRef = useRef(new Audio());
   const [loading, setLoading] = useState(false);
-
+  const [voices, setVoices] = useState([]);
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
   useEffect(() => {
@@ -434,16 +432,19 @@ const ShomaliaLanguage = ({ language }) => {
     setFilteredSuggestions(language);
   }, [language]);
 
-  const handleSearchChange = useMemo(() => debounce((event) => {
+  const handleSearchChange = (event) => {
     const value = event.target.value ?? "";
     setSearchTerm(value);
-    const filtered = value.trim()
-      ? language.filter((item) =>
-        item?.soomaali?.toLowerCase().includes(value.toLowerCase())
-      )
-      : language;
-    setFilteredSuggestions(filtered);
-  }, 300), [language]);
+    console.log(value, "searchvalue");
+    if (value?.trim() !== "") {
+      const filteredSuggestions = language.filter((item) =>
+        item?.soomaali?.toLowerCase().includes(value?.toLowerCase())
+      );
+      setFilteredSuggestions(filteredSuggestions);
+    } else {
+      setFilteredSuggestions(language);
+    }
+  };
 
   const handleCheckboxChange = (event, suggestion) => {
     const isChecked = event.target.checked;
@@ -475,22 +476,35 @@ const ShomaliaLanguage = ({ language }) => {
     window.speechSynthesis.speak(message);
   };
 
-  const speakTextArabic = async (text) => {
-    try {
-      const response = await dispatch(getConvertTextsoomaali(text));
-      if (response.success && response.file) {
-        const audioPlayer = audioPlayerRef.current;
-        audioPlayer.src = response.file;
-        audioPlayer.load();
-        audioPlayer.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
-      } else {
-        console.error("Failed to generate audio or file path is missing");
-      }
-    } catch (error) {
-      console.error("Error converting text to Arabic:", error);
+ 
+
+  useEffect(() => {
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    // Load voices and set up an event listener to update the voices list
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }, []);
+
+  const speakTextArabic = (text) => {
+    if (!('speechSynthesis' in window)) {
+      alert('Sorry, your browser does not support text to speech!');
+      return;
     }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const arabicVoice = voices.find(voice => voice.lang === 'ar-SA');
+
+    if (!arabicVoice) {
+      alert('Sorry, Arabic voice is not available in your browser.');
+      return;
+    }
+
+    utterance.voice = arabicVoice;
+    window.speechSynthesis.speak(utterance);
   };
 
   useEffect(() => {
@@ -515,15 +529,11 @@ const ShomaliaLanguage = ({ language }) => {
             onChange={(event) => handleCheckboxChange(event, filteredSuggestions[index].soomaali)}
           />
         }
-        label={filteredSuggestions[index].english}
+        label={filteredSuggestions[index].soomaali}
       />
     </ListItem>
   );
 
-  const clearCheckedSuggestions = () => {
-    setCheckedSuggestions([]);
-    setTranslations([]);
-  };
 
   return (
     <Box
@@ -534,79 +544,79 @@ const ShomaliaLanguage = ({ language }) => {
         alignItems: "center",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", position: "relative" }} ref={searchBoxRef}>
-        <TextField
-          placeholder="Search"
-          size="small"
-          variant="outlined"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          sx={{
-            "& .MuiInputBase-root": {
-              padding: 0,
-              borderRadius: "25px",
-              "&:hover": {
-                borderColor: "#f7f7f7",
-              },
-              "&.Mui-focused": {
-                boxShadow: "none",
-              },
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              color: "#f7f7f7",
-            },
-            borderRadius: "25px",
-            backgroundColor: "white",
-          }}
-          InputProps={{
-            sx: { padding: 0 },
-            endAdornment: (
-              <InputAdornment position="end">
-                {loading ? (
-                  <Loader />
-                ) : (
-                  <Button
-                    onClick={searchTranslations}
-                    sx={{
-                      backgroundColor: "transparent",
-                      color: "grey",
-                      padding: "0.5rem",
-                      borderRadius: "0px 5px 5px 0px",
-                      ":hover": {
-                        backgroundColor: "transparent",
-                        color: "grey",
-                      },
-                    }}
-                  >
-                    <SearchOutlinedIcon />
-                  </Button>
-                )}
-              </InputAdornment>
-            ),
-          }}
-        />
-        {filteredSuggestions.length > 0 && (
-          <FixedSizeList
-            height={200}
-            width="100%"
-            itemSize={46}
-            itemCount={filteredSuggestions.length}
-            style={{
-              position: "absolute",
-              top: "100%",
-              left: 0,
-              right: 0,
-              backgroundColor: "white",
-              borderRadius: "10px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-              zIndex: 10,
-              marginTop: "0.5rem",
-            }}
-          >
-            {Row}
-          </FixedSizeList>
-        )}
-      </Box>
+    <Box sx={{ display: "flex", alignItems: "center", position: "relative" }} ref={searchBoxRef}>
+    <TextField
+      placeholder="Search"
+      size="small"
+      variant="outlined"
+      value={searchTerm}
+      onChange={handleSearchChange}
+      sx={{
+        "& .MuiInputBase-root": {
+          padding: 0,
+          borderRadius: "25px",
+          "&:hover": {
+            borderColor: "#f7f7f7",
+          },
+          "&.Mui-focused": {
+            boxShadow: "none",
+          },
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+          color: "#f7f7f7",
+        },
+        borderRadius: "25px",
+        backgroundColor: "white",
+      }}
+      InputProps={{
+        sx: { padding: 0 },
+        endAdornment: (
+          <InputAdornment position="end">
+            {loading ? (
+              <Loader />
+            ) : (
+              <Button
+                onClick={searchTranslations}
+                sx={{
+                  backgroundColor: "transparent",
+                  color: "grey",
+                  padding: "0.5rem",
+                  borderRadius: "0px 5px 5px 0px",
+                  ":hover": {
+                    backgroundColor: "transparent",
+                    color: "grey",
+                  },
+                }}
+              >
+                <SearchOutlinedIcon />
+              </Button>
+            )}
+          </InputAdornment>
+        ),
+      }}
+    />
+    {filteredSuggestions.length > 0 && (
+      <FixedSizeList
+        height={200}
+        width="100%"
+        itemSize={46}
+        itemCount={filteredSuggestions.length}
+        style={{
+          position: "absolute",
+          top: "100%",
+          left: 0,
+          right: 0,
+          backgroundColor: "white",
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+          zIndex: 10,
+          marginTop: "0.5rem",
+        }}
+      >
+        {Row}
+      </FixedSizeList>
+    )}
+  </Box>
       <FormGroup
         sx={{
           width: "40%",
@@ -713,16 +723,6 @@ const ShomaliaLanguage = ({ language }) => {
           >
             Arabic
           </Typography>
-          <IconButton
-            onClick={clearCheckedSuggestions}  // Clear translations when clicking close
-            sx={{
-              position: "absolute",
-              right: "27%",
-              top: "0",
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
           <br />
           {loadingTranslations ? (
             <Loader />

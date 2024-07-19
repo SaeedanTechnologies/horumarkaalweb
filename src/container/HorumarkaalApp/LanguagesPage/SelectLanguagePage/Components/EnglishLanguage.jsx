@@ -45,19 +45,19 @@
 //    setFilteredSuggestions(language)
 //   }, [language]);
 
-//   const handleSearchChange = (event) => {
-//     const value = event.target.value ?? "";
-//     setSearchTerm(value);
-//     console.log(value, "searchvalue");
-//     if (value?.trim() !== "") {
-//       const filteredSuggestions = language.filter((item) =>
-//         item?.english?.toLowerCase().includes(value?.toLowerCase())
-//       );
-//       setFilteredSuggestions(filteredSuggestions);
-//     } else {
-//       setFilteredSuggestions(language);
-//     }
-//   };
+  // const handleSearchChange = (event) => {
+  //   const value = event.target.value ?? "";
+  //   setSearchTerm(value);
+  //   console.log(value, "searchvalue");
+  //   if (value?.trim() !== "") {
+  //     const filteredSuggestions = language.filter((item) =>
+  //       item?.english?.toLowerCase().includes(value?.toLowerCase())
+  //     );
+  //     setFilteredSuggestions(filteredSuggestions);
+  //   } else {
+  //     setFilteredSuggestions(language);
+  //   }
+  // };
 
 
 //   const handleCheckboxChange = async (event, suggestion) => {
@@ -427,22 +427,25 @@ const EnglishLanguage = ({ language }) => {
   const searchBoxRef = useRef(null);
   const [audioPlayer] = useState(new Audio());
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+  const [voices, setVoices] = useState([]);
 
-  console.log(translations, 'hhhhhhhhhhhhhhhhhhhhh')
   useEffect(() => {
     setFilteredSuggestions(language);
   }, [language]);
 
-  const handleSearchChange = useMemo(() => debounce((event) => {
+  const handleSearchChange = (event) => {
     const value = event.target.value ?? "";
     setSearchTerm(value);
-    const filtered = value.trim()
-      ? language.filter((item) =>
-        item?.english?.toLowerCase().includes(value.toLowerCase())
-      )
-      : language;
-    setFilteredSuggestions(filtered);
-  }, 300), [language]);
+    console.log(value, "searchvalue");
+    if (value?.trim() !== "") {
+      const filteredSuggestions = language.filter((item) =>
+        item?.english?.toLowerCase().includes(value?.toLowerCase())
+      );
+      setFilteredSuggestions(filteredSuggestions);
+    } else {
+      setFilteredSuggestions(language);
+    }
+  };
 
   const handleCheckboxChange = (event, suggestion) => {
     const isChecked = event.target.checked;
@@ -469,9 +472,33 @@ const EnglishLanguage = ({ language }) => {
     }
   };
 
-  const speakText = (arabic) => {
-    const utterance = new SpeechSynthesisUtterance(arabic);
-    utterance.lang = 'ar-SA'; // Arabic (Saudi Arabia)
+  useEffect(() => {
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    // Load voices and set up an event listener to update the voices list
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }, []);
+
+  const speakTextArabic = (text) => {
+   
+    if (!('speechSynthesis' in window)) {
+      alert('Sorry, your browser does not support text to speech!');
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const arabicVoice = voices.find(voice => voice.lang === 'ar-SA');
+
+    if (!arabicVoice) {
+      alert('Sorry, Arabic voice is not available in your browser.');
+      return;
+    }
+
+    utterance.voice = arabicVoice;
     window.speechSynthesis.speak(utterance);
   };
 
@@ -731,7 +758,9 @@ const EnglishLanguage = ({ language }) => {
                   gap={5}
                 >
                   <Typography>{text.arabic}</Typography>
-                  <IconButton onClick={() => speakText(text.arabic)}>
+                  <IconButton 
+                  onClick={() => speakTextArabic(text.arabic)}
+                  >
                     <VolumeUpIcon />
                   </IconButton>
                 </Box>
