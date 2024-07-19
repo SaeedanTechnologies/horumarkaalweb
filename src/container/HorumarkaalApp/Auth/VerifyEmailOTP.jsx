@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const VerifyEmailOTP = () => {
   const theme = useTheme();
   // const inputRefs = Array(6).fill().map(() => useRef());
-  const inputRefs = [useRef(), useRef(), useRef(), useRef(), useRef(),useRef()];
+  const inputRefs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
   const [otpValue, setOTPValue] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -67,11 +67,11 @@ const VerifyEmailOTP = () => {
       return;
     }
 
-    dispatch(verifyOtp({email, otp: otpValue, user_id }))
+    dispatch(verifyOtp({ email, otp: otpValue, user_id }))
       .then((res) => {
         const token = res.data.data.token
         enqueueSnackbar("OTP verified successfully", { variant: "success" });
-        navigate("/login", { state: {token} });
+        navigate("/login", { state: { token } });
       })
       .catch((err) => {
         console.log(err.message, "error verifying OTP");

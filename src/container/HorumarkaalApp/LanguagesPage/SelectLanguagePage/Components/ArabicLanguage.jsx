@@ -39,7 +39,7 @@
 //   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
 
-  
+
 //   useEffect(() => {
 //     setFilteredSuggestions(language);
 //   }, [language]);
@@ -92,10 +92,10 @@
 //     }
 //   };
 
-  // const speakText = (text) => {
-  //   const message = new SpeechSynthesisUtterance(text);
-  //   window.speechSynthesis.speak(message);
-  // };
+// const speakText = (text) => {
+//   const message = new SpeechSynthesisUtterance(text);
+//   window.speechSynthesis.speak(message);
+// };
 
 //   const speakTextShumali = async (text, audioPlayer) => {
 //     try {
@@ -397,6 +397,8 @@ import { FixedSizeList } from "react-window";
 import { getTranslate, getConvertTextsoomaali } from "../../../../../store/actions/appActions";
 import Loader from "../../../../../component/loader";
 import debounce from 'lodash.debounce';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const ArabicLanguage = ({ language }) => {
   const theme = useTheme();
@@ -424,8 +426,8 @@ const ArabicLanguage = ({ language }) => {
     setSearchTerm(value);
     const filtered = value.trim()
       ? language.filter((item) =>
-          item?.arabic?.toLowerCase().includes(value.toLowerCase())
-        )
+        item?.arabic?.toLowerCase().includes(value.toLowerCase())
+      )
       : language;
     setFilteredSuggestions(filtered);
   }, 300), [language]);
@@ -471,10 +473,13 @@ const ArabicLanguage = ({ language }) => {
       console.error("Error converting text to Somali:", error);
     }
   };
+
+  // Function to speak Arabic text
   const speakText = (text) => {
     const message = new SpeechSynthesisUtterance(text);
     window.speechSynthesis.speak(message);
   };
+
   // Effect to handle audio errors
   useEffect(() => {
     const handleAudioError = (e) => console.error("Error loading audio file:", e);
@@ -498,6 +503,11 @@ const ArabicLanguage = ({ language }) => {
       />
     </ListItem>
   );
+
+  const clearCheckedSuggestions = () => {
+    setCheckedSuggestions([]);
+    setTranslations([]);
+  };
 
   return (
     <Box
@@ -686,6 +696,16 @@ const ArabicLanguage = ({ language }) => {
           <Typography textAlign={"center"} sx={{ fontWeight: "700", fontSize: "1.5rem" }}>
             Arabic
           </Typography>
+          <IconButton
+            onClick={clearCheckedSuggestions}  // Clear translations when clicking close
+            sx={{
+              position: "absolute",
+              right: "27%",
+              top: "0",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <br />
           {translations.length > 0 && (
             <Box>

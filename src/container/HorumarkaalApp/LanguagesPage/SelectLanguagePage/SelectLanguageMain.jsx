@@ -23,7 +23,7 @@
 //   };
 //   const [language, setLanguage]=useState([]);
 //   const [loading, setLoading] = useState(false);
- 
+
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
@@ -45,7 +45,7 @@
 //             },
 //           }
 //         );
-      
+
 //         setLanguage(res.data.data);
 //         setLoading(false)
 //       } catch (error) {
@@ -141,7 +141,7 @@
 //       </Box>
 //       )}
 //     </>
-      
+
 
 //   );
 // };
@@ -205,6 +205,7 @@ const SelectLanguageMain = () => {
         );
 
         setLanguage(res.data.data);
+
       } catch (error) {
         if (error.response && error.response.status === 401) {
           console.error('Unauthorized - Token might be invalid or expired');
@@ -227,10 +228,14 @@ const SelectLanguageMain = () => {
     setValue(newValue);
   };
 
+  const clearSelectedValues = () => {
+    setLanguage([]);
+  };
+
   return (
     <>
       {loading ? (
-       <Loader />
+        <Loader />
       ) : (
         <Box
           sx={{
@@ -241,23 +246,23 @@ const SelectLanguageMain = () => {
           }}
         >
           <Box>
-            <Button 
-              variant="contained" 
-              sx={{ position: 'absolute', top: 15, right: 250, textTransform: 'none' }} 
+            <Button
+              variant="contained"
+              sx={{ position: 'absolute', top: 15, right: 250, textTransform: 'none' }}
               onClick={handleQuiz}
             >
               Quiz
             </Button>
-            <Button 
-              variant="contained" 
-              sx={{ position: 'absolute', top: 15, right: 15, textTransform: 'none' }} 
+            <Button
+              variant="contained"
+              sx={{ position: 'absolute', top: 15, right: 15, textTransform: 'none' }}
               onClick={handleLogout}
             >
               Logout
             </Button>
-            <Box 
-              sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center', position: 'absolute', top: 15, right: 120 }} 
-              onClick={() => navigate('/manage-profile')} 
+            <Box
+              sx={{ display: 'flex', cursor: 'pointer', alignItems: 'center', position: 'absolute', top: 15, right: 120 }}
+              onClick={() => navigate('/manage-profile')}
               gap={1}
             >
               <Avatar />
@@ -297,7 +302,7 @@ const SelectLanguageMain = () => {
                 <ShomaliaLanguage language={language} setLanguage={setLanguage} />
               </TabPanel>
               <TabPanel value="3">
-                <ArabicLanguage language={language} setLanguage={setLanguage} />
+                <ArabicLanguage language={language} setLanguage={setLanguage}  />
               </TabPanel>
             </TabContext>
           </Box>

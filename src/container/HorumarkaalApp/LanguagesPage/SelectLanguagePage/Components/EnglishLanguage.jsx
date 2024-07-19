@@ -58,7 +58,7 @@
 //       setFilteredSuggestions(language);
 //     }
 //   };
-  
+
 
 //   const handleCheckboxChange = async (event, suggestion) => {
 //     const isChecked = event.target.checked;
@@ -131,7 +131,7 @@
 //       audioPlayer.removeEventListener("error", handleAudioError);
 //     };
 //   }, [audioPlayer]);
- 
+
 
 
 //   return (
@@ -394,8 +394,7 @@
 
 
 
-
-import React, { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import {
   Box,
@@ -405,7 +404,6 @@ import {
   FormGroup,
   IconButton,
   InputAdornment,
-  List,
   ListItem,
   TextField,
   Typography,
@@ -417,6 +415,7 @@ import { FixedSizeList } from "react-window";
 import { getTranslate, getConvertTextsoomaali } from "../../../../../store/actions/appActions";
 import Loader from "../../../../../component/loader";
 import debounce from 'lodash.debounce';
+import CloseIcon from '@mui/icons-material/Close';
 
 const EnglishLanguage = ({ language }) => {
   const theme = useTheme();
@@ -429,6 +428,7 @@ const EnglishLanguage = ({ language }) => {
   const [audioPlayer] = useState(new Audio());
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
 
+  console.log(translations, 'hhhhhhhhhhhhhhhhhhhhh')
   useEffect(() => {
     setFilteredSuggestions(language);
   }, [language]);
@@ -438,8 +438,8 @@ const EnglishLanguage = ({ language }) => {
     setSearchTerm(value);
     const filtered = value.trim()
       ? language.filter((item) =>
-          item?.english?.toLowerCase().includes(value.toLowerCase())
-        )
+        item?.english?.toLowerCase().includes(value.toLowerCase())
+      )
       : language;
     setFilteredSuggestions(filtered);
   }, 300), [language]);
@@ -469,9 +469,9 @@ const EnglishLanguage = ({ language }) => {
     }
   };
 
-  const speakText = (text) => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'ar-SA';
+  const speakText = (arabic) => {
+    const utterance = new SpeechSynthesisUtterance(arabic);
+    utterance.lang = 'ar-SA'; // Arabic (Saudi Arabia)
     window.speechSynthesis.speak(utterance);
   };
 
@@ -510,6 +510,12 @@ const EnglishLanguage = ({ language }) => {
       />
     </ListItem>
   );
+
+  const clearCheckedSuggestions = () => {
+    setCheckedSuggestions([]);
+    setTranslations([]);
+  };
+
 
   return (
     <Box
@@ -693,11 +699,22 @@ const EnglishLanguage = ({ language }) => {
             height: "30vh",
             overflow: "auto",
             minWidth: "300px",
+            position: "relative", // To position the close icon properly
           }}
         >
           <Typography textAlign={"center"} sx={{ fontWeight: "700", fontSize: "1.5rem" }}>
             Arabic
           </Typography>
+          <IconButton
+            onClick={clearCheckedSuggestions}
+            sx={{
+              position: "absolute",
+              right: "5px", // Adjust as needed
+              top: "5px", // Adjust as needed
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <br />
           {translations.length > 0 && (
             <Box>
